@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C Programming Mock Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .question-box {
+      background-color: #6fc1e6; /* light red background for question */
+    }
+
+    .answered {
+      background-color: #28a745; /* green */
+    }
+
+    .not-answered {
+      background-color: #dc3545; /* red */
+    }
+
+    .opened {
+      background-color: #ffc107; /* yellow */
+    }
+  </style>
+</head>
+<body class="bg-[#f0f8ff] m-0 p-0">
+
+  <!-- Header -->
+  <!-- Header with Navy background -->
+  <header style="background-color: navy; color: white; padding: 10px 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 10; display: flex; align-items: center; justify-content: space-between;">
+    <a href="mock.html" style="background-color: orangered; color: white; padding: 8px 16px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none; transition: background 0.3s ease; cursor: pointer;">
+      Back
+    </a>
+    <h1 style="text-align: center; font-size: 24px; flex-grow: 1; margin: 0;">Smart Tutor</h1>
+    <div style="font-size: 14px; font-weight: bold; padding: 5px 10px;">⏱️ <span id="timer">300</span></div>
+  </header>
+  
+
+  <!-- Main Content -->
+  <main class="pt-24 px-4 max-w-2xl mx-auto">
+    <h2 class="text-center text-xl font-semibold bg-red-600 text-white py-2 mb-4">C++ Programming Mock Test</h2>
+
+    <div id="question-area" class="space-y-4">
+      <div class="flex justify-center space-x-2 mb-4">
+        <div id="question-number-boxes" class="flex space-x-2"></div>
+      </div>
+
+      <div id="quiz-box" class="bg-[#add8e6] shadow-lg rounded-lg p-6 space-y-4">
+
+        <h2 id="question" class="text-lg font-semibold text-gray-800"></h2>
+        <div id="options" class="space-y-4"></div>
+
+        <div class="flex justify-between mt-4">
+          <button id="prev-btn" class="bg-green-800 text-white px-4 py-2 rounded hover:shadow-lg disabled:opacity-50" disabled>Previous</button>
+          <button id="next-btn" class="bg-green-800 text-white px-4 py-2 rounded hover:shadow-lg">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" class="mt-8 hidden bg-green-100 p-6 rounded shadow text-center">
+      <h3 class="text-xl font-semibold mb-2">Test Result</h3>
+      <p id="score" class="text-lg mb-4"></p>
+    </div>
+  </main>
+
+  <script>
+    // Question pool - Add 30+ questions
+    const questionsPool =[
+        {
+    "question": "Which keyword is used to declare a variable in C++?",
+    "options": ["var", "let", "const", "auto"],
+    "correctAnswer": "auto"
+},
+{
+    "question": "What is the output of the following C++ code?\n```cpp\n#include <iostream>\nint main() {\n  std::cout << 5 / 2 << std::endl;\n  return 0;\n}\n```",
+    "options": ["2.5", "2", "3", "Error"],
+    "correctAnswer": "2"
+},
+{
+    "question": "Which header file is typically used for input/output operations in C++?",
+    "options": ["stdio.h", "iostream", "math.h", "string.h"],
+    "correctAnswer": "iostream"
+},
+{
+    "question": "What is the standard output stream object in C++?",
+    "options": ["cin", "cout", "cerr", "clog"],
+    "correctAnswer": "cout"
+},
+{
+    "question": "Which operator is used to insert data into the output stream in C++?",
+    "options": ["<<", ">>", "=", "+="],
+    "correctAnswer": "<<"
+},
+{
+    "question": "What is the standard input stream object in C++?",
+    "options": ["cin", "cout", "cerr", "clog"],
+    "correctAnswer": "cin"
+},
+{
+    "question": "Which operator is used to extract data from the input stream in C++?",
+    "options": ["<<", ">>", "=", "-="],
+    "correctAnswer": ">>"
+},
+{
+    "question": "Which data type is used to store single characters in C++?",
+    "options": ["string", "char", "single", "text"],
+    "correctAnswer": "char"
+},
+{
+    "question": "What is a class in C++?",
+    "options": ["A primitive data type", "A keyword for loops", "A blueprint for creating objects", "A function that returns no value"],
+    "correctAnswer": "A blueprint for creating objects"
+},
+{
+    "question": "What is an object in C++?",
+    "options": ["A class definition", "An instance of a class", "A header file", "A comment in the code"],
+    "correctAnswer": "An instance of a class"
+},
+{
+    "question": "What is encapsulation in C++?",
+    "options": ["Wrapping data and functions within a single unit", "Creating multiple objects of a class", "Defining virtual functions", "Using inheritance"],
+    "correctAnswer": "Wrapping data and functions within a single unit"
+},
+{
+    "question": "What is inheritance in C++?",
+    "options": ["Creating objects", "Deriving new classes from existing ones", "Defining constructors", "Overloading operators"],
+    "correctAnswer": "Deriving new classes from existing ones"
+},
+{
+    "question": "What is polymorphism in C++?",
+    "options": ["Having multiple forms", "Creating objects dynamically", "Using templates", "Handling exceptions"],
+    "correctAnswer": "Having multiple forms"
+},
+{
+    "question": "What are access specifiers in C++?",
+    "options": ["Keywords for loops", "Data types", "Keywords that define the accessibility of class members", "Function return types"],
+    "correctAnswer": "Keywords that define the accessibility of class members"
+},
+{
+    "question": "What are the three main access specifiers in C++?",
+    "options": ["public, private, protected", "read, write, execute", "local, global, static", "constant, variable, pointer"],
+    "correctAnswer": "public, private, protected"
+},
+{
+    "question": "What is a constructor in C++?",
+    "options": ["A function to display output", "A special member function that is automatically called when an object is created", "A function to read input", "A destructor"],
+    "correctAnswer": "A special member function that is automatically called when an object is created"
+},
+{
+    "question": "What is a destructor in C++?",
+    "options": ["A function to initialize objects", "A special member function that is automatically called when an object is destroyed", "A function to perform calculations", "A constructor with parameters"],
+    "correctAnswer": "A special member function that is automatically called when an object is destroyed"
+},
+{
+    "question": "What is operator overloading in C++?",
+    "options": ["Giving new meanings to existing operators", "Creating new operators", "Deleting operators", "Changing the precedence of operators"],
+    "correctAnswer": "Giving new meanings to existing operators"
+},
+{
+    "question": "What is function overloading in C++?",
+    "options": ["Defining multiple functions with the same name but different parameters", "Calling a function inside another function", "Defining virtual functions", "Using default arguments"],
+    "correctAnswer": "Defining multiple functions with the same name but different parameters"
+},
+{
+    "question": "What are virtual functions in C++?",
+    "options": ["Functions that are called only once", "Member functions that are expected to be redefined in derived classes", "Static member functions", "Friend functions"],
+    "correctAnswer": "Member functions that are expected to be redefined in derived classes"
+},
+{
+    "question": "What is an abstract class in C++?",
+    "options": ["A class with no members", "A class that cannot be instantiated", "A class with all public members", "A class with all private members"],
+    "correctAnswer": "A class that cannot be instantiated"
+},
+{
+    "question": "How is an abstract class typically made in C++?",
+    "options": ["By declaring it as 'abstract'", "By including at least one pure virtual function", "By making all its constructors private", "By not defining any member functions"],
+    "correctAnswer": "By including at least one pure virtual function"
+},
+{
+    "question": "What is a pure virtual function in C++?",
+    "options": ["A virtual function that returns no value", "A virtual function that must be overridden in derived classes", "A static virtual function", "A friend virtual function"],
+    "correctAnswer": "A virtual function that must be overridden in derived classes"
+},
+{
+    "question": "What are templates in C++?",
+    "options": ["Blueprints for functions or classes that can work with different data types", "Keywords for loops", "Header files", "Error handling mechanisms"],
+    "correctAnswer": "Blueprints for functions or classes that can work with different data types"
+},
+{
+    "question": "What are exceptions in C++?",
+    "options": ["Syntax errors", "Runtime errors that can be handled", "Logical errors", "Compiler warnings"],
+    "correctAnswer": "Runtime errors that can be handled"
+},
+{
+    "question": "Which keywords are used for exception handling in C++?",
+    "options": ["if, else, catch", "try, catch, throw", "for, while, do", "public, private, protected"],
+    "correctAnswer": "try, catch, throw"
+},
+{
+    "question": "What is the Standard Template Library (STL) in C++?",
+    "options": ["A library for file input/output", "A library of commonly used algorithms and data structures", "A library for graphical user interfaces", "A library for network programming"],
+    "correctAnswer": "A library of commonly used algorithms and data structures"
+},
+{
+    "question": "What are containers in the STL?",
+    "options": ["Algorithms for sorting and searching", "Classes that store collections of objects", "Iterators for traversing elements", "Function objects"],
+    "correctAnswer": "Classes that store collections of objects"
+},
+{
+    "question": "Examples of containers in the STL include:",
+    "options": ["sort, find, binary_search", "vector, list, map", "begin, end, rbegin", "plus, minus, multiplies"],
+    "correctAnswer": "vector, list, map"
+},
+{
+    "question": "What are iterators in the STL?",
+    "options": ["Functions that perform operations on containers", "Objects that can traverse through the elements of a container", "Classes that store data", "Keywords for loops"],
+    "correctAnswer": "Objects that can traverse through the elements of a container"
+},
+{
+    "question": "What are algorithms in the STL?",
+    "options": ["Classes that store data", "Functions that perform operations on containers", "Objects that traverse containers", "Keywords for decision making"],
+    "correctAnswer": "Functions that perform operations on containers"
+},
+{
+    "question": "Examples of algorithms in the STL include:",
+    "options": ["vector, list, map", "begin, end, rbegin", "plus, minus, multiplies", "sort, find, binary_search"],
+    "correctAnswer": "sort, find, binary_search"
+},
+{
+    "question": "What are function objects (functors) in the STL?",
+    "options": ["Functions that operate on objects", "Objects that can be called like functions", "Objects that store data", "Iterators with special functionalities"],
+    "correctAnswer": "Objects that can be called like functions"
+},
+{
+    "question": "What is a namespace in C++?",
+    "options": ["A way to group related classes and functions under a common name", "A keyword for defining classes", "A type of loop", "A way to declare variables"],
+    "correctAnswer": "A way to group related classes and functions under a common name"
+},
+{
+    "question": "Which keyword is used to define a namespace in C++?",
+    "options": ["class", "struct", "namespace", "union"],
+    "correctAnswer": "namespace"
+},
+{
+    "question": "Which keyword is used to access members of a namespace in C++?",
+    "options": ["::", ".", "->", "using"],
+    "correctAnswer": "::"
+},
+{
+    "question": "What is the purpose of the 'using' directive in C++ namespaces?",
+    "options": ["To define a new namespace", "To access members of a namespace directly without the scope resolution operator", "To create aliases for data types", "To include header files"],
+    "correctAnswer": "To access members of a namespace directly without the scope resolution operator"
+},
+{
+    "question": "What is a friend function in C++?",
+    "options": ["A member function of another class", "A non-member function that has access to the private and protected members of a class", "A virtual function", "A static function"],
+    "correctAnswer": "A non-member function that has access to the private and protected members of a class"
+},
+{
+    "question": "What is a friend class in C++?",
+    "options": ["A derived class", "A class whose all member functions have access to the private and protected members of another class", "An abstract class", "A template class"],
+    "correctAnswer": "A class whose all member functions have access to the private and protected members of another class"
+},
+{
+    "question": "What is a static member variable in C++?",
+    "options": ["A variable that can only be accessed within a specific function", "A variable that is shared by all objects of a class", "A constant variable", "An automatic variable"],
+    "correctAnswer": "A variable that is shared by all objects of a class"
+},
+{
+    "question": "What is a static member function in C++?",
+    "options": ["A function that can only access static member variables", "A function that is associated with the class itself rather than with any specific object", "A virtual function", "A function that cannot be overloaded"],
+    "correctAnswer": "A function that is associated with the class itself rather than with any specific object"
+},
+{
+    "question": "What is a constant member function in C++?",
+    "options": ["A function that always returns a constant value", "A function that cannot modify the object's non-static data members", "A function that cannot be overridden", "A static function"],
+    "correctAnswer": "A function that cannot modify the object's non-static data members"
+},
+{
+    "question": "What is a reference variable in C++?",
+    "options": ["A variable that stores a memory address", "An alias for another variable", "A constant variable", "A volatile variable"],
+    "correctAnswer": "An alias for another variable"
+},
+{
+    "question": "What is the difference between a pointer and a reference in C++?",
+    "options": ["They are the same", "A pointer can be null and reassigned, while a reference cannot", "A reference can be null and reassigned, while a pointer cannot", "Pointers use '.', and references use '->' to access members"],
+    "correctAnswer": "A pointer can be null and reassigned, while a reference cannot"
+},
+{
+    "question": "What is dynamic memory allocation in C++?",
+    "options": ["Allocating memory at compile time", "Allocating memory during program execution", "Using only stack memory", "Memory allocation for static variables"],
+    "correctAnswer": "Allocating memory during program execution"
+},
+{
+    "question": "Which operators are used for dynamic memory allocation and deallocation in C++?",
+    "options": ["malloc and free", "new and delete", "alloc and dealloc", "create and destroy"],
+    "correctAnswer": "new and delete"
+},
+{
+    "question": "What is a dangling pointer in C++?",
+    "options": ["A pointer that points to a valid memory location", "A pointer that points to a memory location that has been deallocated", "A pointer that is initialized to null", "A pointer that points to a constant variable"],
+    "correctAnswer": "A pointer that points to a memory location that has been deallocated"
+},
+{
+    "question": "What are smart pointers in C++?",
+    "options": ["Pointers that can perform arithmetic operations", "Class templates that manage dynamically allocated memory and provide automatic memory management", "Pointers that can only point to constant values", "Pointers that are automatically initialized to null"],
+    "correctAnswer": "Class templates that manage dynamically allocated memory and provide automatic memory management"
+},
+{
+    "question": "Examples of smart pointers in C++ include:",
+    "options": ["int*, char*, float*", "std::vector, std::list, std::map", "std::unique_ptr, std::shared_ptr, std::weak_ptr", "new, delete, malloc"],
+    "correctAnswer": "std::unique_ptr, std::shared_ptr, std::weak_ptr"
+},
+{
+    "question": "What is Rvalue reference in C++?",
+    "options": ["A reference that can only bind to constant values", "A reference that can bind to temporary objects (rvalues)", "A reference that behaves like a pointer", "A reference that cannot be reassigned"],
+    "correctAnswer": "A reference that can bind to temporary objects (rvalues)"
+},
+{
+    "question": "What is move semantics in C++?",
+    "options": ["Copying objects efficiently", "Transferring ownership of resources from one object to another", "Creating multiple copies of an object", "Deleting objects automatically"],
+    "correctAnswer": "Transferring ownership of resources from one object to another"
+},
+{
+    "question": "What is perfect forwarding in C++?",
+    "options": ["Forwarding objects by value", "Forwarding objects by reference", "The ability to pass arguments to a function such that they have the same value category (lvalue or rvalue) as they had when passed to the calling function", "Forwarding only constant arguments"],
+    "correctAnswer": "The ability to pass arguments to a function such that they have the same value category (lvalue or rvalue) as they had when passed to the calling function"
+},
+{
+    "question": "What is constexpr in C++?",
+    "options": ["A keyword for defining constant expressions that can be evaluated at compile time", "A keyword for defining runtime constants", "A keyword for exception handling", "A keyword for defining virtual functions"],
+    "correctAnswer": "A keyword for defining constant expressions that can be evaluated at compile time"
+},
+{
+    "question": "What is auto keyword in C++ (since C++11)?",
+    "options": ["A keyword to automatically delete objects", "A keyword to automatically infer the data type of a variable from its initializer", "A keyword to define automatic variables with function scope", "A keyword to define constant variables"],
+    "correctAnswer": "A keyword to automatically infer the data type of a variable from its initializer"
+},
+{
+    "question": "What is range-based for loop in C++ (since C++11)?",
+    "options": ["A loop that iterates over a range of numbers", "A loop that iterates over the elements of a container without explicitly using iterators", "A loop that executes a fixed number of times", "A loop that continues indefinitely"],
+    "correctAnswer": "A loop that iterates over the elements of a container without explicitly using iterators"
+},
+{
+    "question": "What are lambda expressions in C++ (since C++11)?",
+    "options": ["Unnamed functions that can be defined directly in the code", "Functions that can only be called once", "Functions defined outside the main program", "Member functions of a class"],
+    "correctAnswer": "Unnamed functions that can be defined directly in the code"
+},
+{
+    "question": "What is the purpose of the 'static_cast' in C++?",
+    "options": ["For type casting between related types", "For type casting that bypasses type checking", "For casting away constness", "For casting between unrelated pointer types"],
+    "correctAnswer": "For type casting between related types"
+},
+{
+    "question": "What is the purpose of the 'dynamic_cast' in C++?",
+    "options": ["For type casting between related types at compile time", "For safe downcasting in inheritance hierarchies at runtime", "For casting away constness", "For casting between unrelated pointer types"],
+    "correctAnswer": "For safe downcasting in inheritance hierarchies at runtime"
+},
+{
+    "question": "What is the purpose of the 'const_cast' in C++?",
+    "options": ["For type casting between unrelated types", "For safe downcasting", "To add or remove the const or volatile qualifier from a type", "For static type casting"],
+    "correctAnswer": "To add or remove the const or volatile qualifier from a type"
+},
+{
+    "question": "What is the purpose of the 'reinterpret_cast' in C++?",
+    "options": ["For type casting between related types", "For safe downcasting", "To cast away constness", "For low-level type casting that treats a sequence of bits as a different type"],
+    "correctAnswer": "For low-level type casting that treats a sequence of bits as a different type"
+},
+{
+    "question": "What is the difference between struct and class in C++?",
+    "options": ["They are the same", "Members of a struct are public by default, while members of a class are private by default", "Members of a class are public by default, while members of a struct are private by default", "struct can only contain data members, while class can contain both data and function members"],
+    "correctAnswer": "Members of a struct are public by default, while members of a class are private by default"
+},
+{
+    "question": "What is a default argument in C++ functions?",
+    "options": ["An argument that must always be provided", "A value provided in the function declaration that is used if the caller doesn't supply the corresponding argument", "An argument that cannot be modified within the function", "An argument that is passed by reference"],
+    "correctAnswer": "A value provided in the function declaration that is used if the caller doesn't supply the corresponding argument"
+},
+{
+    "question": "What is function overriding in C++?",
+    "options": ["Defining multiple functions with the same name in the same scope", "Redefining a virtual function in a derived class", "Calling a function from another function", "Defining a function with default arguments"],
+    "correctAnswer": "Redefining a virtual function in a derived class"
+},
+{
+    "question": "What is function hiding in C++?",
+    "options": ["Making a function private", "Defining a non-virtual function in a derived class with the same name as a function in the base class", "Deleting a function", "Renaming a function"],
+    "correctAnswer": "Defining a non-virtual function in a derived class with the same name as a function in the base class"
+},
+{
+    "question": "What are inline functions in C++?",
+    "options": ["Functions that are always executed on the stack", "Functions for which the compiler may replace the function call with the actual code of the function to reduce overhead", "Functions that cannot be overloaded", "Virtual functions"],
+    "correctAnswer": "Functions for which the compiler may replace the function call with the actual code of the function to reduce overhead"
+},
+{
+    "question": "What is the purpose of the 'const' keyword for member functions in C++?",
+    "options": ["To make the function return a constant value", "To indicate that the function does not modify the state of the object", "To make the function static", "To prevent the function from being overridden"],
+    "correctAnswer": "To indicate that the function does not modify the state of the object"
+},
+{
+    "question": "What is a volatile variable in C++?",
+    "options": ["A variable whose value cannot be changed", "A variable whose value can be changed by factors outside the control of the program", "A variable that is stored in a register", "A global constant variable"],
+    "correctAnswer": "A variable whose value can be changed by factors outside the control of the program"
+},
+{
+    "question": "What is the purpose of the 'explicit' keyword for constructors in C++?",
+    "options": ["To allow implicit conversions", "To prevent implicit conversions from other types to the class type", "To make the constructor virtual", "To define a default constructor"],
+    "correctAnswer": "To prevent implicit conversions from other types to the class type"
+},
+{
+    "question": "What is a copy constructor in C++?",
+    "options": ["A constructor that creates a new object by copying an existing object of the same class", "A constructor that initializes members with default values", "A constructor that takes no arguments", "A constructor that moves resources from one object to another"],
+    "correctAnswer": "A constructor that creates a new object by copying an existing object of the same class"
+},
+{
+    "question": "What is a move constructor in C++ (since C++11)?",
+    "options": ["A constructor that creates a new object by copying an existing object", "A constructor that initializes members with default values", "A constructor that transfers ownership of resources from one object to another", "A constructor that takes no arguments"],
+    "correctAnswer": "A constructor that transfers ownership of resources from one object to another"
+},
+{
+    "question": "What is a copy assignment operator in C++?",
+    "options": ["An operator that assigns a value to a new object", "An operator that assigns the value of one existing object to another existing object of the same class", "An operator that moves resources between objects", "An operator that compares two objects"],
+    "correctAnswer": "An operator that assigns the value of one existing object to another existing object of the same class"
+},
+{
+    "question": "What is a move assignment operator in C++ (since C++11)?",
+    "options": ["An operator that assigns a value to a new object", "An operator that assigns the value of one object to another by copying", "An operator that transfers ownership of resources from one object to another", "An operator that compares two objects"],
+    "correctAnswer": "An operator that transfers ownership of resources from one object to another"
+},
+{
+    "question": "What is the Rule of Three (or Five) in C++?",
+    "options": ["A rule about the number of access specifiers", "A rule stating that if a class defines one of the destructor, copy constructor, or copy assignment operator, it should probably define all three (now often five with move semantics)", "A rule about the maximum number of member functions in a class", "A rule about the order of constructor and destructor calls"],
+    "correctAnswer": "A rule stating that if a class defines one of the destructor, copy constructor, or copy assignment operator, it should probably define all three (now often five with move semantics)"
+},
+{
+    "question": "What is SFINAE (Substitution Failure Is Not An Error) in C++ templates?",
+    "options": ["A type of compiler error", "A principle that allows the compiler to discard invalid template specializations during overload resolution", "A way to force template instantiation", "A feature for runtime polymorphism"],
+    "correctAnswer": "A principle that allows the compiler to discard invalid template specializations during overload resolution"
+},
+{
+    "question": "What is a variadic template in C++ (since C++11)?",
+    "options": ["A template that can only accept a single type", "A template that can accept a variable number of arguments of any type", "A template that cannot be instantiated", "A template for fixed-size arrays"],
+    "correctAnswer": "A template that can accept a variable number of arguments of any type"
+},
+{
+    "question": "What is constexpr function in C++ (since C++11)?",
+    "options": ["A function that can only be called at runtime", "A function that can be evaluated at compile time if its arguments are constant expressions", "A function that cannot be overloaded", "A virtual function"],
+    "correctAnswer": "A function that can be evaluated at compile time if its arguments are constant expressions"
+},
+{
+    "question": "What is a lambda capture list in C++ (since C++11)?",
+    "options": ["A list of return types for a lambda", "A list of variables from the surrounding scope that are accessible inside the lambda", "A list of parameters for a lambda", "A list of exceptions that a lambda can throw"],
+    "correctAnswer": "A list of variables from the surrounding scope that are accessible inside the lambda"
+}
+]
+
+
+    // Shuffle function for randomizing questions
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Randomly shuffle and pick 20 questions
+    const questions = shuffleArray([...questionsPool]).slice(0, 20);
+
+    let currentQuestion = 0;
+    let selectedAnswers = [];
+    let timer;
+    let totalTime = 300; // 5 minutes timer
+
+    // Update timer display every second
+    function startTimer(seconds) {
+      const timerEl = document.getElementById("timer");
+      clearInterval(timer);
+      timerEl.textContent = `Time Left: ${seconds}s`;
+
+      timer = setInterval(() => {
+        seconds--;
+        timerEl.textContent = `Time Left: ${seconds}s`;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          showResult();
+        }
+      }, 1000);
+    }
+
+    // Load question and display
+    function loadQuestion(index) {
+      const q = questions[index];
+      document.getElementById("question").textContent = `Q${index + 1}: ${q.question}`;
+      const optionsBox = document.getElementById("options");
+      optionsBox.innerHTML = "";
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        label.className = "block p-3 rounded cursor-pointer transition bg-green-100 hover:bg-green-200";
+        label.innerHTML = `
+          <input type="radio" name="option" value="${option}" class="mr-2">
+          ${option}
+        `;
+        optionsBox.appendChild(label);
+      });
+
+      // Update question number box
+      const questionNumbers = document.getElementById("question-number-boxes");
+      questionNumbers.innerHTML = "";
+      questions.forEach((_, idx) => {
+        const numberBox = document.createElement("div");
+        numberBox.className = "w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold cursor-pointer";
+        if (selectedAnswers[idx]) {
+          numberBox.classList.add("bg-green-500");
+        } else {
+          numberBox.classList.add("bg-gray-500");
+        }
+        numberBox.textContent = idx + 1;
+        questionNumbers.appendChild(numberBox);
+      });
+
+      // Disable/enable prev button
+      document.getElementById("prev-btn").disabled = index === 0;
+
+      // Change "Next" to "Submit" if last question
+      document.getElementById("next-btn").textContent =
+        index === questions.length - 1 ? "Submit" : "Next";
+
+      // Restore previous answer if exists
+      const prevAnswer = selectedAnswers[index];
+      if (prevAnswer) {
+        document.querySelector(`input[name="option"][value="${prevAnswer}"]`).checked = true;
+      }
+    }
+
+    // Next button handler
+    document.getElementById("next-btn").addEventListener("click", () => {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert("Please select an option!");
+        return;
+      }
+
+      selectedAnswers[currentQuestion] = selected.value;
+
+      if (currentQuestion === questions.length - 1) {
+        clearInterval(timer);
+        // Calculate score
+        let score = 0;
+        selectedAnswers.forEach((ans, idx) => {
+          if (ans === questions[idx].correctAnswer) {
+            score++;
+          }
+        });
+        showResult(score);
+      } else {
+        currentQuestion++;
+        loadQuestion(currentQuestion);
+      }
+    });
+
+    // Previous button handler
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion(currentQuestion);
+      }
+    });
+
+    // Show results
+    function showResult(score) {
+      document.getElementById("quiz-box").classList.add("hidden");
+      const percent = ((score / questions.length) * 100).toFixed(2);
+      document.getElementById("score").textContent =
+        `You got ${score} out of ${questions.length} correct (${percent}%)`;
+      document.getElementById("result").classList.remove("hidden");
+    }
+
+    // Initialize test
+    loadQuestion(currentQuestion);
+    startTimer(totalTime);
+  </script>
+
+</body>
+</html>

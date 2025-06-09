@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Tutor - PDF Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3f2fd;
+            text-align: center;
+        }
+        .header {
+            width: 100%;
+            background: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .library-heading {
+            background: orangered;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px;
+            margin: 90px auto 20px;
+            width: 50%;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        .pdf-box {
+            width: 20%;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .pdf-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .pdf-box img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .pdf-box p {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #pdf-viewer-container {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            background: white;
+            padding-top: 70px;
+        }
+        #pdf-viewer {
+            width: 100%;
+            height: 90%;
+            border: none;
+        }
+        .back-button1 {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <button class="back-button" onclick="goBack()">Back</button>
+    <button class="back-button1" onclick="window.location.href='canti.php';">Back</button> Smart Tutor
+</div>
+
+<div class="library-heading">Smart Tutor E Library</div>
+
+<div class="container" id="pdf-container">
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/dsa.pdf')">
+        <img src="assets/images/icons/dsaa.jpeg" alt="PDF 3">
+        <p>Data Structures & Algorithms</p>
+    </div>
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/c.pdf')">
+        <img src="assets/images/icons/c.jpeg" alt="PDF 1">
+        <p>C Programming</p>
+    </div>
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/cpp.pdf')">
+        <img src="assets/images/icons/cpp.jpeg" alt="PDF 2">
+        <p>C++ Programming</p>
+    </div>
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/java.pdf')">
+        <img src="assets/images/icons/java.jpeg" alt="PDF 3">
+        <p>Java Programming</p>
+        
+    </div>
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/py.pdf')">
+        <img src="assets/images/icons/py.jpeg" alt="PDF 3">
+        <p>Python Programming</p>
+    </div>
+    
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/html.pdf')">
+        <img src="assets/images/icons/html.jpeg" alt="PDF 3">
+        <p>HTML Tutorials</p>
+    </div>
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/js.pdf')">
+        <img src="assets/images/icons/js.jpeg" alt="PDF 3">
+        <p>JavaScript Tutorials</p>
+    </div>
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/cn.pdf')">
+        <img src="assets/images/icons/cn.jpeg" alt="PDF 3">
+        <p>Computer Networks</p>
+    </div>
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/db.pdf')">
+        <img src="assets/images/icons/db.jpeg" alt="PDF 3">
+        <p>Database Management</p>
+    </div>
+    <div class="pdf-box" onclick="openPDF('assets/images/pdfs/os.pdf')">
+        <img src="assets/images/icons/os.jpeg" alt="PDF 3">
+        <p>Operating Systems</p>
+    </div>
+</div>
+
+<!-- PDF Viewer -->
+<div id="pdf-viewer-container">
+    <iframe id="pdf-viewer"></iframe>
+</div>
+
+<script>
+    function openPDF(pdfUrl) {
+        document.getElementById("pdf-container").style.display = "none";
+        document.getElementById("pdf-viewer").src = pdfUrl;
+        document.getElementById("pdf-viewer-container").style.display = "block";
+    }
+
+    function goBack() {
+        document.getElementById("pdf-container").style.display = "flex";
+        document.getElementById("pdf-viewer-container").style.display = "none";
+    }
+</script>
+
+</body>
+</html>

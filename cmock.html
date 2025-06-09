@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C Programming Mock Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .question-box {
+      background-color: #6fc1e6; /* light red background for question */
+    }
+
+    .answered {
+      background-color: #28a745; /* green */
+    }
+
+    .not-answered {
+      background-color: #dc3545; /* red */
+    }
+
+    .opened {
+      background-color: #ffc107; /* yellow */
+    }
+    .header {
+            background-color: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            height: 50px;
+            padding-top: 17px;
+            font-weight: bold;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            font-size: 24px; font-weight: bold;
+            left: 0;
+            height: 70px;
+            z-index: 1000; /* Ensures header stays on top */
+        }
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+  </style>
+</head>
+<body class="bg-[#f0f8ff] m-0 p-0">
+
+  <header style="background-color: navy; color: white; padding: 10px 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 10; display: flex; align-items: center; justify-content: space-between;">
+    <a href="mock.html" style="background-color: orangered; color: white; padding: 8px 16px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none; transition: background 0.3s ease; cursor: pointer;">
+      Back
+    </a>
+    <h1 style="text-align: center; font-size: 24px; flex-grow: 1; margin: 0;">Smart Tutor</h1>
+    <div style="font-size: 14px; font-weight: bold; padding: 5px 10px;">⏱️ <span id="timer">300</span></div>
+  </header>
+
+  
+  
+  
+
+  <!-- Main Content -->
+  <main class="pt-24 px-4 max-w-2xl mx-auto">
+    <h2 class="text-center text-xl font-semibold bg-red-600 text-white py-2 mb-4">C Programming Mock Test</h2>
+
+    <div id="question-area" class="space-y-4">
+      <div class="flex justify-center space-x-2 mb-4">
+        <div id="question-number-boxes" class="flex space-x-2"></div>
+      </div>
+
+      <div id="quiz-box" class="bg-[#add8e6] shadow-lg rounded-lg p-6 space-y-4">
+
+        <h2 id="question" class="text-lg font-semibold text-gray-800"></h2>
+        <div id="options" class="space-y-4"></div>
+
+        <div class="flex justify-between mt-4">
+          <button id="prev-btn" class="bg-green-800 text-white px-4 py-2 rounded hover:shadow-lg disabled:opacity-50" disabled>Previous</button>
+          <button id="next-btn" class="bg-green-800 text-white px-4 py-2 rounded hover:shadow-lg">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" class="mt-8 hidden bg-green-100 p-6 rounded shadow text-center">
+      <h3 class="text-xl font-semibold mb-2">Test Result</h3>
+      <p id="score" class="text-lg mb-4"></p>
+    </div>
+  </main>
+
+  <script>
+    // Question pool - Add 30+ questions
+    const questionsPool = [
+    
+        {
+    "question": "Which keyword is used to declare an integer variable in C?",
+    "options": ["int", "integer", "float", "char"],
+    "correctAnswer": "int"
+},
+{
+    "question": "What is the output of the following C code?\n```c\n#include <stdio.h>\nint main() {\n  printf(\"%d\", 5 / 2);\n  return 0;\n}\n```",
+    "options": ["2.5", "2", "3", "Error"],
+    "correctAnswer": "2"
+},
+{
+    "question": "Which header file is typically used for input/output functions like printf and scanf in C?",
+    "options": ["stdio.h", "conio.h", "math.h", "string.h"],
+    "correctAnswer": "stdio.h"
+},
+{
+    "question": "What does the acronym 'CPU' stand for?",
+    "options": ["Central Processing Unit", "Computer Programming Unit", "Central Program Unit", "Common Processing Unit"],
+    "correctAnswer": "Central Processing Unit"
+},
+{
+    "question": "Which operator is used to assign a value to a variable in C?",
+    "options": ["==", "=", "+=", "->"],
+    "correctAnswer": "="
+},
+{
+    "question": "What is the correct syntax for a single-line comment in C?",
+    "options": ["// This is a comment", "/* This is a comment */", "* This is a comment", "# This is a comment"],
+    "correctAnswer": "// This is a comment"
+},
+{
+    "question": "What is the correct syntax for a multi-line comment in C?",
+    "options": ["// This is a comment\n// and another line", "/* This is a comment\n and another line */", "* This is a comment\n * and another line", "# This is a comment\n # and another line"],
+    "correctAnswer": "/* This is a comment\n and another line */"
+},
+{
+    "question": "Which data type is used to store single characters in C?",
+    "options": ["string", "char", "single", "text"],
+    "correctAnswer": "char"
+},
+{
+    "question": "What is the purpose of the 'scanf()' function in C?",
+    "options": ["To print output to the console", "To read input from the console", "To perform mathematical calculations", "To declare variables"],
+    "correctAnswer": "To read input from the console"
+},
+{
+    "question": "What is the purpose of the '&' operator when used with 'scanf()'? ",
+    "options": ["It indicates a string variable", "It represents the address of a variable", "It performs a bitwise AND operation", "It is not used with scanf()"],
+    "correctAnswer": "It represents the address of a variable"
+},
+{
+    "question": "Which of the following is a valid identifier (variable name) in C?",
+    "options": ["1variable", "variable 1", "var-name", "int"],
+    "correctAnswer": "variable 1"
+},
+{
+    "question": "What is the role of the 'main()' function in a C program?",
+    "options": ["It is a user-defined function", "It is the entry point of the program execution", "It is used for printing output", "It is used for reading input"],
+    "correctAnswer": "It is the entry point of the program execution"
+},
+{
+    "question": "Which of the following is a relational operator in C?",
+    "options": ["=", "+", "*", "=="],
+    "correctAnswer": "=="
+},
+{
+    "question": "Which of the following is a logical AND operator in C?",
+    "options": ["&", "&&", "|", "||"],
+    "correctAnswer": "&&"
+},
+{
+    "question": "Which of the following is a logical OR operator in C?",
+    "options": ["&", "&&", "|", "||"],
+    "correctAnswer": "||"
+},
+{
+    "question": "What is the purpose of the 'if' statement in C?",
+    "options": ["To define a loop", "To make decisions based on a condition", "To declare variables", "To define functions"],
+    "correctAnswer": "To make decisions based on a condition"
+},
+{
+    "question": "What is the purpose of the 'else' statement in C?",
+    "options": ["To define another condition", "To execute a block of code if the 'if' condition is false", "To terminate the program", "To skip the 'if' block"],
+    "correctAnswer": "To execute a block of code if the 'if' condition is false"
+},
+{
+    "question": "What is the purpose of the 'for' loop in C?",
+    "options": ["To make decisions", "To repeat a block of code a fixed number of times", "To declare variables", "To define functions"],
+    "correctAnswer": "To repeat a block of code a fixed number of times"
+},
+{
+    "question": "What is the purpose of the 'while' loop in C?",
+    "options": ["To make decisions", "To repeat a block of code as long as a condition is true", "To declare variables", "To define functions"],
+    "correctAnswer": "To repeat a block of code as long as a condition is true"
+},
+{
+    "question": "What is the purpose of the 'do-while' loop in C?",
+    "options": ["To make decisions", "To repeat a block of code at least once, and then as long as a condition is true", "To declare variables", "To define functions"],
+    "correctAnswer": "To repeat a block of code at least once, and then as long as a condition is true"
+},
+{
+    "question": "What is the purpose of the 'break' statement in C?",
+    "options": ["To continue to the next iteration of a loop", "To exit a loop or a switch statement", "To define a new block of code", "To return a value from a function"],
+    "correctAnswer": "To exit a loop or a switch statement"
+},
+{
+    "question": "What is the purpose of the 'continue' statement in C?",
+    "options": ["To exit a loop", "To skip the rest of the current iteration and proceed to the next", "To define a new block of code", "To return a value from a function"],
+    "correctAnswer": "To skip the rest of the current iteration and proceed to the next"
+},
+{
+    "question": "What is a function in C?",
+    "options": ["A variable that stores multiple values", "A block of code that performs a specific task", "A type of loop", "A way to declare variables"],
+    "correctAnswer": "A block of code that performs a specific task"
+},
+{
+    "question": "What is a function prototype in C?",
+    "options": ["The body of the function", "The first line of the function definition, specifying the return type, name, and parameters", "A call to the function", "A comment describing the function"],
+    "correctAnswer": "The first line of the function definition, specifying the return type, name, and parameters"
+},
+{
+    "question": "What is the difference between call by value and call by reference in C?",
+    "options": ["They are the same", "Call by value passes the actual value of the argument, while call by reference passes the memory address", "Call by reference passes the actual value, while call by value passes the memory address", "Call by value is used for integers, and call by reference is used for arrays"],
+    "correctAnswer": "Call by value passes the actual value of the argument, while call by reference passes the memory address"
+},
+{
+    "question": "What is a pointer in C?",
+    "options": ["A variable that stores a memory address", "A data type that can only store integers", "A function that returns a value", "A type of loop"],
+    "correctAnswer": "A variable that stores a memory address"
+},
+{
+    "question": "Which operator is used to get the address of a variable in C?",
+    "options": ["*", "&", "->", "."],
+    "correctAnswer": "&"
+},
+{
+    "question": "Which operator is used to dereference a pointer (access the value it points to) in C?",
+    "options": ["*", "&", "->", "."],
+    "correctAnswer": "*"
+},
+{
+    "question": "What is an array in C?",
+    "options": ["A single variable that can store different data types", "A collection of elements of the same data type stored in contiguous memory locations", "A type of loop", "A function that returns multiple values"],
+    "correctAnswer": "A collection of elements of the same data type stored in contiguous memory locations"
+},
+{
+    "question": "How do you declare an integer array of size 5 in C?",
+    "options": ["int array[5];", "array int[5];", "int[5] array;", "array = int[5];"],
+    "correctAnswer": "int array[5];"
+},
+{
+    "question": "What is a string in C?",
+    "options": ["A single character", "An array of characters terminated by a null character ('\\0')", "A data type similar to integer", "A keyword used for output"],
+    "correctAnswer": "An array of characters terminated by a null character ('\\0')"
+},
+{
+    "question": "Which header file is typically used for string manipulation functions in C?",
+    "options": ["stdio.h", "conio.h", "math.h", "string.h"],
+    "correctAnswer": "string.h"
+},
+{
+    "question": "What does the 'strlen()' function do in C?",
+    "options": ["Concatenates two strings", "Compares two strings", "Calculates the length of a string", "Copies one string to another"],
+    "correctAnswer": "Calculates the length of a string"
+},
+{
+    "question": "What does the 'strcpy()' function do in C?",
+    "options": ["Concatenates two strings", "Compares two strings", "Calculates the length of a string", "Copies one string to another"],
+    "correctAnswer": "Copies one string to another"
+},
+{
+    "question": "What does the 'strcat()' function do in C?",
+    "options": ["Concatenates two strings", "Compares two strings", "Calculates the length of a string", "Copies one string to another"],
+    "correctAnswer": "Concatenates two strings"
+},
+{
+    "question": "What does the 'strcmp()' function do in C?",
+    "options": ["Concatenates two strings", "Compares two strings", "Calculates the length of a string", "Copies one string to another"],
+    "correctAnswer": "Compares two strings"
+},
+{
+    "question": "What is a structure in C?",
+    "options": ["A collection of elements of the same data type", "A user-defined data type that can hold elements of different data types", "A type of loop", "A function that returns multiple values"],
+    "correctAnswer": "A user-defined data type that can hold elements of different data types"
+},
+{
+    "question": "How do you access members of a structure using a structure variable in C?",
+    "options": ["-> operator", ". operator", "* operator", "& operator"],
+    "correctAnswer": ". operator"
+},
+{
+    "question": "How do you access members of a structure using a pointer to a structure in C?",
+    "options": ["-> operator", ". operator", "* operator", "& operator"],
+    "correctAnswer": "-> operator"
+},
+{
+    "question": "What is a union in C?",
+    "options": ["Similar to a structure but all members share the same memory location", "A collection of elements of the same data type", "A type of loop", "A function that returns multiple values"],
+    "correctAnswer": "Similar to a structure but all members share the same memory location"
+},
+{
+    "question": "What is dynamic memory allocation in C?",
+    "options": ["Allocating memory at compile time", "Allocating memory during program execution", "Using only static variables", "Memory allocation for constant values"],
+    "correctAnswer": "Allocating memory during program execution"
+},
+{
+    "question": "Which function is used to dynamically allocate memory in C?",
+    "options": ["malloc()", "calloc()", "realloc()", "All of the above"],
+    "correctAnswer": "All of the above"
+},
+{
+    "question": "Which function is used to free dynamically allocated memory in C?",
+    "options": ["free()", "dealloc()", "memfree()", "release()"],
+    "correctAnswer": "free()"
+},
+{
+    "question": "What is a file pointer in C?",
+    "options": ["A pointer to the first line of a file", "A pointer to a function that handles file operations", "A variable that stores the address of a file structure", "An integer representing the file size"],
+    "correctAnswer": "A variable that stores the address of a file structure"
+},
+{
+    "question": "Which function is used to open a file in C?",
+    "options": ["open()", "fopen()", "file_open()", "create_file()"],
+    "correctAnswer": "fopen()"
+},
+
+{
+    "question": "Which mode is used to open a file for writing in 'fopen()' (overwriting if it exists)?",
+    "options": ["\"w\"", "\"r\"", "\"a\"", "\"rw\""],
+    "correctAnswer": "\"w\""
+},
+{
+    "question": "Which mode is used to open a file for appending in 'fopen()'? ",
+    "options": ["\"w\"", "\"r\"", "\"a\"", "\"rw\""],
+    "correctAnswer": "\"a\""
+},
+{
+    "question": "Which function is used to read formatted input from a file in C?",
+    "options": ["printf()", "scanf()", "fprintf()", "fscanf()"],
+    "correctAnswer": "fscanf()"
+},
+{
+    "question": "Which function is used to write formatted output to a file in C?",
+    "options": ["printf()", "scanf()", "fprintf()", "fscanf()"],
+    "correctAnswer": "fprintf()"
+},
+{
+    "question": "Which function is used to close a file in C?",
+    "options": ["close()", "fclose()", "file_close()", "end_file()"],
+    "correctAnswer": "fclose()"
+},
+{
+    "question": "What are preprocessor directives in C?",
+    "options": ["Instructions executed after the program is compiled", "Instructions executed before the program is compiled", "Special comments in the code", "Functions defined in standard libraries"],
+    "correctAnswer": "Instructions executed before the program is compiled"
+},
+{
+    "question": "Which preprocessor directive is used to include header files in C?",
+    "options": ["#define", "#include", "#ifdef", "#ifndef"],
+    "correctAnswer": "#include"
+},
+{
+    "question": "Which preprocessor directive is used to define a macro in C?",
+    "options": ["#include", "#define", "#if", "#else"],
+    "correctAnswer": "#define"
+},
+{
+    "question": "What is the purpose of the '#ifdef' preprocessor directive?",
+    "options": ["To define a macro", "To include a header file", "To check if a macro is defined", "To check if a condition is true at runtime"],
+    "correctAnswer": "To check if a macro is defined"
+},
+{
+    "question": "What is the purpose of the '#ifndef' preprocessor directive?",
+    "options": ["To define a macro", "To include a header file", "To check if a macro is not defined", "To check if a condition is false at runtime"],
+    "correctAnswer": "To check if a macro is not defined"
+},
+{
+    "question": "What is the purpose of the '#else' preprocessor directive?",
+    "options": ["To define a macro", "To include a header file", "To specify an alternative block of code for '#if', '#ifdef', or '#ifndef'", "To end a preprocessor directive"],
+    "correctAnswer": "To specify an alternative block of code for '#if', '#ifdef', or '#ifndef'"
+},
+{
+    "question": "What is the purpose of the '#endif' preprocessor directive?",
+    "options": ["To define a macro", "To include a header file", "To specify a condition", "To end a preprocessor directive like '#if', '#ifdef', '#ifndef', or '#else'"],
+    "correctAnswer": "To end a preprocessor directive like '#if', '#ifdef', '#ifndef', or '#else'"
+},
+{
+    "question": "What is the output of the following C code?\n```c\n#include <stdio.h>\nint main() {\n  int x = 10;\n  printf(\"%d\", x++);\n  return 0;\n}\n```",
+    "options": ["10", "11", "9", "Error"],
+    "correctAnswer": "10"
+}
+    ];
+
+    // Shuffle function for randomizing questions
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Randomly shuffle and pick 20 questions
+    const questions = shuffleArray([...questionsPool]).slice(0, 20);
+
+    let currentQuestion = 0;
+    let selectedAnswers = [];
+    let timer;
+    let totalTime = 300; // 5 minutes timer
+
+    // Update timer display every second
+    function startTimer(seconds) {
+      const timerEl = document.getElementById("timer");
+      clearInterval(timer);
+      timerEl.textContent = `Time Left: ${seconds}s`;
+
+      timer = setInterval(() => {
+        seconds--;
+        timerEl.textContent = `Time Left: ${seconds}s`;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          showResult();
+        }
+      }, 1000);
+    }
+
+    // Load question and display
+    function loadQuestion(index) {
+      const q = questions[index];
+      document.getElementById("question").textContent = `Q${index + 1}: ${q.question}`;
+      const optionsBox = document.getElementById("options");
+      optionsBox.innerHTML = "";
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        label.className = "block p-3 rounded cursor-pointer transition bg-green-100 hover:bg-green-200";
+        label.innerHTML = `
+          <input type="radio" name="option" value="${option}" class="mr-2">
+          ${option}
+        `;
+        optionsBox.appendChild(label);
+      });
+
+      // Update question number box
+      const questionNumbers = document.getElementById("question-number-boxes");
+      questionNumbers.innerHTML = "";
+      questions.forEach((_, idx) => {
+        const numberBox = document.createElement("div");
+        numberBox.className = "w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold cursor-pointer";
+        if (selectedAnswers[idx]) {
+          numberBox.classList.add("bg-green-500");
+        } else {
+          numberBox.classList.add("bg-gray-500");
+        }
+        numberBox.textContent = idx + 1;
+        questionNumbers.appendChild(numberBox);
+      });
+
+      // Disable/enable prev button
+      document.getElementById("prev-btn").disabled = index === 0;
+
+      // Change "Next" to "Submit" if last question
+      document.getElementById("next-btn").textContent =
+        index === questions.length - 1 ? "Submit" : "Next";
+
+      // Restore previous answer if exists
+      const prevAnswer = selectedAnswers[index];
+      if (prevAnswer) {
+        document.querySelector(`input[name="option"][value="${prevAnswer}"]`).checked = true;
+      }
+    }
+
+    // Next button handler
+    document.getElementById("next-btn").addEventListener("click", () => {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert("Please select an option!");
+        return;
+      }
+
+      selectedAnswers[currentQuestion] = selected.value;
+
+      if (currentQuestion === questions.length - 1) {
+        clearInterval(timer);
+        // Calculate score
+        let score = 0;
+        selectedAnswers.forEach((ans, idx) => {
+          if (ans === questions[idx].correctAnswer) {
+            score++;
+          }
+        });
+        showResult(score);
+      } else {
+        currentQuestion++;
+        loadQuestion(currentQuestion);
+      }
+    });
+
+    // Previous button handler
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion(currentQuestion);
+      }
+    });
+
+    // Show results
+    function showResult(score) {
+      document.getElementById("quiz-box").classList.add("hidden");
+      const percent = ((score / questions.length) * 100).toFixed(2);
+      document.getElementById("score").textContent =
+        `You got ${score} out of ${questions.length} correct (${percent}%)`;
+      document.getElementById("result").classList.remove("hidden");
+    }
+
+    // Initialize test
+    loadQuestion(currentQuestion);
+    startTimer(totalTime);
+  </script>
+
+</body>
+</html>

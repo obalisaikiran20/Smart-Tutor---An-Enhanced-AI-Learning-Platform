@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guidance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .career-section {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #careerheading {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .career-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+        .career-content {
+            margin-top: 20px;
+        }
+        .career-buttons {
+            margin-top: 20px;
+        }
+        .invite-button {
+            display: inline-flex;
+            align-items: center;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .invite-button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="career-section">
+        <div id="careerheading">Career Guidance</div>
+        <br><br>
+        <div class="career-image">
+            <img src="assets/images/icons/career.jpeg" alt="Career Guidance">
+        </div>
+        <div class="career-content">
+            <h2 class="career-heading">We are always ready to guide you<br> Ask us for a wonderful interactive session for your bright future</h2>
+            <div class="career-buttons">
+                <button class="invite-button" onclick="shareOnWhatsApp('zoom')">
+                    <img src="assets/images/icons/zoom.jpeg" alt="Zoom"> Invite
+                </button>
+                <button class="invite-button" onclick="shareOnWhatsApp('google meet')">
+                    <img src="assets/images/icons/meet.jpeg" alt="Google Meet"> Invite
+                </button>
+                <button class="invite-button" onclick="shareOnWhatsApp('webex')">
+                    <img src="assets/images/icons/webex.jpeg" alt="Webex"> Invite
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

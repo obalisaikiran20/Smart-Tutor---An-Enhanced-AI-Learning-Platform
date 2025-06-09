@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C Programming Mock Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .question-box {
+      background-color: #6fc1e6; /* light red background for question */
+    }
+
+    .answered {
+      background-color: #28a745; /* green */
+    }
+
+    .not-answered {
+      background-color: #dc3545; /* red */
+    }
+
+    .opened {
+      background-color: #ffc107; /* yellow */
+    }
+  </style>
+</head>
+<body class="bg-[#f0f8ff] m-0 p-0">
+
+  <!-- Header -->
+  <!-- Header with Navy background -->
+  <header style="background-color: navy; color: white; padding: 10px 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 10; display: flex; align-items: center; justify-content: space-between;">
+    <a href="mock.html" style="background-color: orangered; color: white; padding: 8px 16px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none; transition: background 0.3s ease; cursor: pointer;">
+      Back
+    </a>
+    <h1 style="text-align: center; font-size: 24px; flex-grow: 1; margin: 0;">Smart Tutor</h1>
+    <div style="font-size: 14px; font-weight: bold; padding: 5px 10px;">⏱️ <span id="timer">300</span></div>
+  </header>
+  
+
+  <!-- Main Content -->
+  <main class="pt-24 px-4 max-w-2xl mx-auto">
+    <h2 class="text-center text-xl font-semibold bg-red-600 text-white py-2 mb-4">Operating Systems Mock Test</h2>
+
+    <div id="question-area" class="space-y-4">
+      <div class="flex justify-center space-x-2 mb-4">
+        <div id="question-number-boxes" class="flex space-x-2"></div>
+      </div>
+
+      <div id="quiz-box" class="bg-[#add8e6] shadow-lg rounded-lg p-6 space-y-4">
+
+        <h2 id="question" class="text-lg font-semibold text-gray-800"></h2>
+        <div id="options" class="space-y-4"></div>
+
+        <div class="flex justify-between mt-4">
+          <button id="prev-btn" class="bg-green-800 text-white px-4 py-2 rounded hover:shadow-lg disabled:opacity-50" disabled>Previous</button>
+          <button id="next-btn" class="bg-green-800 text-white px-4 py-2 rounded hover:shadow-lg">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" class="mt-8 hidden bg-green-100 p-6 rounded shadow text-center">
+      <h3 class="text-xl font-semibold mb-2">Test Result</h3>
+      <p id="score" class="text-lg mb-4"></p>
+    </div>
+  </main>
+
+  <script>
+    // Question pool - Add 30+ questions
+    const questionsPool =
+    [
+  {
+    question: "Which of the following is not a type of operating system?",
+    options: ["Batch", "Real-time", "Network", "Compiler"],
+    correctAnswer: "Compiler"
+  },
+  {
+    question: "What is the main function of an operating system?",
+    options: ["Text editing", "Compiling code", "Managing hardware and software resources", "Designing applications"],
+    correctAnswer: "Managing hardware and software resources"
+  },
+  {
+    question: "Which of the following is a type of real-time operating system?",
+    options: ["Windows", "Linux", "RTOS", "DOS"],
+    correctAnswer: "RTOS"
+  },
+  {
+    question: "Which algorithm is non-preemptive?",
+    options: ["Round Robin", "SJF", "Priority", "Multilevel Queue"],
+    correctAnswer: "SJF"
+  },
+  {
+    question: "Which of these is responsible for process scheduling?",
+    options: ["Shell", "Loader", "Scheduler", "Compiler"],
+    correctAnswer: "Scheduler"
+  },
+  {
+    question: "What is a critical section in operating systems?",
+    options: ["A part of code that accesses shared resources", "A part of memory", "A system call", "An interrupt"],
+    correctAnswer: "A part of code that accesses shared resources"
+  },
+  {
+    question: "Which of the following is a deadlock prevention technique?",
+    options: ["Hold and wait", "Mutual exclusion", "Resource ordering", "Circular wait"],
+    correctAnswer: "Resource ordering"
+  },
+  {
+    question: "What is a context switch?",
+    options: ["Switching from kernel mode to user mode", "Changing memory pages", "Saving and loading the state of a process", "None of the above"],
+    correctAnswer: "Saving and loading the state of a process"
+  },
+  {
+    question: "Which of the following memory management techniques does not allow fragmentation?",
+    options: ["Paging", "Segmentation", "Contiguous allocation", "None"],
+    correctAnswer: "Paging"
+  },
+  {
+    question: "In which scheduling algorithm does each process get a small unit of CPU time in a cyclic way?",
+    options: ["SJF", "Round Robin", "FCFS", "Priority"],
+    correctAnswer: "Round Robin"
+  },
+  {
+    question: "Which of the following is a disk scheduling algorithm?",
+    options: ["FIFO", "SCAN", "Round Robin", "LRU"],
+    correctAnswer: "SCAN"
+  },
+  {
+    question: "Which one is NOT a necessary condition for deadlock?",
+    options: ["Mutual Exclusion", "Hold and Wait", "Preemption", "Circular Wait"],
+    correctAnswer: "Preemption"
+  },
+  {
+    question: "What is a page fault?",
+    options: ["A type of interrupt", "A failure to access a memory page", "An error in the processor", "A type of segmentation fault"],
+    correctAnswer: "A failure to access a memory page"
+  },
+  {
+    question: "Which of these is not an example of multi-threaded application?",
+    options: ["Web server", "Word processor", "Spreadsheet", "Compiler"],
+    correctAnswer: "Compiler"
+  },
+  {
+    question: "Which is responsible for loading an OS into memory?",
+    options: ["Bootstrap loader", "Kernel", "BIOS", "Scheduler"],
+    correctAnswer: "Bootstrap loader"
+  },
+  {
+    question: "What is a zombie process?",
+    options: ["A dead process", "A process waiting for I/O", "A process that has completed but still has an entry in the process table", "A running background process"],
+    correctAnswer: "A process that has completed but still has an entry in the process table"
+  },
+  {
+    question: "Which command is used to check running processes in Unix?",
+    options: ["ps", "run", "ls", "proc"],
+    correctAnswer: "ps"
+  },
+  {
+    question: "Which of the following is a non-preemptive scheduling algorithm?",
+    options: ["Round Robin", "SJF", "Multilevel Queue", "Priority (with preemption)"],
+    correctAnswer: "SJF"
+  },
+  {
+    question: "What is thrashing?",
+    options: ["A type of file corruption", "Excessive paging", "A process stuck in a loop", "A device failure"],
+    correctAnswer: "Excessive paging"
+  },
+  {
+    question: "Which of the following is a Linux-based operating system?",
+    options: ["Ubuntu", "Windows", "iOS", "DOS"],
+    correctAnswer: "Ubuntu"
+  },
+  {
+    question: "Which is the core part of an operating system?",
+    options: ["Shell", "Command line", "Kernel", "Terminal"],
+    correctAnswer: "Kernel"
+  },
+  {
+    question: "Which OS uses a monolithic kernel?",
+    options: ["Windows", "Linux", "MacOS", "Android"],
+    correctAnswer: "Linux"
+  },
+  {
+    question: "What is the purpose of a system call?",
+    options: ["To start a computer", "To handle input", "To request service from the OS", "To compile programs"],
+    correctAnswer: "To request service from the OS"
+  },
+  {
+    question: "Which is not an OS service?",
+    options: ["Process management", "Security", "Error detection", "File translation"],
+    correctAnswer: "File translation"
+  },
+  {
+    question: "Which scheduling algorithm may lead to starvation?",
+    options: ["FCFS", "Round Robin", "SJF", "All of the above"],
+    correctAnswer: "SJF"
+  },
+  {
+    question: "Which component manages the file system in an OS?",
+    options: ["Loader", "Kernel", "Compiler", "BIOS"],
+    correctAnswer: "Kernel"
+  },
+  {
+    question: "Which of these is a feature of a multi-user operating system?",
+    options: ["Only one user at a time", "Simultaneous access by multiple users", "Only GUI support", "No file system"],
+    correctAnswer: "Simultaneous access by multiple users"
+  },
+  {
+    question: "Which OS is used for Apple computers?",
+    options: ["Ubuntu", "Windows", "MacOS", "Android"],
+    correctAnswer: "MacOS"
+  },
+  {
+    question: "Which OS feature ensures that multiple applications can run at once?",
+    options: ["Multitasking", "Multithreading", "Multiprocessing", "None"],
+    correctAnswer: "Multitasking"
+  },
+  {
+    question: "What is swapping?",
+    options: ["Exchanging data between CPU and cache", "Replacing a page in memory", "Moving process in and out of memory", "None"],
+    correctAnswer: "Moving process in and out of memory"
+  },
+  {
+    question: "Which OS concept deals with job scheduling?",
+    options: ["Compiler", "Loader", "Dispatcher", "Assembler"],
+    correctAnswer: "Dispatcher"
+  },
+  {
+    question: "The LRU algorithm is used in which context?",
+    options: ["Disk scheduling", "Page replacement", "Process scheduling", "I/O scheduling"],
+    correctAnswer: "Page replacement"
+  },
+  {
+    question: "In which memory is the OS loaded at startup?",
+    options: ["RAM", "ROM", "Cache", "Register"],
+    correctAnswer: "RAM"
+  },
+  {
+    question: "Which of the following is a virtual memory technique?",
+    options: ["Segmentation", "Paging", "Swapping", "All of these"],
+    correctAnswer: "All of these"
+  },
+  {
+    question: "Which system call is used to create a new process in Unix?",
+    options: ["exec()", "start()", "fork()", "init()"],
+    correctAnswer: "fork()"
+  },
+  {
+    question: "Which command in Unix is used to change permissions?",
+    options: ["chmod", "chperm", "perm", "access"],
+    correctAnswer: "chmod"
+  },
+  {
+    question: "Which of the following ensures memory protection?",
+    options: ["MMU", "CPU", "BIOS", "RAM"],
+    correctAnswer: "MMU"
+  },
+  {
+    question: "What is time-sharing in OS?",
+    options: ["Running tasks in sequence", "Giving each user a small time slice", "Memory sharing", "Swapping pages"],
+    correctAnswer: "Giving each user a small time slice"
+  },
+  {
+    question: "Which system component handles interrupts?",
+    options: ["CPU", "Kernel", "Loader", "Shell"],
+    correctAnswer: "Kernel"
+  },
+  {
+    question: "Which memory allocation strategy causes external fragmentation?",
+    options: ["Paging", "Segmentation", "Fixed Partitioning", "Contiguous Allocation"],
+    correctAnswer: "Contiguous Allocation"
+  },
+  {
+    question: "What is semaphore used for?",
+    options: ["Process creation", "Memory allocation", "Synchronization", "Scheduling"],
+    correctAnswer: "Synchronization"
+  },
+  {
+    question: "Which of the following is NOT a state of a process?",
+    options: ["New", "Running", "Waiting", "Terminating"],
+    correctAnswer: "Terminating"
+  },
+  {
+    question: "Which scheduling algorithm is based on priority levels?",
+    options: ["SJF", "Priority Scheduling", "Round Robin", "FCFS"],
+    correctAnswer: "Priority Scheduling"
+  },
+  {
+    question: "Which of these is used for inter-process communication?",
+    options: ["Semaphore", "Socket", "Pipe", "All of the above"],
+    correctAnswer: "All of the above"
+  },
+  {
+    question: "Which technique is used to avoid deadlock?",
+    options: ["Banker’s algorithm", "Paging", "Segmentation", "Scheduling"],
+    correctAnswer: "Banker’s algorithm"
+  },
+  {
+    question: "What is a shell in an OS?",
+    options: ["Hardware interface", "Kernel", "Command interpreter", "System call"],
+    correctAnswer: "Command interpreter"
+  },
+  {
+    question: "Which one is not a type of system call?",
+    options: ["Process control", "File management", "I/O control", "Memory translation"],
+    correctAnswer: "Memory translation"
+  },
+  {
+    question: "Which file system is used in Windows?",
+    options: ["ext4", "FAT32", "NTFS", "HFS"],
+    correctAnswer: "NTFS"
+  },
+  {
+    question: "Which component translates logical to physical address?",
+    options: ["Compiler", "MMU", "Linker", "Scheduler"],
+    correctAnswer: "MMU"
+  }
+];
+
+    // Shuffle function for randomizing questions
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Randomly shuffle and pick 20 questions
+    const questions = shuffleArray([...questionsPool]).slice(0, 20);
+
+    let currentQuestion = 0;
+    let selectedAnswers = [];
+    let timer;
+    let totalTime = 300; // 5 minutes timer
+
+    // Update timer display every second
+    function startTimer(seconds) {
+      const timerEl = document.getElementById("timer");
+      clearInterval(timer);
+      timerEl.textContent = `Time Left: ${seconds}s`;
+
+      timer = setInterval(() => {
+        seconds--;
+        timerEl.textContent = `Time Left: ${seconds}s`;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          showResult();
+        }
+      }, 1000);
+    }
+
+    // Load question and display
+    function loadQuestion(index) {
+      const q = questions[index];
+      document.getElementById("question").textContent = `Q${index + 1}: ${q.question}`;
+      const optionsBox = document.getElementById("options");
+      optionsBox.innerHTML = "";
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        label.className = "block p-3 rounded cursor-pointer transition bg-green-100 hover:bg-green-200";
+        label.innerHTML = `
+          <input type="radio" name="option" value="${option}" class="mr-2">
+          ${option}
+        `;
+        optionsBox.appendChild(label);
+      });
+
+      // Update question number box
+      const questionNumbers = document.getElementById("question-number-boxes");
+      questionNumbers.innerHTML = "";
+      questions.forEach((_, idx) => {
+        const numberBox = document.createElement("div");
+        numberBox.className = "w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold cursor-pointer";
+        if (selectedAnswers[idx]) {
+          numberBox.classList.add("bg-green-500");
+        } else {
+          numberBox.classList.add("bg-gray-500");
+        }
+        numberBox.textContent = idx + 1;
+        questionNumbers.appendChild(numberBox);
+      });
+
+      // Disable/enable prev button
+      document.getElementById("prev-btn").disabled = index === 0;
+
+      // Change "Next" to "Submit" if last question
+      document.getElementById("next-btn").textContent =
+        index === questions.length - 1 ? "Submit" : "Next";
+
+      // Restore previous answer if exists
+      const prevAnswer = selectedAnswers[index];
+      if (prevAnswer) {
+        document.querySelector(`input[name="option"][value="${prevAnswer}"]`).checked = true;
+      }
+    }
+
+    // Next button handler
+    document.getElementById("next-btn").addEventListener("click", () => {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert("Please select an option!");
+        return;
+      }
+
+      selectedAnswers[currentQuestion] = selected.value;
+
+      if (currentQuestion === questions.length - 1) {
+        clearInterval(timer);
+        // Calculate score
+        let score = 0;
+        selectedAnswers.forEach((ans, idx) => {
+          if (ans === questions[idx].correctAnswer) {
+            score++;
+          }
+        });
+        showResult(score);
+      } else {
+        currentQuestion++;
+        loadQuestion(currentQuestion);
+      }
+    });
+
+    // Previous button handler
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion(currentQuestion);
+      }
+    });
+
+    // Show results
+    function showResult(score) {
+      document.getElementById("quiz-box").classList.add("hidden");
+      const percent = ((score / questions.length) * 100).toFixed(2);
+      document.getElementById("score").textContent =
+        `You got ${score} out of ${questions.length} correct (${percent}%)`;
+      document.getElementById("result").classList.remove("hidden");
+    }
+
+    // Initialize test
+    loadQuestion(currentQuestion);
+    startTimer(totalTime);
+  </script>
+
+</body>
+</html>

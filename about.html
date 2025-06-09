@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Smart Tutor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .header {
+            background-color: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            height: 50px;
+            padding-top: 17px;
+            font-weight: bold;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensures header stays on top */
+        }
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .hero-section {
+            background: url('assets/images/class.jpeg') center/cover no-repeat;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: brightness(50%);
+        }
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            text-align: justify;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .vision-mission {
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: center;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .vision-mission img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+        .vision-mission img:hover {
+            transform: scale(1.1);
+        }
+        .info-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .info-box {
+            width: 48%;
+            padding: 20px;
+            border-radius: 10px;
+            background: #00a6ff;
+            color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .footer {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-button" onclick="window.location.href='canti.php';">Back</button>
+        Smart Tutor
+    </div>
+    <br><br><br><br>
+    <div class="hero-section">
+        <img src="assets/images/ai.jpeg" alt="Empowering Learning" style="width: 120px; height: 120px; border-radius: 50%; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+        <p>Empowering Learning, Enabling Success</p>
+    </div>
+
+    <div class="content">
+        <h1>About Us</h1>
+        <p>Smart Tutor is an innovative online learning platform designed to help students enhance their knowledge through interactive mock tests and assessments. It leverages AI-driven technology to provide personalized learning experiences, ensuring that students receive targeted feedback and guidance. The platform aims to bridge the gap between learning and success by offering structured evaluations that help learners track their progress effectively. With a user-friendly interface, Smart Tutor makes test preparation seamless, engaging, and efficient. By focusing on real-time feedback and detailed analytics, it empowers students to identify strengths and improve weak areas.
+
+        </p>
+        <p>The mission of Smart Tutor is to create an accessible and efficient learning ecosystem that supports students in achieving academic excellence. Through customized assessments and auto-generated quizzes, the platform ensures a practical approach to education. It also follows a strict mock test guideline, including time-bound evaluations and automatic submission upon exit, mimicking real exam conditions. Additionally, Smart Tutor offers a certificate of completion, further motivating students to engage in active learning. With a commitment to quality education, it serves as a valuable tool for students preparing for various competitive and academic exams.</p>
+    </div>
+
+    <div class="vision-mission">
+        <img src="assets/images/v3.jpeg" alt="Vision & Mission">
+        <div class="info-section">
+            <div class="info-box">
+                <h2>Vision</h2>
+                <p>To provide an innovative learning experience that enhances knowledge, skills, and confidence through interactive assessment-based learning.</p>
+            </div>
+            <div class="info-box">
+                <h2>Mission</h2>
+                <p>To create an accessible and efficient learning ecosystem that supports students in achieving academic excellence and career success.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Smart Tutor. All Rights Reserved.
+    </div>
+</body>
+</html>

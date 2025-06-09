@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Tutor - PDF Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3f2fd;
+            text-align: center;
+        }
+        .header {
+            background-color: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            height: 50px;
+            padding-top: 17px;
+            font-weight: bold;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensures header stays on top */
+        }
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .library-heading {
+            background: orangered;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px;
+            margin: 90px auto 20px;
+            width: 450px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 140px auto 20px;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+        
+        .pdf-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pdf-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .pdf-box img {
+            width: 150px; /* Fixed width */
+            height: 150px; /* Fixed height */
+            object-fit: cover; /* Ensures the image fits inside the container without stretching */
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .pdf-box p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .pdf-box button {
+            background: rgb(134, 204, 203);
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            transition: background 0.3s ease;
+        }
+
+        .pdf-box button:hover {
+            background: #d45d27;
+        }
+
+        .back-button1 {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <button class="back-button" onclick="goBack()">Back</button>
+    <button class="back-button1" onclick="window.location.href='canti.php';">Back</button> Smart Tutor
+</div>
+
+<div class="library-heading">Smart Tutor Online Courses</div>
+
+<div class="container" id="pdf-container">
+    <div class="pdf-box">
+        <button onclick="openHTML('courses.html')">
+            <img src="assets/images/icons/html.jpeg" alt="HTML Course">
+            <p>HTML Online Course</p>
+        </button>
+    </div>
+    <div class="pdf-box">
+        <button onclick="openHTML('css.html')">
+            <img src="assets/images/icons/css.jpeg" alt="CSS Course">
+            <p>CSS Online Course</p>
+        </button>
+    </div>
+    <div class="pdf-box">
+        <button onclick="openHTML('js.html')">
+            <img src="assets/images/icons/js.jpeg" alt="JavaScript Course">
+            <p>JavaScript Online Course</p>
+        </button>
+    </div>
+</div>
+
+<script>
+    function openHTML(url) {
+        window.location.href = url;  // This opens the HTML file in the same window
+    }
+
+    function goBack() {
+        window.history.back();  // This navigates to the previous page
+    }
+</script>
+
+</body>
+</html>

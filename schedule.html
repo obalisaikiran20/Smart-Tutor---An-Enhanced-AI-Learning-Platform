@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Tutor - Time Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e3f2fd;
+        }
+        .header {
+            width: 100%;
+            background: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        } 
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            max-width: 1000px;
+            margin: auto;
+            margin-top: 80px;
+        }
+        .timetable {
+            width: 60%;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .schedule-heading {
+            background-color: limegreen;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 22px;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
+        }
+        .image-section {
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-section img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .image-section img:hover {
+            transform: scale(1.05);
+        }
+        .time-section {
+            background: #f8f9fa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 95%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="time"] {
+            background: #1088a377;
+            color: black;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 15px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .action-buttons {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .action-buttons button {
+            background-color: #007bff;
+        }
+        .action-buttons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header"><button class="back-button" onclick="window.location.href='canti.php';">Back</button>Smart Tutor</div>
+
+    <div class="container">
+        <div class="timetable" id="time-table">
+            <div class="schedule-heading">Schedule</div>
+
+            <div class="time-section">
+                <label>Date & Day: <input type="text" id="dateDay"></label>
+            </div>
+            <div class="time-section">
+                <label>⏰ Wake Up Time: <input type="time" id="wakeUp"></label>
+            </div>
+            <div class="time-section">
+                <label>🍽️ Breakfast Time: <input type="time" id="breakfast"></label>
+            </div>
+            <div class="time-section">
+                <label>📚 Morning Session: <input type="time" id="morningSession"></label>
+            </div>
+            <div class="time-section">
+                <label>🥗 Lunch and Break Time: <input type="time" id="lunchBreak"></label>
+            </div>
+            <div class="time-section">
+                <label>📖 Afternoon Session: <input type="time" id="afternoonSession"></label>
+            </div>
+            <div class="time-section">
+                <label>☕ Break II Time: <input type="time" id="break2"></label>
+            </div>
+            <div class="time-section">
+                <label>🌇 Evening Session: <input type="time" id="eveningSession"></label>
+            </div>
+            <div class="time-section">
+                <label>🍵 Break III Time: <input type="time" id="break3"></label>
+            </div>
+            <div class="time-section">
+                <label>🍽️ Dinner Time: <input type="time" id="dinner"></label>
+            </div>
+            <div class="time-section">
+                <label>😴 Sleeping Time: <input type="time" id="sleep"></label>
+            </div>
+
+            <div class="buttons">
+                <button onclick="saveTimeTable()">Save Time Table</button>
+            </div>
+        </div>
+        <div class="image-section">
+            <img src="assets/images/sc.jpeg" alt="Time Table Image">
+        </div>
+    </div>
+
+    <div class="action-buttons" id="actions">
+        <button onclick="printTimeTable()">Print</button>
+        <button onclick="shareTimeTable()">Share</button>
+    </div>
+
+    <script>
+        function saveTimeTable() {
+            document.getElementById("actions").style.display = "block";
+            alert("Time Table Saved Successfully!");
+        }
+
+        function printTimeTable() {
+            var content = document.getElementById("time-table").innerHTML;
+            var newWin = window.open("", "", "width=800,height=600");
+            newWin.document.write('<html><head><title>Print Time Table</title></head><body>');
+            newWin.document.write(content);
+            newWin.document.write('</body></html>');
+            newWin.document.close();
+            newWin.print();
+        }
+
+        function shareTimeTable() {
+            var message = "I am planning to achieve new challenges in my career with this time table on Smart Tutor!\n\n";
+            document.querySelectorAll('.time-section input').forEach(input => {
+                message += input.previousSibling.textContent + " " + input.value + "\n";
+            });
+            message += "\nJoin me in planning for success with Smart Tutor!";
+
+            if (navigator.share) {
+                navigator.share({ text: message })
+                .catch(err => console.log("Error Sharing", err));
+            } else {
+                alert("Sharing is not supported on this browser. Here’s your timetable:\n\n" + message);
+            }
+        }
+    </script>
+
+</body>
+</html>

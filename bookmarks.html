@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Notes Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+            width: 100%;
+            background: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .notes-container {
+            width: 85%;
+            padding: 20px;
+            background: #b0e0e6;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 80px;
+            margin-bottom: 20px;
+        }
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .editor {
+            width: 98.5%;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            background: white;
+        }
+        .btn {
+            background: rgb(0, 123, 255);
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        #saved-notes {
+            display: none;
+            background: #ffecb3;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        function alignText(alignment) {
+            document.execCommand("justify" + alignment, false, null);
+        }
+        function insertTextBox() {
+            let textBox = '<div contenteditable="true" style="border:1px solid black; padding:5px; background:#fffacd; display:inline-block;">Text</div>';
+            document.execCommand("insertHTML", false, textBox);
+        }
+        function insertTable() {
+            let rows = prompt("Enter number of rows:");
+            let cols = prompt("Enter number of columns:");
+            if (!rows || !cols) return;
+            let table = "<table border='1' style='border-collapse:collapse;'>";
+            for (let i = 0; i < rows; i++) {
+                table += "<tr>";
+                for (let j = 0; j < cols; j++) {
+                    table += "<td contenteditable='true' style='padding:5px;'>Cell</td>";
+                }
+                table += "</tr>";
+            }
+            table += "</table>";
+            document.execCommand("insertHTML", false, table);
+        }
+        function changeFontStyle(font) {
+            document.execCommand("fontName", false, font);
+        }
+        function changeFontSize(size) {
+            document.execCommand("fontSize", false, size / 2);
+        }
+        function changeColor(color) {
+            document.execCommand("foreColor", false, color);
+        }
+        function toggleSavedNotes() {
+            let savedNotes = document.getElementById('saved-notes');
+            savedNotes.style.display = savedNotes.style.display === 'block' ? 'none' : 'block';
+        }
+        function formatText(command) {
+            document.execCommand(command, false, null);
+        }
+        function saveNote() {
+            let text = document.getElementById('editor').innerHTML;
+            let fileName = prompt("Enter file name:");
+            if (!fileName) return;
+            let noteDiv = document.createElement('div');
+            noteDiv.className = 'note';
+            noteDiv.style.marginTop = "10px";
+            noteDiv.style.padding = "10px";
+            noteDiv.style.background = "#fff";
+            noteDiv.style.borderRadius = "5px";
+            noteDiv.style.boxShadow = "0 0 5px rgba(0,0,0,0.1)";
+            noteDiv.innerHTML = `<strong>${fileName}</strong><br>${text}`;
+            document.getElementById('saved-notes').appendChild(noteDiv);
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <button class="back-button" onclick="window.location.href='canti.php';">Back</button>
+        Smart Tutor
+    </div>
+    <br><br>
+    <h2 style="color: white; background-color: orangered; padding: 10px; text-align: center; border-radius: 8px;">Smart Tutor Bookmarks</h2>
+    <div class="notes-container">
+        <div class="toolbar">
+            <button class="btn" onclick="alignText('Left')">Left</button>
+            <button class="btn" onclick="alignText('Center')">Center</button>
+            <button class="btn" onclick="alignText('Right')">Right</button>
+            <button class="btn" onclick="insertTextBox()">Text Box</button>
+            <button class="btn" onclick="insertTable()">Insert Table</button>
+            <select onchange="changeFontStyle(this.value)">
+                <option value="Arial">Arial</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Impact">Impact</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Trebuchet MS">Trebuchet MS</option>
+            </select>
+            <select onchange="changeFontSize(this.value)">
+                <option value="10">10px</option>
+                <option value="12">12px</option>
+                <option value="14">14px</option>
+                <option value="16">16px</option>
+                <option value="18">18px</option>
+                <option value="24">24px</option>
+            </select>
+            <button class="btn" onclick="formatText('bold')">Bold</button>
+            <button class="btn" onclick="formatText('italic')">Italic</button>
+            <button class="btn" onclick="formatText('underline')">Underline</button>
+            <button class="btn" onclick="formatText('strikeThrough')">Strikethrough</button>
+            <input type="color" onchange="changeColor(this.value)">
+            <button class="btn" onclick="saveNote()">Save Notes</button>
+        </div>
+        <div contenteditable="true" id="editor" class="editor"></div><br>
+        <button class="btn" onclick="toggleSavedNotes()">Show/Hide Saved Notes</button>
+        <div id="saved-notes"></div>
+    </div>
+</body>
+</html>

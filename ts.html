@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Tutor - TTS Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e3f2fd;
+            text-align: center;
+        }
+        .header {
+            width: 100%;
+            background: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .chat-container {
+            margin-top: 80px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            width: 300px;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 16px;
+            border: none;
+        }
+        .input-container button:hover {
+            background-color: #0000cc;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button class="back-button" onclick="window.location.href='canti.php';">Back</button>
+        Smart Tutor 
+    </div>
+    
+    <div class="chat-container">
+        <h2>Smart Tutor Text to Speech Chatbot</h2>
+        <div class="input-container">
+            <input type="text" id="textInput" placeholder="Type your message here...">
+            <button onclick="speakText()">Speak</button>
+        </div>
+        <p id="error" class="error-message">Please enter a valid prompt</p>
+    </div>
+
+    <script>
+        function speakText() {
+            let text = document.getElementById("textInput").value;
+            let errorMsg = document.getElementById("error");
+
+            if (text.trim() === "") {
+                errorMsg.style.display = "block"; // Show error message
+                return;
+            } else {
+                errorMsg.style.display = "none"; // Hide error message if input is valid
+            }
+
+            let speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "en-US";
+            speech.pitch = 1;
+            speech.rate = 1;
+
+            // Get available voices
+            let voices = speechSynthesis.getVoices();
+            let femaleVoice = voices.find(voice => voice.name.includes("Female") || voice.name.includes("Google US English"));
+
+            // Use a female voice if available
+            if (femaleVoice) {
+                speech.voice = femaleVoice;
+            }
+
+            speechSynthesis.speak(speech);
+        }
+
+        // Ensure voices are loaded before use
+        window.speechSynthesis.onvoiceschanged = () => {};
+    </script>
+</body>
+</html>

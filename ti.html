@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Image Generation</title>
+</head>
+<body>
+
+<h2>Generate an Image from Text</h2>
+
+<form id="generate-form">
+    <label for="textPrompt">Enter a text prompt:</label><br>
+    <input type="text" id="textPrompt" name="textPrompt" required><br><br>
+    <button type="submit">Generate Image</button>
+</form>
+
+<h3>Generated Image:</h3>
+<img id="generatedImage" src="" alt="Your generated image will appear here." style="max-width: 100%; height: auto;"/>
+
+<script>
+    document.getElementById('generate-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        var textPrompt = document.getElementById('textPrompt').value;
+
+        // Send the text prompt to the backend for image generation
+        fetch('ti_backend.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt: textPrompt })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.imageUrl) {
+                document.getElementById('generatedImage').src = data.imageUrl;
+            } else {
+                alert('Failed to generate image');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred.');
+        });
+    });
+</script>
+
+</body>
+</html>

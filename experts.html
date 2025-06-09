@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experts Suggestions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+        #expert-section {
+            display: none; /* Initially hidden */
+            margin-top: 50px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="#" id="showExperts">Experts Suggestions</a>
+
+    <div id="expert-section">
+        <h2>Experts Suggestions</h2>
+        <p>Here are some expert suggestions on your topic.</p>
+    </div>
+
+    <script>
+        document.getElementById("showExperts").addEventListener("click", function(event) {
+            event.preventDefault();
+            var section = document.getElementById("expert-section");
+            section.style.display = "block";
+            section.scrollIntoView({ behavior: "smooth" });
+        });
+    </script>
+
+</body>
+</html>

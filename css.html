@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Tutor - CSS Course</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e3f2fd;
+            text-align: center;
+        }
+        #finishb {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #finishb button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #finishb button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        #message {
+            display: none;
+            background-color: #f0f8ff;
+            color: #008b8b;
+            border: 2px solid #008b8b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            margin: 20px auto;
+            text-align: center;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            width: 100%;
+            background: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    
+        #course-selection {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .course-box {
+            background-color: lightblue;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .course-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        #instructions-box {
+            background-color: lightblue;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #2196F3;
+            margin-top: 40px;
+        }
+        #finishb {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #certificate {
+            display: none;
+            margin-top: 30px;
+            background-color: lightgreen;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+        #certificate h2 {
+            background-color: yellow;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            border: 2px solid #000;
+        }
+        #certificate p {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        #certificate .signature {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+        }
+        #certificate .signature p {
+            font-weight: bold;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            width: 300px;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            background-color: orangered;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+        .input-container button:hover {
+            background-color: #ff4500;
+        }
+        .print-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff9800;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .print-button:hover {
+            background-color: #e68900;
+        }
+        #instructions-box h3 {
+            color: green;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        #instructions-box ul {
+            text-align: left;
+            padding-left: 20px;
+            list-style-type: disc;
+            margin-bottom: 20px;
+        }
+        #instructions-box ul li {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        #checkbox-container {
+            text-align: left;
+            margin-top: 20px;
+        }
+        #dive-button {
+            background-color: orangered;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            display: none;
+        }
+        #dive-button:enabled {
+            display: block;
+        }
+        .library-heading {
+            background: orangered;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px;
+            margin: 90px auto 20px;
+            width:450px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        
+        .back-button1 {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .course-box {
+            display: inline-block;
+            width: 200px;
+            padding: 15px;
+            background: rgb(21, 204, 61);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .course-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .course-content {
+            display: none;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .module {
+        background-color: orange;
+        color: white;
+        padding: 10px;
+        margin: 5px 0;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+    }
+    
+    .module-content {
+        display: none;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: #fff;
+    }
+
+    .code-block {
+        background-color: #222;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: monospace;
+    }
+    .finish-course-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 180px;
+            text-align: center;
+            height: 40px;
+            padding-top: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .finish-course-button:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+        
+    .disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+        .certificate {
+            display: none;
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .finish-button {
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    </style>
+</head>
+<body>
+    
+        <div class="header" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: navy; color: white;">
+            <<a href="c.html">
+                <button style="background-color: orangered; height: 40px; width: 80px; border-radius: 5px; color: white;">Back
+                </button>
+            </a>
+            
+            <h3 style="flex: 1; text-align: center; margin: 0;">Smart Tutor</h3>
+        </div>
+        <br><br>
+    <br><br><br>    <div style="background-color:#59a9e1; padding: 20px; border-radius: 10px; margin-bottom: 20px; width: 80%; margin: auto;">
+        <h2 style="background-color: #8b0000; color: white; text-align: center; padding: 10px; border-radius: 5px; font-family: Arial, sans-serif; width: 300px; padding-left: 30px; margin-left: 400px;">Course Instructions</h2>
+        
+        <div style="margin-top: 20px; font-family: Arial, sans-serif;">
+            <ul style="font-size: 16px; line-height: 1.6; text-align: justify;">
+                <li>Make sure to have a stable internet connection throughout the course.</li>
+                <li>Complete the course modules in order, as each module builds on the previous one.</li>
+                <li>Take breaks when necessary to avoid fatigue, especially during lengthy modules.</li>
+                <li>Ensure you have access to a code editor for practical exercises.</li>
+                <li>Don't hesitate to revisit previous lessons if you're unsure about the content.</li>
+                <li>Ask questions in the experts talk section if you're having trouble with any topic.</li>
+                <li>If any resources needed go through the external resourcse section of dashboard .</li>
+            </ul>
+        </div>
+    </div>
+<br><br>
+    <div id="course-selection">
+        <div class="course-box" onclick="openCourse()">Dive into CSS Styling</div>
+    </div>
+    <div id="course-content" class="course-content">
+        <h2>CSS Modules</h2>
+        <div class="module" onclick="toggleModule(0)">CSS Basics</div>
+<div class="module-content">
+    <p>What is CSS?</p>
+    <p>CSS (Cascading Style Sheets) is used to style and layout web pages. CSS describes how HTML elements should be displayed.</p>
+
+    <p><strong>Basic CSS Syntax:</strong></p>
+    <p>A CSS rule consists of a selector and a declaration block.</p>
+
+    <div class="code-block">
+        selector {<br>
+        &nbsp;&nbsp;property: value;<br>
+        }
+    </div>
+    <p>Example:</p>
+    <div class="code-block">
+        p {<br>
+        &nbsp;&nbsp;color: blue;<br>
+        &nbsp;&nbsp;font-size: 16px;<br>
+        }
+    </div>
+    <p><strong>CSS Inclusion Methods:</strong></p>
+    <p>There are three main ways to include CSS in your HTML documents:</p>
+    <ul>
+        <li><strong>Inline CSS:</strong> Applying styles directly to HTML elements using the <code>style</code> attribute.</li>
+        <li><strong>Internal CSS:</strong> Embedding CSS within the <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> section of the HTML document.</li>
+        <li><strong>External CSS:</strong> Linking an external CSS file to the HTML document using the <code>&lt;link&gt;</code> tag in the <code>&lt;head&gt;</code> section.</li>
+    </ul>
+
+    <p><strong>Example of Internal CSS:</strong></p>
+    <div class="code-block">
+        &lt;head&gt;<br>
+        &nbsp;&nbsp;&lt;style&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;p {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color: green;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;&lt;/style&gt;<br>
+        &lt;/head&gt;
+    </div>
+
+    <p><strong>Example of External CSS:</strong></p>
+    <p>In your HTML file:</p>
+    <div class="code-block">
+        &lt;head&gt;<br>
+        &nbsp;&nbsp;&lt;link rel="stylesheet" href="styles.css"&gt;<br>
+        &lt;/head&gt;
+    </div>
+    <p>In your <code>styles.css</code> file:</p>
+    <div class="code-block">
+        p {<br>
+        &nbsp;&nbsp;color: purple;<br>
+        }
+    </div>
+
+    <p><strong>CSS Comments:</strong></p>
+    <p>You can add comments to your CSS code using <code>/* */</code>.</p>
+    <div class="code-block">
+        /* This is a CSS comment */<br>
+        p {<br>
+        &nbsp;&nbsp;color: orange;<br>
+        }
+    </div>
+</div><div class="module disabled" onclick="toggleModule(1)">CSS Syntax</div>
+<div class="module-content">
+    <p>Understanding CSS Syntax</p>
+    <p>CSS syntax is the set of rules that define how styles are applied to HTML elements. Each CSS rule consists of a selector and a declaration block.</p>
+
+    <p><strong>Basic CSS Rule Structure:</strong></p>
+    <div class="code-block">
+        selector {<br>
+        &nbsp;&nbsp;property: value;<br>
+        &nbsp;&nbsp;property: value;<br>
+        &nbsp;&nbsp;/* more declarations */<br>
+        }
+    </div>
+
+    <p><strong>Components:</strong></p>
+    <ul>
+        <li><strong>Selector:</strong> The HTML element(s) you want to style.</li>
+        <li><strong>Declaration Block:</strong> Enclosed in curly braces <code>{}</code>, contains one or more declarations separated by semicolons <code>;</code>.</li>
+        <li><strong>Property:</strong> The style attribute you want to change (e.g., <code>color</code>, <code>font-size</code>, <code>background-color</code>).</li>
+        <li><strong>Value:</strong> The style setting for the property (e.g., <code>red</code>, <code>16px</code>, <code>#ffffff</code>).</li>
+    </ul>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        p {<br>
+        &nbsp;&nbsp;color: blue;<br>
+        &nbsp;&nbsp;font-size: 18px;<br>
+        &nbsp;&nbsp;background-color: lightgray;<br>
+        }
+    </div>
+    <p>In this example:</p>
+    <ul>
+        <li><code>p</code> is the selector (all paragraph elements).</li>
+        <li>The block <code>{ color: blue; font-size: 18px; background-color: lightgray; }</code> is the declaration block.</li>
+        <li><code>color</code>, <code>font-size</code>, and <code>background-color</code> are the properties.</li>
+        <li><code>blue</code>, <code>18px</code>, and <code>lightgray</code> are the values.</li>
+    </ul>
+
+    <p><strong>Important Notes:</strong></p>
+    <ul>
+        <li>Always end each declaration with a semicolon <code>;</code>.</li>
+        <li>CSS is not case-sensitive for property names, but it's common practice to use lowercase.</li>
+        <li>Values, especially those that refer to HTML attributes, may be case-sensitive.</li>
+        <li>Comments in CSS are added using <code>/* comment */</code>.</li>
+    </ul>
+</div><div class="module disabled" onclick="toggleModule(2)">CSS Selectors</div>
+<div class="module-content">
+    <p>Understanding CSS Selectors</p>
+    <p>CSS selectors are patterns used to select the HTML elements you want to style. They are the first part of a CSS rule.</p>
+
+    <p><strong>Types of CSS Selectors:</strong></p>
+    <ul>
+        <li><strong>Element Selector (Type Selector):</strong> Selects elements based on their HTML tag name.</li>
+        <li><strong>ID Selector:</strong> Selects an element based on its unique <code>id</code> attribute.</li>
+        <li><strong>Class Selector:</strong> Selects elements based on their <code>class</code> attribute.</li>
+        <li><strong>Attribute Selector:</strong> Selects elements based on their attributes or attribute values.</li>
+        <li><strong>Universal Selector:</strong> Selects all elements on the page.</li>
+        <li><strong>Combinators:</strong> Select elements based on relationships between them.</li>
+            <ul>
+                <li><strong>Descendant Selector (space):</strong> Selects elements that are descendants of another element.</li>
+                <li><strong>Child Selector (&gt;):</strong> Selects elements that are direct children of another element.</li>
+                <li><strong>Adjacent Sibling Selector (+):</strong> Selects an element that is directly after another specified element.</li>
+                <li><strong>General Sibling Selector (~):</strong> Selects all sibling elements that follow after another specified element.</li>
+            </ul>
+        <li><strong>Pseudo-classes:</strong> Selects elements based on a certain state (e.g., hover, focus).</li>
+        <li><strong>Pseudo-elements:</strong> Selects a specific part of an element (e.g., the first line, before, after).</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        p { color: red; } /* Element Selector (paragraph) */<br>
+        #myId { background-color: yellow; } /* ID Selector */<br>
+        .myClass { font-weight: bold; } /* Class Selector */<br>
+        [type="text"] { border: 1px solid blue; } /* Attribute Selector */<br>
+        * { margin: 0; padding: 0; } /* Universal Selector */<br>
+        div p { font-size: 14px; } /* Descendant Selector */<br>
+        ul > li { list-style: none; } /* Child Selector */<br>
+        h1 + p { font-style: italic; } /* Adjacent Sibling Selector */<br>
+        h1 ~ p { text-decoration: underline; } /* General Sibling Selector */<br>
+        a:hover { color: green; } /* Pseudo-class (hover) */<br>
+        p::first-line { font-weight: bold; } /* Pseudo-element (first line) */
+    </div>
+
+    <p><strong>Selector Specificity:</strong></p>
+    <p>When multiple CSS rules apply to the same element, the browser uses specificity to determine which rule takes precedence. Specificity is calculated based on the types of selectors used.</p>
+    <ul>
+        <li>Inline styles have the highest specificity.</li>
+        <li>IDs have higher specificity than classes.</li>
+        <li>Classes have higher specificity than element selectors.</li>
+    </ul>
+
+    <p><strong>Importance of Selectors:</strong></p>
+    <p>Mastering CSS selectors is crucial for efficient and precise styling of web pages. They allow you to target the exact elements you want to style, leading to cleaner and more maintainable code.</p>
+</div><div class="module disabled" onclick="toggleModule(3)">CSS Comments</div>
+<div class="module-content">
+    <p>Understanding CSS Comments</p>
+    <p>Comments in CSS are used to explain parts of your code, making it more readable and understandable. They are ignored by the browser and do not affect the styling of your web page.</p>
+
+    <p><strong>Syntax for CSS Comments:</strong></p>
+    <p>CSS comments start with <code>/*</code> and end with <code>*/</code>. Anything between these delimiters is treated as a comment.</p>
+
+    <p><strong>Basic Structure:</strong></p>
+    <div class="code-block">
+        /* This is a single-line CSS comment */
+    </div>
+
+    <p><strong>Multi-line Comments:</strong></p>
+    <p>CSS comments can also span multiple lines.</p>
+    <div class="code-block">
+        /* This is a<br>
+        multi-line<br>
+        CSS comment */
+    </div>
+
+    <p><strong>Examples of Using Comments:</strong></p>
+    <p>1. Explaining sections of your CSS:</p>
+    <div class="code-block">
+        /* Header styles */<br>
+        header {<br>
+        &nbsp;&nbsp;background-color: #f0f0f0;<br>
+        &nbsp;&nbsp;padding: 20px;<br>
+        }<br><br>
+        /* Main content styles */<br>
+        main {<br>
+        &nbsp;&nbsp;width: 80%;<br>
+        &nbsp;&nbsp;margin: auto;<br>
+        }
+    </div>
+
+    <p>2. Temporarily disabling CSS rules:</p>
+    <div class="code-block">
+        /* p {<br>
+        &nbsp;&nbsp;color: blue;<br>
+        } */
+    </div>
+    <p>In this case, the paragraph text will not be blue because the rule is commented out.</p>
+
+    <p>3. Adding notes or reminders:</p>
+    <div class="code-block">
+        /* TODO: Add responsive styles for mobile */
+    </div>
+
+    <p><strong>Best Practices for Using Comments:</strong></p>
+    <ul>
+        <li><strong>Be Descriptive:</strong> Write clear and concise comments that explain the purpose of your code.</li>
+        <li><strong>Organize Your Code:</strong> Use comments to group related styles and create sections in your CSS.</li>
+        <li><strong>Avoid Over-commenting:</strong> Don't comment on every line of code. Focus on explaining complex logic or important sections.</li>
+        <li><strong>Keep Comments Updated:</strong> If you change your code, make sure to update the corresponding comments.</li>
+        <li><strong>Use Comments for Debugging:</strong> Temporarily comment out parts of your CSS to isolate and fix issues.</li>
+    </ul>
+
+    <p><strong>Importance of Comments:</strong></p>
+    <p>Comments are essential for maintaining and collaborating on CSS code. They help you and other developers understand the code, making it easier to modify and debug.</p>
+</div><div class="module disabled" onclick="toggleModule(4)">CSS Colors</div>
+<div class="module-content">
+    <p>Understanding CSS Colors</p>
+    <p>CSS provides several ways to specify colors for your web page elements. Colors can be used for text, backgrounds, borders, and more.</p>
+
+    <p><strong>Ways to Specify Colors:</strong></p>
+    <ul>
+        <li><strong>Color Names:</strong> Using predefined color names (e.g., <code>red</code>, <code>blue</code>, <code>green</code>).</li>
+        <li><strong>Hexadecimal (Hex) Values:</strong> Using a six-digit hexadecimal representation (e.g., <code>#FF0000</code> for red).</li>
+        <li><strong>RGB Values:</strong> Using the RGB (Red, Green, Blue) color model (e.g., <code>rgb(255, 0, 0)</code> for red).</li>
+        <li><strong>RGBA Values:</strong> RGB with an alpha channel for transparency (e.g., <code>rgba(255, 0, 0, 0.5)</code> for semi-transparent red).</li>
+        <li><strong>HSL Values:</strong> Using the HSL (Hue, Saturation, Lightness) color model (e.g., <code>hsl(0, 100%, 50%)</code> for red).</li>
+        <li><strong>HSLA Values:</strong> HSL with an alpha channel for transparency (e.g., <code>hsla(0, 100%, 50%, 0.5)</code> for semi-transparent red).</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        p {<br>
+        &nbsp;&nbsp;color: blue; /* Color name */<br>
+        &nbsp;&nbsp;background-color: #f0f0f0; /* Hexadecimal */<br>
+        }<br><br>
+        div {<br>
+        &nbsp;&nbsp;border: 1px solid rgb(255, 0, 0); /* RGB */<br>
+        &nbsp;&nbsp;color: rgba(0, 0, 255, 0.5); /* RGBA */<br>
+        }<br><br>
+        h1 {<br>
+        &nbsp;&nbsp;color: hsl(120, 100%, 50%); /* HSL */<br>
+        &nbsp;&nbsp;background-color: hsla(60, 100%, 50%, 0.3); /* HSLA */<br>
+        }
+    </div>
+
+    <p><strong>Color Names:</strong></p>
+    <p>CSS supports a set of predefined color names. While easy to use, the range of colors is limited.</p>
+
+    <p><strong>Hexadecimal (Hex) Values:</strong></p>
+    <p>Hex values represent colors using a six-digit hexadecimal number. The first two digits represent red, the next two green, and the last two blue. Each pair can range from 00 to FF (0 to 255 in decimal).</p>
+
+    <p><strong>RGB and RGBA Values:</strong></p>
+    <p>RGB values specify colors using the <code>rgb()</code> function with three values for red, green, and blue, each ranging from 0 to 255. RGBA adds an alpha value for transparency, ranging from 0 (fully transparent) to 1 (fully opaque).</p>
+
+    <p><strong>HSL and HSLA Values:</strong></p>
+    <p>HSL values specify colors using the <code>hsl()</code> function with hue (0-360), saturation (0-100%), and lightness (0-100%). HSLA adds an alpha value for transparency, similar to RGBA.</p>
+
+    <p><strong>Using Colors Effectively:</strong></p>
+    <ul>
+        <li><strong>Consistency:</strong> Use a consistent color palette across your website.</li>
+        <li><strong>Readability:</strong> Ensure sufficient contrast between text and background colors for readability.</li>
+        <li><strong>Accessibility:</strong> Consider color blindness and other visual impairments when choosing colors.</li>
+        <li><strong>Tools:</strong> Use color picker tools and online resources to find and generate color values.</li>
+    </ul>
+
+    <p><strong>Importance of Colors:</strong></p>
+    <p>Colors play a significant role in the visual appeal and user experience of a website. Understanding how to use CSS colors effectively is essential for creating attractive and accessible web pages.</p>
+</div><div class="module disabled" onclick="toggleModule(5)">CSS Borders, Margins, Height, and Width</div>
+<div class="module-content">
+    <p>Understanding CSS Borders, Margins, Height, and Width</p>
+    <p>These CSS properties are fundamental for controlling the layout and appearance of HTML elements. They define the dimensions and spacing of elements on a web page.</p>
+
+    <p><strong>CSS Borders:</strong></p>
+    <p>The <code>border</code> property allows you to specify the style, width, and color of an element's border.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        border: border-width border-style border-color;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;border: 2px solid red;<br>
+        }<br><br>
+        p {<br>
+        &nbsp;&nbsp;border-width: 1px;<br>
+        &nbsp;&nbsp;border-style: dashed;<br>
+        &nbsp;&nbsp;border-color: blue;<br>
+        }
+    </div>
+
+    <p><strong>CSS Margins:</strong></p>
+    <p>The <code>margin</code> property defines the space around an element, outside of any defined borders.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        margin: top right bottom left; /* Shorthand */<br>
+        margin-top: value;<br>
+        margin-right: value;<br>
+        margin-bottom: value;<br>
+        margin-left: value;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;margin: 20px 10px;<br>
+        }<br><br>
+        p {<br>
+        &nbsp;&nbsp;margin-top: 15px;<br>
+        &nbsp;&nbsp;margin-bottom: 30px;<br>
+        }
+    </div>
+
+    <p><strong>CSS Height and Width:</strong></p>
+    <p>The <code>height</code> and <code>width</code> properties define the dimensions of an element's content area.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        height: value;<br>
+        width: value;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;height: 200px;<br>
+        &nbsp;&nbsp;width: 300px;<br>
+        }<br><br>
+        img {<br>
+        &nbsp;&nbsp;width: 100%; /* Relative width */<br>
+        }
+    </div>
+
+    <p><strong>Units of Measurement:</strong></p>
+    <p>You can use various units for these properties, including:</p>
+    <ul>
+        <li><strong>Pixels (px):</strong> Fixed size in pixels.</li>
+        <li><strong>Percentages (%):</strong> Relative size based on the parent element.</li>
+        <li><strong>Em (em):</strong> Relative size based on the font size of the element.</li>
+        <li><strong>Viewport Width/Height (vw, vh):</strong> Relative size based on the viewport's dimensions.</li>
+    </ul>
+
+    <p><strong>Box Model:</strong></p>
+    <p>These properties are part of the CSS box model, which includes content, padding, border, and margin. Understanding the box model is crucial for precise layout control.</p>
+
+    <p><strong>Importance:</strong></p>
+    <p>Using borders, margins, height, and width effectively allows you to create well-structured and visually appealing web pages. They are essential for controlling the spacing and size of elements.</p>
+</div><div class="module disabled" onclick="toggleModule(6)">CSS Fonts, Font Size, and Weights</div>
+<div class="module-content">
+    <p>Understanding CSS Fonts, Font Size, and Weights</p>
+    <p>These CSS properties are used to style the text content of HTML elements, allowing you to control the appearance of your text.</p>
+
+    <p><strong>CSS Fonts:</strong></p>
+    <p>The <code>font-family</code> property specifies the font to be used for an element. You can specify multiple fonts as a fallback in case the first font is not available.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        font-family: font-name, fallback-font, generic-font;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        p {<br>
+        &nbsp;&nbsp;font-family: "Times New Roman", Times, serif;<br>
+        }<br><br>
+        h1 {<br>
+        &nbsp;&nbsp;font-family: Arial, Helvetica, sans-serif;<br>
+        }
+    </div>
+
+    <p><strong>Font Size:</strong></p>
+    <p>The <code>font-size</code> property specifies the size of the text. It can be defined in various units, such as pixels (px), em, rem, and percentages (%).</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        font-size: size;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        p {<br>
+        &nbsp;&nbsp;font-size: 16px;<br>
+        }<br><br>
+        h2 {<br>
+        &nbsp;&nbsp;font-size: 1.5em;<br>
+        }
+    </div>
+
+    <p><strong>Font Weights:</strong></p>
+    <p>The <code>font-weight</code> property specifies the boldness of the text. It can be defined using keywords like <code>normal</code>, <code>bold</code>, <code>lighter</code>, <code>bolder</code>, or numeric values from 100 to 900.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        font-weight: weight;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        p {<br>
+        &nbsp;&nbsp;font-weight: normal;<br>
+        }<br><br>
+        h1 {<br>
+        &nbsp;&nbsp;font-weight: bold;<br>
+        }<br><br>
+        strong {<br>
+            &nbsp;&nbsp;font-weight: 600;
+        }
+    </div>
+
+    <p><strong>Web Fonts:</strong></p>
+    <p>You can use web fonts to include custom fonts on your web page. Services like Google Fonts and Adobe Fonts provide a wide range of fonts that can be linked to your CSS.</p>
+
+    <p><strong>Example using Google Fonts:</strong></p>
+    <p>Include the link to the font in the <code>&lt;head&gt;</code> of your HTML:</p>
+    <div class="code-block">
+        &lt;link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"&gt;
+    </div>
+
+    <p>Then, use the font in your CSS:</p>
+    <div class="code-block">
+        body {<br>
+        &nbsp;&nbsp;font-family: 'Roboto', sans-serif;<br>
+        }
+    </div>
+
+    <p><strong>Importance:</strong></p>
+    <p>Using the right fonts, font sizes, and weights can significantly enhance the readability and visual appeal of your web page. It is essential for creating a professional and user-friendly design.</p>
+</div><div class="module disabled" onclick="toggleModule(7)">CSS Box Model</div>
+<div class="module-content">
+    <p>Understanding the CSS Box Model</p>
+    <p>The CSS box model is a fundamental concept in web design. It describes the rectangular boxes that are generated for elements in the document tree and laid out according to the visual formatting model. It essentially defines the space surrounding HTML elements.</p>
+
+    <p><strong>Components of the Box Model:</strong></p>
+    <ul>
+        <li><strong>Content:</strong> The content of the box, where text, images, and other elements appear.</li>
+        <li><strong>Padding:</strong> Clears an area around the content. The padding is transparent.</li>
+        <li><strong>Border:</strong> A border that goes around the padding and content.</li>
+        <li><strong>Margin:</strong> Clears an area outside the border. The margin is transparent.</li>
+    </ul>
+
+    <img src="assets/images/courcses/boxmodel.jpeg" alt="CSS Box Model" style="width: 300px; margin: 20px 0;">
+
+
+    <p><strong>Visual Representation:</strong></p>
+    <p>Imagine a box surrounding each HTML element. From the inside out, the box consists of:</p>
+    <ol>
+        <li>Content (text, images, etc.)</li>
+        <li>Padding (space around the content)</li>
+        <li>Border (a line around the padding and content)</li>
+        <li>Margin (space outside the border)</li>
+    </ol>
+
+    <p><strong>CSS Properties:</strong></p>
+    <p>You can control each component of the box model using CSS properties:</p>
+    <ul>
+        <li><code>width</code> and <code>height</code>: Set the size of the content area.</li>
+        <li><code>padding</code>: Sets the padding on all four sides of the element.</li>
+        <li><code>padding-top</code>, <code>padding-right</code>, <code>padding-bottom</code>, <code>padding-left</code>: Set padding for individual sides.</li>
+        <li><code>border</code>: Sets the border style, width, and color.</li>
+        <li><code>border-width</code>, <code>border-style</code>, <code>border-color</code>: Set individual border properties.</li>
+        <li><code>margin</code>: Sets the margin on all four sides of the element.</li>
+        <li><code>margin-top</code>, <code>margin-right</code>, <code>margin-bottom</code>, <code>margin-left</code>: Set margin for individual sides.</li>
+    </ul>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;width: 300px;<br>
+        &nbsp;&nbsp;padding: 25px;<br>
+        &nbsp;&nbsp;border: 10px solid black;<br>
+        &nbsp;&nbsp;margin: 25px;<br>
+        }
+    </div>
+
+    <p><strong>Box Sizing:</strong></p>
+    <p>The <code>box-sizing</code> property allows you to change how the width and height of an element are calculated. By default, <code>box-sizing: content-box;</code> means the width and height only apply to the content area. Setting <code>box-sizing: border-box;</code> includes padding and border in the width and height.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;width: 300px;<br>
+        &nbsp;&nbsp;padding: 25px;<br>
+        &nbsp;&nbsp;border: 10px solid black;<br>
+        &nbsp;&nbsp;box-sizing: border-box; /* Includes padding and border in width */<br>
+        }
+    </div>
+
+    <p><strong>Importance:</strong></p>
+    <p>Understanding the CSS box model is crucial for creating precise layouts and ensuring consistent spacing between elements. It helps you control the dimensions and positioning of elements on your web pages.</p>
+</div>
+<div class="module disabled" onclick="toggleModule(8)">CSS Links</div>
+<div class="module-content">
+    <p>Styling Links with CSS</p>
+    <p>CSS provides various properties to style links, allowing you to control their appearance and behavior.</p>
+
+    <p><strong>Basic Link Styling:</strong></p>
+    <p>Links are typically styled using the <code>&lt;a&gt;</code> (anchor) tag selector.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        a {<br>
+        &nbsp;&nbsp;color: blue;<br>
+        &nbsp;&nbsp;text-decoration: none; /* Removes underline */<br>
+        }
+    </div>
+
+    <p><strong>Pseudo-classes for Links:</strong></p>
+    <p>CSS provides pseudo-classes to style links based on their state:</p>
+    <ul>
+        <li><code>a:link</code> - Normal, unvisited links</li>
+        <li><code>a:visited</code> - Visited links</li>
+        <li><code>a:hover</code> - Links when you mouse over them</li>
+        <li><code>a:active</code> - Links when they are clicked</li>
+    </ul>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        a:link {<br>
+        &nbsp;&nbsp;color: green;<br>
+        }<br><br>
+        a:visited {<br>
+        &nbsp;&nbsp;color: purple;<br>
+        }<br><br>
+        a:hover {<br>
+        &nbsp;&nbsp;color: red;<br>
+        &nbsp;&nbsp;text-decoration: underline; /* Adds underline on hover */<br>
+        }<br><br>
+        a:active {<br>
+        &nbsp;&nbsp;color: orange;<br>
+        }
+    </div>
+
+    <p><strong>Order of Pseudo-classes:</strong></p>
+    <p>It's important to define the pseudo-classes in the correct order: <code>a:link</code>, <code>a:visited</code>, <code>a:hover</code>, <code>a:active</code> (LVHA). This ensures that the styles are applied correctly.</p>
+
+    <p><strong>Styling Link Backgrounds and Borders:</strong></p>
+    <p>You can also style the background and borders of links.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        a {<br>
+        &nbsp;&nbsp;background-color: lightyellow;<br>
+        &nbsp;&nbsp;padding: 5px 10px;<br>
+        &nbsp;&nbsp;border: 1px solid gray;<br>
+        &nbsp;&nbsp;border-radius: 5px; /* Rounded corners */<br>
+        }
+    </div>
+
+    <p><strong>Styling Buttons as Links:</strong></p>
+    <p>Links can be styled to look like buttons.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        a.button {<br>
+        &nbsp;&nbsp;background-color: #4CAF50; /* Green */<br>
+        &nbsp;&nbsp;color: white;<br>
+        &nbsp;&nbsp;padding: 10px 20px;<br>
+        &nbsp;&nbsp;text-align: center;<br>
+        &nbsp;&nbsp;text-decoration: none;<br>
+        &nbsp;&nbsp;display: inline-block;<br>
+        &nbsp;&nbsp;font-size: 16px;<br>
+        &nbsp;&nbsp;border-radius: 8px;<br>
+        }<br><br>
+        a.button:hover {<br>
+        &nbsp;&nbsp;background-color: #3e8e41; /* Darker green */<br>
+        }
+    </div>
+
+    <p><strong>Importance:</strong></p>
+    <p>Styling links effectively enhances the user experience by providing visual cues and feedback. It improves navigation and makes your web pages more interactive and user-friendly.</p>
+</div><div class="module disabled" onclick="toggleModule(9)">CSS Lists</div>
+<div class="module-content">
+    <p>Styling Lists with CSS</p>
+    <p>CSS provides properties to style unordered lists (<code>&lt;ul&gt;</code>) and ordered lists (<code>&lt;ol&gt;</code>) in various ways.</p>
+
+    <p><strong>Basic List Styling:</strong></p>
+    <p>You can style lists by targeting the <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, and <code>&lt;li&gt;</code> elements.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        ul, ol {<br>
+        &nbsp;&nbsp;list-style-type: none; /* Remove default list markers */<br>
+        &nbsp;&nbsp;padding: 0;<br>
+        &nbsp;&nbsp;margin: 0;<br>
+        }<br><br>
+        li {<br>
+        &nbsp;&nbsp;margin-bottom: 5px;<br>
+        }
+    </div>
+
+    <p><strong>List Style Type:</strong></p>
+    <p>The <code>list-style-type</code> property specifies the type of list marker. For unordered lists, it can be <code>disc</code>, <code>circle</code>, <code>square</code>, or <code>none</code>. For ordered lists, it can be <code>decimal</code>, <code>lower-alpha</code>, <code>upper-alpha</code>, <code>lower-roman</code>, <code>upper-roman</code>, or <code>none</code>.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        ul {<br>
+        &nbsp;&nbsp;list-style-type: square;<br>
+        }<br><br>
+        ol {<br>
+        &nbsp;&nbsp;list-style-type: lower-alpha;<br>
+        }
+    </div>
+
+    <p><strong>List Style Image:</strong></p>
+    <p>The <code>list-style-image</code> property allows you to use an image as the list marker.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        ul {<br>
+        &nbsp;&nbsp;list-style-image: url('bullet.png');<br>
+        }
+    </div>
+
+    <p><strong>List Style Position:</strong></p>
+    <p>The <code>list-style-position</code> property specifies the position of the list marker. It can be <code>inside</code> or <code>outside</code>.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        ul {<br>
+        &nbsp;&nbsp;list-style-position: inside;<br>
+        }
+    </div>
+
+    <p><strong>Styling List Items:</strong></p>
+    <p>You can style individual list items (<code>&lt;li&gt;</code>) using CSS.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        li {<br>
+        &nbsp;&nbsp;background-color: #f0f0f0;<br>
+        &nbsp;&nbsp;padding: 10px;<br>
+        &nbsp;&nbsp;border-bottom: 1px solid #ddd;<br>
+        }
+    </div>
+
+    <p><strong>Horizontal Lists:</strong></p>
+    <p>You can create horizontal lists by using the <code>display</code> property.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        ul.horizontal {<br>
+        &nbsp;&nbsp;list-style-type: none;<br>
+        &nbsp;&nbsp;margin: 0;<br>
+        &nbsp;&nbsp;padding: 0;<br>
+        &nbsp;&nbsp;overflow: hidden;<br>
+        &nbsp;&nbsp;background-color: #333;<br>
+        }<br><br>
+        ul.horizontal li {<br>
+        &nbsp;&nbsp;float: left;<br>
+        }<br><br>
+        ul.horizontal li a {<br>
+        &nbsp;&nbsp;display: block;<br>
+        &nbsp;&nbsp;color: white;<br>
+        &nbsp;&nbsp;text-align: center;<br>
+        &nbsp;&nbsp;padding: 14px 16px;<br>
+        &nbsp;&nbsp;text-decoration: none;<br>
+        }<br><br>
+        ul.horizontal li a:hover {<br>
+        &nbsp;&nbsp;background-color: #111;<br>
+        }
+    </div>
+
+    <p><strong>Importance:</strong></p>
+    <p>Styling lists effectively enhances the presentation of data and navigation menus on your web pages. It improves the user experience by making information more organized and accessible.</p>
+</div><div class="module disabled" onclick="toggleModule(10)">CSS Tables</div>
+<div class="module-content">
+    <p>Styling Tables with CSS</p>
+    <p>CSS provides properties to style HTML tables, allowing you to control their appearance and layout.</p>
+
+    <p><strong>Basic Table Styling:</strong></p>
+    <p>You can style tables by targeting the <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code> (table row), <code>&lt;th&gt;</code> (table header), and <code>&lt;td&gt;</code> (table data) elements.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        table {<br>
+        &nbsp;&nbsp;width: 100%;<br>
+        &nbsp;&nbsp;border-collapse: collapse; /* Single border */<br>
+        }<br><br>
+        th, td {<br>
+        &nbsp;&nbsp;border: 1px solid #ddd;<br>
+        &nbsp;&nbsp;padding: 8px;<br>
+        &nbsp;&nbsp;text-align: left;<br>
+        }
+    </div>
+
+    <p><strong>Table Borders:</strong></p>
+    <p>You can control the borders of the table and its cells using the <code>border</code> property. The <code>border-collapse</code> property controls whether table borders should collapse into a single border.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        table {<br>
+        &nbsp;&nbsp;border-collapse: collapse;<br>
+        }<br><br>
+        th, td {<br>
+        &nbsp;&nbsp;border: 1px solid black;<br>
+        }
+    </div>
+
+    <p><strong>Table Headers:</strong></p>
+    <p>You can style table headers using the <code>&lt;th&gt;</code> element.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        th {<br>
+        &nbsp;&nbsp;background-color: #f2f2f2;<br>
+        &nbsp;&nbsp;font-weight: bold;<br>
+        }
+    </div>
+
+    <p><strong>Table Rows:</strong></p>
+    <p>You can style table rows using the <code>&lt;tr&gt;</code> element. You can also use the <code>:nth-child</code> pseudo-class to style alternating rows.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        tr:nth-child(even) {<br>
+        &nbsp;&nbsp;background-color: #f9f9f9;<br>
+        }
+    </div>
+
+    <p><strong>Table Cells:</strong></p>
+    <p>You can style table cells using the <code>&lt;td&gt;</code> element. You can also control the alignment of text within cells using the <code>text-align</code> property.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        td {<br>
+        &nbsp;&nbsp;padding: 10px;<br>
+        &nbsp;&nbsp;text-align: center;<br>
+        }
+    </div>
+
+    <p><strong>Table Captions:</strong></p>
+    <p>You can add a caption to a table using the <code>&lt;caption&gt;</code> element and style it with CSS.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        caption {<br>
+        &nbsp;&nbsp;caption-side: bottom;<br>
+        &nbsp;&nbsp;text-align: center;<br>
+        &nbsp;&nbsp;font-style: italic;<br>
+        &nbsp;&nbsp;margin-top: 10px;<br>
+        }
+    </div>
+
+    <p><strong>Responsive Tables:</strong></p>
+    <p>For responsive design, you can use CSS to make tables scroll horizontally on smaller screens.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        div.table-container {<br>
+        &nbsp;&nbsp;overflow-x: auto;<br>
+        }<br><br>
+        div.table-container table {<br>
+        &nbsp;&nbsp;min-width: 600px; /* Adjust as needed */<br>
+        }
+    </div>
+
+    <p><strong>Importance:</strong></p>
+    <p>Styling tables effectively enhances the presentation of tabular data on your web pages. It improves readability and makes your content more organized and accessible.</p>
+</div><div class="module disabled" onclick="toggleModule(11)">CSS Display and Max-Width</div>
+<div class="module-content">
+    <p>Understanding CSS Display and Max-Width Properties</p>
+    <p>These CSS properties are crucial for controlling the layout and responsiveness of web page elements.</p>
+
+    <p><strong>CSS Display Property:</strong></p>
+    <p>The <code>display</code> property specifies the type of box used for an HTML element. It is fundamental for layout control.</p>
+
+    <p><strong>Common Values:</strong></p>
+    <ul>
+        <li><code>block</code>: Elements take up the full width available and start on a new line.</li>
+        <li><code>inline</code>: Elements only take up as much width as necessary and do not start on a new line.</li>
+        <li><code>inline-block</code>: Elements are like inline elements, but they can have width and height.</li>
+        <li><code>none</code>: Elements are not displayed and do not take up space.</li>
+        <li><code>flex</code>: Enables flexbox layout.</li>
+        <li><code>grid</code>: Enables grid layout.</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;display: block;<br>
+        &nbsp;&nbsp;width: 50%;<br>
+        }<br><br>
+        span {<br>
+        &nbsp;&nbsp;display: inline;<br>
+        }<br><br>
+        button {<br>
+        &nbsp;&nbsp;display: inline-block;<br>
+        &nbsp;&nbsp;width: 100px;<br>
+        &nbsp;&nbsp;height: 40px;<br>
+        }
+    </div>
+
+    <p><strong>Max-Width Property:</strong></p>
+    <p>The <code>max-width</code> property specifies the maximum width of an element. It prevents the element from becoming wider than the specified value.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        max-width: length | percentage | none;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        img {<br>
+        &nbsp;&nbsp;max-width: 100%; /* Makes images responsive */<br>
+        &nbsp;&nbsp;height: auto;<br>
+        }<br><br>
+        div {<br>
+        &nbsp;&nbsp;max-width: 800px;<br>
+        &nbsp;&nbsp;margin: 0 auto; /* Centers the div */<br>
+        }
+    </div>
+
+    <p><strong>Responsive Images:</strong></p>
+    <p>Using <code>max-width: 100%;</code> with <code>height: auto;</code> for images makes them scale down proportionally when the viewport is smaller than the image's original width.</p>
+
+    <p><strong>Centering Elements:</strong></p>
+    <p>Setting <code>max-width</code> and <code>margin: 0 auto;</code> on a block-level element centers it horizontally within its parent container.</p>
+
+    <p><strong>Importance:</strong></p>
+    <p>The <code>display</code> property is fundamental for controlling the layout and flow of elements. The <code>max-width</code> property is essential for creating responsive designs, ensuring that elements adapt gracefully to different screen sizes. Using these properties effectively enhances the user experience by making your web pages more flexible and accessible.</p>
+</div><div class="module disabled" onclick="toggleModule(12)">CSS Positioning and Z-Index</div>
+<div class="module-content">
+    <p>Understanding CSS Positioning and Z-Index</p>
+    <p>These CSS properties are used to control the layout and stacking order of elements on a web page.</p>
+
+    <p><strong>CSS Positioning:</strong></p>
+    <p>The <code>position</code> property specifies the type of positioning method used for an element. It determines how an element is placed within its parent or the viewport.</p>
+
+    <p><strong>Common Values:</strong></p>
+    <ul>
+        <li><code>static</code>: Default value. Elements are positioned according to the normal flow of the document.</li>
+        <li><code>relative</code>: Elements are positioned relative to their normal position. Setting top, right, bottom, and left properties will move the element from its normal position.</li>
+        <li><code>absolute</code>: Elements are positioned relative to their nearest positioned ancestor (instead of positioned relative to the viewport, like fixed).</li>
+        <li><code>fixed</code>: Elements are positioned relative to the viewport, meaning they always stay in the same place even if the page is scrolled.</li>
+        <li><code>sticky</code>: Elements are positioned based on the user's scroll position.</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;position: relative;<br>
+        &nbsp;&nbsp;top: 20px;<br>
+        &nbsp;&nbsp;left: 30px;<br>
+        }<br><br>
+        .absolute-element {<br>
+        &nbsp;&nbsp;position: absolute;<br>
+        &nbsp;&nbsp;top: 50px;<br>
+        &nbsp;&nbsp;right: 20px;<br>
+        }<br><br>
+        .fixed-element {<br>
+        &nbsp;&nbsp;position: fixed;<br>
+        &nbsp;&nbsp;bottom: 10px;<br>
+        &nbsp;&nbsp;left: 10px;<br>
+        }
+    </div>
+
+    <p><strong>Z-Index Property:</strong></p>
+    <p>The <code>z-index</code> property specifies the stack order of an element. An element with a higher <code>z-index</code> value will be displayed in front of an element with a lower <code>z-index</code> value.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        z-index: number | auto;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        .overlay {<br>
+        &nbsp;&nbsp;position: absolute;<br>
+        &nbsp;&nbsp;z-index: 10;<br>
+        &nbsp;&nbsp;background-color: rgba(0, 0, 0, 0.5);<br>
+        }<br><br>
+        .modal {<br>
+        &nbsp;&nbsp;position: absolute;<br>
+        &nbsp;&nbsp;z-index: 20;<br>
+        &nbsp;&nbsp;background-color: white;<br>
+        }
+    </div>
+
+    <p><strong>Positioned Elements and Z-Index:</strong></p>
+    <p>The <code>z-index</code> property only works on positioned elements (elements with a <code>position</code> value other than <code>static</code>). Elements with <code>position: static;</code> ignore the <code>z-index</code> property.</p>
+
+    <p><strong>Stacking Context:</strong></p>
+    <p>When elements have a <code>z-index</code>, they create a stacking context. This means that child elements within the stacking context are stacked relative to their parent.</p>
+
+    <p><strong>Importance:</strong></p>
+    <p>CSS positioning allows you to control the placement of elements on your web page, enabling you to create complex layouts. The <code>z-index</code> property is essential for managing the stacking order of elements, ensuring that they appear in the correct order. Understanding these properties is crucial for creating precise and visually appealing web designs.</p>
+</div><div class="module disabled" onclick="toggleModule(13)">CSS Opacity and Transparency</div>
+<div class="module-content">
+    <p>Understanding CSS Opacity and Transparency</p>
+    <p>CSS provides properties to control the transparency of elements, allowing you to create various visual effects.</p>
+
+    <p><strong>CSS Opacity Property:</strong></p>
+    <p>The <code>opacity</code> property specifies the transparency of an element. It affects the entire element, including its content and background.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        opacity: number;
+    </div>
+
+    <p><strong>Values:</strong></p>
+    <ul>
+        <li><code>0</code>: Fully transparent.</li>
+        <li><code>1</code>: Fully opaque.</li>
+        <li>Values between 0 and 1: Partially transparent.</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;opacity: 0.5; /* 50% transparency */<br>
+        }<br><br>
+        img:hover {<br>
+        &nbsp;&nbsp;opacity: 0.8; /* Slightly transparent on hover */<br>
+        }
+    </div>
+
+    <p><strong>CSS Transparency with RGBA and HSLA:</strong></p>
+    <p>You can also control transparency using the alpha channel in <code>rgba()</code> and <code>hsla()</code> color values. This allows you to make the background color transparent without affecting the content.</p>
+
+    <p><strong>RGBA Example:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;background-color: rgba(255, 0, 0, 0.5); /* Semi-transparent red background */<br>
+        }
+    </div>
+
+    <p><strong>HSLA Example:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;background-color: hsla(120, 100%, 50%, 0.3); /* Semi-transparent green background */<br>
+        }
+    </div>
+
+    <p><strong>Differences between Opacity and RGBA/HSLA:</strong></p>
+    <ul>
+        <li><code>opacity</code>: Affects the entire element, including its content.</li>
+        <li><code>rgba()</code> and <code>hsla()</code>: Only affect the background color, leaving the content opaque.</li>
+    </ul>
+
+    <p><strong>Using Transparency Effectively:</strong></p>
+    <ul>
+        <li><strong>Overlays:</strong> Use semi-transparent backgrounds to create overlays for images or videos.</li>
+        <li><strong>Hover Effects:</strong> Apply subtle transparency changes on hover to provide visual feedback.</li>
+        <li><strong>Subtle Backgrounds:</strong> Use transparent backgrounds to create depth and layering effects.</li>
+        <li><strong>Text Readability:</strong> Ensure sufficient contrast between transparent elements and text for readability.</li>
+    </ul>
+
+    <p><strong>Importance:</strong></p>
+    <p>Opacity and transparency are essential for creating visually appealing and interactive web designs. They allow you to add depth, layering, and subtle effects to your elements, enhancing the user experience.</p>
+</div><div class="module disabled" onclick="toggleModule(14)">CSS Flexbox</div>
+<div class="module-content">
+    <p>Understanding CSS Flexbox</p>
+    <p>CSS Flexbox (Flexible Box Layout) is a powerful layout model that provides an efficient way to arrange, align, and distribute space among items in a container, even when their size is unknown or dynamic.</p>
+
+    <p><strong>Flex Container and Flex Items:</strong></p>
+    <p>To use flexbox, you need a flex container and flex items:</p>
+    <ul>
+        <li><strong>Flex Container:</strong> The parent element that contains the flex items. It is created by setting <code>display: flex;</code> or <code>display: inline-flex;</code>.</li>
+        <li><strong>Flex Items:</strong> The child elements within the flex container.</li>
+    </ul>
+
+    <p><strong>Creating a Flex Container:</strong></p>
+    <div class="code-block">
+        .flex-container {<br>
+        &nbsp;&nbsp;display: flex;<br>
+        }
+    </div>
+
+    <p><strong>Flex Container Properties:</strong></p>
+    <ul>
+        <li><code>flex-direction</code>: Specifies the direction of the flex items (row or column).</li>
+        <li><code>flex-wrap</code>: Specifies whether the flex items should wrap onto multiple lines.</li>
+        <li><code>flex-flow</code>: Shorthand for <code>flex-direction</code> and <code>flex-wrap</code>.</li>
+        <li><code>justify-content</code>: Aligns flex items along the main axis.</li>
+        <li><code>align-items</code>: Aligns flex items along the cross axis.</li>
+        <li><code>align-content</code>: Aligns flex lines when there is extra space in the cross axis.</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        .flex-container {<br>
+        &nbsp;&nbsp;display: flex;<br>
+        &nbsp;&nbsp;flex-direction: row; /* Default */<br>
+        &nbsp;&nbsp;justify-content: space-around;<br>
+        &nbsp;&nbsp;align-items: center;<br>
+        }
+    </div>
+
+    <p><strong>Flex Item Properties:</strong></p>
+    <ul>
+        <li><code>order</code>: Specifies the order of the flex items.</li>
+        <li><code>flex-grow</code>: Specifies how much a flex item will grow relative to the other flex items.</li>
+        <li><code>flex-shrink</code>: Specifies how much a flex item will shrink relative to the other flex items.</li>
+        <li><code>flex-basis</code>: Specifies the initial length of a flex item.</li>
+        <li><code>flex</code>: Shorthand for <code>flex-grow</code>, <code>flex-shrink</code>, and <code>flex-basis</code>.</li>
+        <li><code>align-self</code>: Aligns a single flex item along the cross axis.</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        .flex-item {<br>
+        &nbsp;&nbsp;flex: 1; /* Equal distribution of space */<br>
+        &nbsp;&nbsp;order: 2; /* Change item order */<br>
+        }
+    </div>
+
+    <p><strong>Main Axis and Cross Axis:</strong></p>
+    <ul>
+        <li><strong>Main Axis:</strong> The direction in which flex items are placed (horizontal for row, vertical for column).</li>
+        <li><strong>Cross Axis:</strong> The axis perpendicular to the main axis.</li>
+    </ul>
+
+    <p><strong>Justify-Content:</strong></p>
+    <p>Aligns flex items along the main axis:</p>
+    <ul>
+        <li><code>flex-start</code>: Items are packed toward the start line.</li>
+        <li><code>flex-end</code>: Items are packed toward the end line.</li>
+        <li><code>center</code>: Items are centered along the line.</li>
+        <li><code>space-between</code>: Items are evenly distributed in the line; first item is on the start line, last item on the end line.</li>
+        <li><code>space-around</code>: Items are evenly distributed in the line with equal space around them.</li>
+        <li><code>space-evenly</code>: Items are evenly distributed in the line with equal space around them.</li>
+    </ul>
+
+    <p><strong>Align-Items:</strong></p>
+    <p>Aligns flex items along the cross axis:</p>
+    <ul>
+        <li><code>flex-start</code>: Items are placed at the start of the cross axis.</li>
+        <li><code>flex-end</code>: Items are placed at the end of the cross axis.</li>
+        <li><code>center</code>: Items are centered in the cross axis.</li>
+        <li><code>baseline</code>: Items are aligned such that their baselines align.</li>
+        <li><code>stretch</code>: Items are stretched to fit the container (default).</li>
+    </ul>
+
+    <p><strong>Importance:</strong></p>
+    <p>Flexbox simplifies the creation of complex layouts and makes web pages more responsive. It provides powerful tools for aligning and distributing space among elements, making it an essential part of modern web development.</p>
+</div><div class="module disabled" onclick="toggleModule(15)">CSS Grid Layout</div>
+<div class="module-content">
+    <p>Understanding CSS Grid Layout</p>
+    <p>CSS Grid Layout is a powerful two-dimensional layout system that allows you to create complex and responsive web page layouts. It provides precise control over the placement of elements in rows and columns.</p>
+
+    <p><strong>Grid Container and Grid Items:</strong></p>
+    <p>To use grid layout, you need a grid container and grid items:</p>
+    <ul>
+        <li><strong>Grid Container:</strong> The parent element that contains the grid items. It is created by setting <code>display: grid;</code> or <code>display: inline-grid;</code>.</li>
+        <li><strong>Grid Items:</strong> The child elements within the grid container.</li>
+    </ul>
+
+    <p><strong>Creating a Grid Container:</strong></p>
+    <div class="code-block">
+        .grid-container {<br>
+        &nbsp;&nbsp;display: grid;<br>
+        }
+    </div>
+
+    <p><strong>Grid Container Properties:</strong></p>
+    <ul>
+        <li><code>grid-template-rows</code>: Specifies the height of the rows.</li>
+        <li><code>grid-template-columns</code>: Specifies the width of the columns.</li>
+        <li><code>grid-template-areas</code>: Specifies named grid areas.</li>
+        <li><code>grid-gap</code>: Specifies the gap between rows and columns.</li>
+        <li><code>row-gap</code>: Specifies the gap between rows.</li>
+        <li><code>column-gap</code>: Specifies the gap between columns.</li>
+        <li><code>justify-items</code>: Aligns grid items along the inline (row) axis.</li>
+        <li><code>align-items</code>: Aligns grid items along the block (column) axis.</li>
+        <li><code>justify-content</code>: Aligns the grid within the container along the inline (row) axis.</li>
+        <li><code>align-content</code>: Aligns the grid within the container along the block (column) axis.</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        .grid-container {<br>
+        &nbsp;&nbsp;display: grid;<br>
+        &nbsp;&nbsp;grid-template-columns: 1fr 2fr 1fr; /* Three columns */<br>
+        &nbsp;&nbsp;grid-template-rows: auto 100px auto; /* Three rows */<br>
+        &nbsp;&nbsp;grid-gap: 10px;<br>
+        }
+    </div>
+
+    <p><strong>Grid Item Properties:</strong></p>
+    <ul>
+        <li><code>grid-row-start</code>: Specifies where a grid item starts in a row.</li>
+        <li><code>grid-row-end</code>: Specifies where a grid item ends in a row.</li>
+        <li><code>grid-column-start</code>: Specifies where a grid item starts in a column.</li>
+        <li><code>grid-column-end</code>: Specifies where a grid item ends in a column.</li>
+        <li><code>grid-area</code>: Specifies a grid item's size and location within a grid layout.</li>
+        <li><code>justify-self</code>: Aligns a grid item along the inline (row) axis.</li>
+        <li><code>align-self</code>: Aligns a grid item along the block (column) axis.</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        .grid-item {<br>
+        &nbsp;&nbsp;grid-column: 1 / 3; /* Spans from column 1 to 3 */<br>
+        &nbsp;&nbsp;grid-row: 2; /* In row 2 */<br>
+        }
+    </div>
+
+    <p><strong>Grid Template Areas:</strong></p>
+    <p>You can define named grid areas and place grid items within those areas using the <code>grid-template-areas</code> property.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        .grid-container {<br>
+        &nbsp;&nbsp;display: grid;<br>
+        &nbsp;&nbsp;grid-template-areas:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;'header header header'<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;'sidebar main main'<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;'footer footer footer';<br>
+        &nbsp;&nbsp;grid-template-columns: 1fr 3fr 1fr;<br>
+        &nbsp;&nbsp;grid-gap: 10px;<br>
+        }<br><br>
+        .header { grid-area: header; }<br>
+        .sidebar { grid-area: sidebar; }<br>
+        .main { grid-area: main; }<br>
+        .footer { grid-area: footer; }
+    </div>
+
+    <p><strong>Fr Unit:</strong></p>
+    <p>The <code>fr</code> unit represents a fraction of the available space in the grid container. It allows you to create flexible and responsive layouts.</p>
+
+    <p><strong>Importance:</strong></p>
+    <p>CSS Grid Layout is a powerful tool for creating complex and responsive web page layouts. It provides precise control over the placement of elements and simplifies the creation of two-dimensional layouts, making it an essential part of modern web development.</p>
+</div><div class="module disabled" onclick="toggleModule(16)">CSS Responsive UI</div>
+<div class="module-content">
+    <p>Understanding CSS Responsive UI</p>
+    <p>Creating responsive user interfaces (UI) is crucial for ensuring your website looks and functions well on various devices and screen sizes. CSS provides several tools and techniques to achieve this.</p>
+
+    <p><strong>Viewport Meta Tag:</strong></p>
+    <p>The viewport meta tag is essential for controlling the layout on mobile devices. It tells the browser how to control the page's dimensions and scaling.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    </div>
+    <p>This tag sets the viewport's width to the device's width and the initial zoom level to 1.0.</p>
+
+    <p><strong>Media Queries:</strong></p>
+    <p>Media queries allow you to apply different CSS rules based on the characteristics of the device, such as screen width, height, and orientation.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        @media (media-type) and (media-feature) {<br>
+        &nbsp;&nbsp;/* CSS rules */<br>
+        }
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        /* For screens with a maximum width of 600px */<br>
+        @media (max-width: 600px) {<br>
+        &nbsp;&nbsp;body {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;font-size: 14px;<br>
+        &nbsp;&nbsp;}<br>
+        }<br><br>
+        /* For screens with a minimum width of 768px */<br>
+        @media (min-width: 768px) {<br>
+        &nbsp;&nbsp;.container {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;width: 70%;<br>
+        &nbsp;&nbsp;}<br>
+        }
+    </div>
+
+    <p><strong>Flexible Grid Layouts:</strong></p>
+    <p>Using percentages and the <code>fr</code> unit for grid layouts allows you to create flexible layouts that adapt to different screen sizes.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        .grid-container {<br>
+        &nbsp;&nbsp;display: grid;<br>
+        &nbsp;&nbsp;grid-template-columns: 1fr 2fr 1fr;<br>
+        &nbsp;&nbsp;grid-gap: 10px;<br>
+        }
+    </div>
+
+    <p><strong>Responsive Images:</strong></p>
+    <p>Using <code>max-width: 100%;</code> and <code>height: auto;</code> for images ensures they scale down proportionally on smaller screens.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        img {<br>
+        &nbsp;&nbsp;max-width: 100%;<br>
+        &nbsp;&nbsp;height: auto;<br>
+        }
+    </div>
+
+    <p><strong>Flexible Box Layout (Flexbox):</strong></p>
+    <p>Flexbox is excellent for creating responsive layouts that adapt to different screen sizes. It allows you to align and distribute space among items in a container easily.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        .flex-container {<br>
+        &nbsp;&nbsp;display: flex;<br>
+        &nbsp;&nbsp;flex-wrap: wrap; /* Allows items to wrap onto multiple lines */<br>
+        &nbsp;&nbsp;justify-content: space-around;<br>
+        }
+    </div>
+
+    <p><strong>Using Relative Units:</strong></p>
+    <p>Using relative units like <code>em</code>, <code>rem</code>, and <code>vw</code> allows elements to scale proportionally with the screen size.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        p {<br>
+        &nbsp;&nbsp;font-size: 1.2rem; /* Relative to the root element's font-size */<br>
+        }<br><br>
+        div {<br>
+        &nbsp;&nbsp;width: 80vw; /* 80% of the viewport width */<br>
+        }
+    </div>
+
+    <p><strong>Importance:</strong></p>
+    <p>Creating responsive UIs ensures that your website provides a consistent and optimal user experience across various devices. It is essential for reaching a broader audience and improving accessibility.</p>
+</div><div class="module disabled" onclick="toggleModule(17)">CSS Transitions</div>
+<div class="module-content">
+    <p>Understanding CSS Transitions</p>
+    <p>CSS transitions allow you to animate changes in CSS properties smoothly over a specified duration. They provide a way to create engaging and interactive user interfaces.</p>
+
+    <p><strong>Basic Transition Properties:</strong></p>
+    <ul>
+        <li><code>transition-property</code>: Specifies the CSS property to which the transition effect should be applied.</li>
+        <li><code>transition-duration</code>: Specifies the duration of the transition effect.</li>
+        <li><code>transition-timing-function</code>: Specifies the speed curve of the transition effect.</li>
+        <li><code>transition-delay</code>: Specifies a delay for the start of the transition effect.</li>
+        <li><code>transition</code>: Shorthand property for setting all transition properties.</li>
+    </ul>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        transition: property duration timing-function delay;
+    </div>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;width: 100px;<br>
+        &nbsp;&nbsp;height: 100px;<br>
+        &nbsp;&nbsp;background-color: red;<br>
+        &nbsp;&nbsp;transition: width 2s, background-color 2s;<br>
+        }<br><br>
+        div:hover {<br>
+        &nbsp;&nbsp;width: 300px;<br>
+        &nbsp;&nbsp;background-color: blue;<br>
+        }
+    </div>
+
+    <p><strong>Transition Property:</strong></p>
+    <p>Specifies the CSS properties to transition. You can transition multiple properties by separating them with commas.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        transition-property: width, background-color, transform;
+    </div>
+
+    <p><strong>Transition Duration:</strong></p>
+    <p>Specifies the duration of the transition effect in seconds (s) or milliseconds (ms).</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        transition-duration: 2s; /* 2 seconds */<br>
+        transition-duration: 500ms; /* 500 milliseconds */
+    </div>
+
+    <p><strong>Transition Timing Function:</strong></p>
+    <p>Specifies the speed curve of the transition effect. Common values include:</p>
+    <ul>
+        <li><code>ease</code>: Default value. Slow start, fast middle, slow end.</li>
+        <li><code>linear</code>: Constant speed.</li>
+        <li><code>ease-in</code>: Slow start.</li>
+        <li><code>ease-out</code>: Slow end.</li>
+        <li><code>ease-in-out</code>: Slow start and end.</li>
+        <li><code>cubic-bezier(n, n, n, n)</code>: Custom speed curve.</li>
+    </ul>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        transition-timing-function: ease-in-out;
+    </div>
+
+    <p><strong>Transition Delay:</strong></p>
+    <p>Specifies a delay for the start of the transition effect in seconds (s) or milliseconds (ms).</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        transition-delay: 1s; /* 1 second delay */
+    </div>
+
+    <p><strong>Shorthand Property:</strong></p>
+    <p>The <code>transition</code> shorthand property allows you to set all transition properties in a single declaration.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        transition: width 2s ease-in-out 0.5s;
+    </div>
+
+    <p><strong>Importance:</strong></p>
+    <p>CSS transitions enhance the user experience by providing smooth animations for changes in CSS properties. They make web pages more interactive and visually appealing, improving engagement and usability.</p>
+</div><div class="module disabled" onclick="toggleModule(18)">CSS Animations</div>
+<div class="module-content">
+    <p>Understanding CSS Animations</p>
+    <p>CSS animations allow you to create complex animations on HTML elements without using JavaScript. They provide more control over the animation sequence compared to CSS transitions.</p>
+
+    <p><strong>Keyframes:</strong></p>
+    <p>Animations are defined using keyframes, which specify the styles at different points in the animation sequence.</p>
+
+    <p><strong>Syntax:</strong></p>
+    <div class="code-block">
+        @keyframes animation-name {<br>
+        &nbsp;&nbsp;0% { /* Initial state */<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;/* CSS properties */<br>
+        &nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;50% { /* Intermediate state */<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;/* CSS properties */<br>
+        &nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;100% { /* Final state */<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;/* CSS properties */<br>
+        &nbsp;&nbsp;}<br>
+        }
+    </div>
+
+    <p><strong>Animation Properties:</strong></p>
+    <ul>
+        <li><code>animation-name</code>: Specifies the name of the <code>@keyframes</code> animation.</li>
+        <li><code>animation-duration</code>: Specifies the duration of the animation.</li>
+        <li><code>animation-timing-function</code>: Specifies the speed curve of the animation.</li>
+        <li><code>animation-delay</code>: Specifies a delay for the start of the animation.</li>
+        <li><code>animation-iteration-count</code>: Specifies the number of times the animation should play.</li>
+        <li><code>animation-direction</code>: Specifies whether the animation should play forwards, backwards, or alternate cycles.</li>
+        <li><code>animation-fill-mode</code>: Specifies the styles applied to the element before and after the animation.</li>
+        <li><code>animation-play-state</code>: Specifies whether the animation is running or paused.</li>
+        <li><code>animation</code>: Shorthand property for setting all animation properties.</li>
+    </ul>
+
+    <p><strong>Examples:</strong></p>
+    <div class="code-block">
+        div {<br>
+        &nbsp;&nbsp;width: 100px;<br>
+        &nbsp;&nbsp;height: 100px;<br>
+        &nbsp;&nbsp;background-color: red;<br>
+        &nbsp;&nbsp;animation: myAnimation 4s infinite alternate;<br>
+        }<br><br>
+        @keyframes myAnimation {<br>
+        &nbsp;&nbsp;0% {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateX(0);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;background-color: red;<br>
+        &nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;50% {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateX(200px);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;background-color: yellow;<br>
+        &nbsp;&nbsp;}<br>
+        &nbsp;&nbsp;100% {<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateX(0);<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;background-color: red;<br>
+        &nbsp;&nbsp;}<br>
+        }
+    </div>
+
+    <p><strong>Animation Name:</strong></p>
+    <p>The <code>animation-name</code> property references the <code>@keyframes</code> animation you want to apply.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        animation-name: myAnimation;
+    </div>
+
+    <p><strong>Animation Duration:</strong></p>
+    <p>The <code>animation-duration</code> property specifies the duration of the animation in seconds (s) or milliseconds (ms).</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        animation-duration: 4s;
+    </div>
+
+    <p><strong>Animation Timing Function:</strong></p>
+    <p>The <code>animation-timing-function</code> property specifies the speed curve of the animation, similar to transitions.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        animation-timing-function: ease-in-out;
+    </div>
+
+    <p><strong>Animation Iteration Count:</strong></p>
+    <p>The <code>animation-iteration-count</code> property specifies how many times the animation should play. Use <code>infinite</code> for continuous animation.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        animation-iteration-count: 3; /* Play 3 times */<br>
+        animation-iteration-count: infinite; /* Play infinitely */
+    </div>
+
+    <p><strong>Animation Direction:</strong></p>
+    <p>The <code>animation-direction</code> property specifies whether the animation should play forwards, backwards, or alternate cycles.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        animation-direction: alternate;
+    </div>
+
+    <p><strong>Shorthand Property:</strong></p>
+    <p>The <code>animation</code> shorthand property allows you to set all animation properties in a single declaration.</p>
+
+    <p><strong>Example:</strong></p>
+    <div class="code-block">
+        animation: myAnimation 4s ease-in-out 0s infinite alternate;
+    </div>
+
+    <p><strong>Importance:</strong></p>
+    <p>CSS animations provide a powerful way to create engaging and interactive user interfaces. They enhance the visual appeal of your web pages and improve the overall user experience.</p>
+
+    <div id="finishb">
+        <button onclick="finishCourse()">Finish Course</button>
+    </div>
+
+    <div id="message">
+        You have completed the free CSS tutorial on Smart Tutor.
+    </div>
+</div>
+</div>
+    <script>
+         function finishCourse() {
+            document.getElementById('message').style.display = 'block';
+        }
+         
+        function openCourse() {
+            document.getElementById("course-selection").style.display = "none";
+            document.getElementById("course-content").style.display = "block";
+        }
+        function toggleModule(index) {
+            var contents = document.getElementsByClassName("module-content");
+            contents[index].style.display = contents[index].style.display === "block" ? "none" : "block";
+        }
+        
+        let openedModules = [];
+
+        function toggleModule(index) {
+            const modules = document.querySelectorAll(".module-content");
+            const moduleHeaders = document.querySelectorAll(".module");
+
+            if (index > 0 && !openedModules.includes(index - 1)) {
+                alert("You must complete the previous module first!");
+                return;
+            }
+
+            if (modules[index].style.display === "block") {
+                modules[index].style.display = "none";
+                openedModules = openedModules.filter(m => m !== index);
+            } else {
+                modules[index].style.display = "block";
+                openedModules.push(index);
+
+                if (moduleHeaders[index + 1]) {
+                    moduleHeaders[index + 1].classList.remove("disabled");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

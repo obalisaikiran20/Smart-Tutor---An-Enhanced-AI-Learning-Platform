@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Tutor - HTML Course</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #e3f2fd;
+            text-align: center;
+        }
+        #finishb {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #finishb button {
+            background-color: #4CAF50; /* Green color */
+            color: white;
+            padding: 15px 32px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Hover effect for the button */
+        #finishb button:hover {
+            background-color: #45a049; /* Darker green */
+            transform: scale(1.05); /* Slightly enlarge on hover */
+        }
+
+        /* Message Display Styles */
+        #message {
+            display: none;
+            background-color: #f0f8ff; /* Light background color */
+            color: #008b8b; /* Text color */
+            border: 2px solid #008b8b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            margin: 20px auto;
+            text-align: center;
+            font-size: 18px;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: navy;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 24px;
+            height: 50px;
+            padding-top: 17px;
+            font-weight: bold;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000; /* Ensures header stays on top */
+        }
+        .back-button {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    
+        #course-selection {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .course-box {
+            background-color: lightblue;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .course-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        #instructions-box {
+            background-color: lightblue;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #2196F3;
+            margin-top: 40px;
+        }
+        #finishb {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #certificate {
+            display: none;
+            margin-top: 30px;
+            background-color: lightgreen;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: auto;
+        }
+        #certificate h2 {
+            background-color: yellow;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            border: 2px solid #000;
+        }
+        #certificate p {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        #certificate .signature {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+        }
+        #certificate .signature p {
+            font-weight: bold;
+        }
+        .input-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .input-container input {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            width: 300px;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            background-color: orangered;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+        .input-container button:hover {
+            background-color: #ff4500;
+        }
+        .print-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff9800;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .print-button:hover {
+            background-color: #e68900;
+        }
+        #instructions-box h3 {
+            color: green;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        #instructions-box ul {
+            text-align: left;
+            padding-left: 20px;
+            list-style-type: disc;
+            margin-bottom: 20px;
+        }
+        #instructions-box ul li {
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+        #checkbox-container {
+            text-align: left;
+            margin-top: 20px;
+        }
+        #dive-button {
+            background-color: orangered;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            display: none;
+        }
+        #dive-button:enabled {
+            display: block;
+        }
+        .library-heading {
+            background: orangered;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 15px;
+            margin: 90px auto 20px;
+            width:450px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
+        }
+        
+        .back-button1 {
+            position: absolute;
+            left: 20px;
+            background: orangered;
+            color: white;
+            padding: 10px;
+            width: 80px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .course-box {
+            display: inline-block;
+            width: 200px;
+            padding: 15px;
+            background: rgb(21, 204, 61);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .course-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        .course-content {
+            display: none;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .module {
+        background-color: orange;
+        color: white;
+        padding: 10px;
+        margin: 5px 0;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+    }
+    
+    .module-content {
+        display: none;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        background-color: #fff;
+    }
+
+    .code-block {
+        background-color: #222;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        font-family: monospace;
+    }
+    .finish-course-button {
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text color */
+            padding: 15px 32px; /* Padding for a bigger button */
+            font-size: 16px; /* Font size for text */
+            border: none; /* Remove the default border */
+            border-radius: 5px; /* Rounded corners */
+            width: 180px;
+            text-align: center;
+            height: 40px;
+            padding-top: 10px;
+            cursor: pointer; /* Change cursor to pointer on hover */
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transition for color and scale */
+        }
+
+        /* Button hover effect */
+        .finish-course-button:hover {
+            background-color: #45a049; /* Darker green on hover */
+            transform: scale(1.1); /* Slightly grow the button */
+        }
+
+        /* Button active (clicked) effect */
+        
+    .disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+        .certificate {
+            display: none;
+            width: 60%;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            text-align: center;
+        }
+        .finish-button {
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    </style>
+</head>
+<body>
+    
+        <div class="header" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: navy; color: white;">
+            <<a href="c.html">
+                <button style="background-color: orangered; height: 40px; width: 80px; border-radius: 5px; color: white;">Back
+                </button>
+            </a>
+            
+            <h3 style="flex: 1; text-align: center; margin: 0;">Smart Tutor</h3>
+        </div>
+        <br><br>
+    <br><br><br>    <div style="background-color:#59a9e1; padding: 20px; border-radius: 10px; margin-bottom: 20px; width: 80%; margin: auto;">
+        <!-- Heading for Instructions -->
+        <h2 style="background-color: #8b0000; color: white; text-align: center; padding: 10px; border-radius: 5px; font-family: Arial, sans-serif; width: 300px; padding-left: 30px; margin-left: 400px;">Course Instructions</h2>
+        
+        <!-- Instructions List -->
+        <div style="margin-top: 20px; font-family: Arial, sans-serif;">
+            <ul style="font-size: 16px; line-height: 1.6; text-align: justify;">
+                <li>Make sure to have a stable internet connection throughout the course.</li>
+                <li>Complete the course modules in order, as each module builds on the previous one.</li>
+                <li>Take breaks when necessary to avoid fatigue, especially during lengthy modules.</li>
+                <li>Ensure you have access to a code editor for practical exercises.</li>
+                <li>Don't hesitate to revisit previous lessons if you're unsure about the content.</li>
+                <li>Ask questions in the experts talk section if you're having trouble with any topic.</li>
+                <li>If any resources needed go through the external resourcse section of dashboard .</li>
+            </ul>
+        </div>
+    </div>
+<br><br>
+    <div id="course-selection">
+        <div class="course-box" onclick="openCourse()">Dive into HTML Magic</div>
+    </div>
+    <div id="course-content" class="course-content">
+        <h2>HTML Modules</h2>
+        <div class="module" onclick="toggleModule(0)">HTML Structure</div>
+        <div class="module-content">
+            <p>What is HTML?</p>
+            <p>HTML (HyperText Markup Language) is the standard language used to create and design web pages. 
+               It provides the structure for a webpage by using tags and elements to define different parts of the content.</p>
+        
+            <p><strong>Basic Structure of an HTML Document</strong></p>
+            <p>Every HTML document follows a standard structure:</p>
+        
+            <div class="code-block">
+                &lt;!DOCTYPE html&gt;<br>
+                &lt;html lang="en"&gt;<br>
+                &nbsp;&nbsp;&lt;head&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;My First Webpage&lt;/title&gt;<br>
+                &nbsp;&nbsp;&lt;/head&gt;<br>
+                &nbsp;&nbsp;&lt;body&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Welcome to HTML!&lt;/h1&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;This is my first webpage using HTML.&lt;/p&gt;<br>
+                &nbsp;&nbsp;&lt;/body&gt;<br>
+                &lt;/html&gt;
+            </div>
+            <div class="module" onclick="toggleModule(1)">HTML Elements</div>
+<div class="module-content">
+    <p>What are HTML Elements?</p>
+    <p>HTML elements are the building blocks of a webpage. An element consists of an opening tag, content, and a closing tag.</p>
+
+    <p><strong>Example of an HTML Element:</strong></p>
+
+    <div class="code-block">
+        &lt;p&gt;This is a paragraph.&lt;/p&gt;
+    </div>
+
+    <p>Some commonly used HTML elements:</p>
+    <ul>
+        <li><strong>&lt;h1&gt; to &lt;h6&gt;</strong> - Headings</li>
+        <li><strong>&lt;p&gt;</strong> - Paragraph</li>
+        <li><strong>&lt;a&gt;</strong> - Link</li>
+        <li><strong>&lt;img&gt;</strong> - Image</li>
+        <li><strong>&lt;ul&gt; &amp; &lt;li&gt;</strong> - Unordered List</li>
+        <li><strong>&lt;ol&gt; &amp; &lt;li&gt;</strong> - Ordered List</li>
+        <li><strong>&lt;table&gt;</strong> - Table</li>
+        <li><strong>&lt;form&gt;</strong> - Form</li>
+    </ul>
+
+    <p>Example of multiple elements in an HTML document:</p>
+
+    <div class="code-block">
+        &lt;!DOCTYPE html&gt;<br>
+        &lt;html&gt;<br>
+        &nbsp;&nbsp;&lt;head&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML Elements&lt;/title&gt;<br>
+        &nbsp;&nbsp;&lt;/head&gt;<br>
+        &nbsp;&nbsp;&lt;body&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Welcome to HTML!&lt;/h1&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;This is a paragraph of text.&lt;/p&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="https://www.example.com"&gt;Click here&lt;/a&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Item 1&lt;/li&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Item 2&lt;/li&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br>
+        &nbsp;&nbsp;&lt;/body&gt;<br>
+        &lt;/html&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(2)">HTML Attributes</div>
+<div class="module-content">
+    <p>What are HTML Attributes?</p>
+    <p>HTML attributes provide additional information about an element. They are always included inside the opening tag.</p>
+
+    <p><strong>Example of an HTML Attribute:</strong></p>
+    <div class="code-block">
+        &lt;a href="https://www.example.com"&gt;Visit Example&lt;/a&gt;
+    </div>
+
+    <p>Common HTML Attributes:</p>
+    <ul>
+        <li><strong>href</strong> - Specifies the URL for links (&lt;a&gt; tag)</li>
+        <li><strong>src</strong> - Specifies the image source (&lt;img&gt; tag)</li>
+        <li><strong>alt</strong> - Provides alternative text for images</li>
+        <li><strong>style</strong> - Adds inline CSS styling</li>
+        <li><strong>id</strong> - Assigns a unique ID to an element</li>
+        <li><strong>class</strong> - Assigns one or more class names</li>
+    </ul>
+
+    <p><strong>Example of Multiple Attributes:</strong></p>
+    <div class="code-block">
+        &lt;img src="image.jpg" alt="Sample Image" width="300" height="200"&gt;
+    </div>
+</div><div class="module disabled" onclick="toggleModule(3)">HTML Headings</div>
+<div class="module-content">
+    <p>What are HTML Headings?</p>
+    <p>HTML headings are used to define titles and subtitles in a webpage. They range from &lt;h1&gt; (largest) to &lt;h6&gt; (smallest).</p>
+
+    <p><strong>Example of HTML Headings:</strong></p>
+    <div class="code-block">
+        &lt;h1&gt;This is Heading 1&lt;/h1&gt;<br>
+        &lt;h2&gt;This is Heading 2&lt;/h2&gt;<br>
+        &lt;h3&gt;This is Heading 3&lt;/h3&gt;<br>
+        &lt;h4&gt;This is Heading 4&lt;/h4&gt;<br>
+        &lt;h5&gt;This is Heading 5&lt;/h5&gt;<br>
+        &lt;h6&gt;This is Heading 6&lt;/h6&gt;
+    </div>
+
+    <p><strong>Usage of Headings:</strong></p>
+    <ul>
+        <li><strong>&lt;h1&gt;</strong> - Used for main titles (only one per page).</li>
+        <li><strong>&lt;h2&gt; to &lt;h6&gt;</strong> - Used for subheadings and sections.</li>
+    </ul>
+
+    <p><strong>Example in a Webpage:</strong></p>
+    <div class="code-block">
+        &lt;html&gt;<br>
+        &nbsp;&nbsp;&lt;head&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML Headings Example&lt;/title&gt;<br>
+        &nbsp;&nbsp;&lt;/head&gt;<br>
+        &nbsp;&nbsp;&lt;body&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Welcome to My Website&lt;/h1&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;About Us&lt;/h2&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h3&gt;Our Services&lt;/h3&gt;<br>
+        &nbsp;&nbsp;&lt;/body&gt;<br>
+        &lt;/html&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(4)">HTML Paragraphs</div>
+<div class="module-content">
+    <p>What are HTML Paragraphs?</p>
+    <p>HTML paragraphs are used to define blocks of text. The &lt;p&gt; tag is used to create paragraphs.</p>
+
+    <p><strong>Example of an HTML Paragraph:</strong></p>
+    <div class="code-block">
+        &lt;p&gt;This is a paragraph in HTML.&lt;/p&gt;
+    </div>
+
+    <p><strong>Multiple Paragraphs:</strong></p>
+    <div class="code-block">
+        &lt;p&gt;This is the first paragraph.&lt;/p&gt;<br>
+        &lt;p&gt;This is the second paragraph.&lt;/p&gt;
+    </div>
+
+    <p><strong>Line Breaks:</strong> If you need to add a line break without starting a new paragraph, use the &lt;br&gt; tag.</p>
+    <div class="code-block">
+        &lt;p&gt;This is a line of text.&lt;br&gt;This text appears on a new line.&lt;/p&gt;
+    </div>
+
+    <p><strong>Example in a Webpage:</strong></p>
+    <div class="code-block">
+        &lt;html&gt;<br>
+        &nbsp;&nbsp;&lt;head&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML Paragraphs Example&lt;/title&gt;<br>
+        &nbsp;&nbsp;&lt;/head&gt;<br>
+        &nbsp;&nbsp;&lt;body&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Welcome to my webpage.&lt;/p&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;HTML makes structuring content easy!&lt;/p&gt;<br>
+        &nbsp;&nbsp;&lt;/body&gt;<br>
+        &lt;/html&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(5)">HTML Styles</div>
+<div class="module-content">
+    <p>What are HTML Styles?</p>
+    <p>HTML styles are used to change the appearance of elements. The <strong>style</strong> attribute is used to apply inline CSS to an element.</p>
+
+    <p><strong>Example of Inline Styling:</strong></p>
+    <div class="code-block">
+        &lt;p style="color:blue; font-size:20px;"&gt;This is a styled paragraph.&lt;/p&gt;
+    </div>
+
+    <p><strong>Common CSS Properties Used in HTML Styles:</strong></p>
+    <ul>
+        <li><strong>color</strong> - Changes text color</li>
+        <li><strong>font-size</strong> - Adjusts the font size</li>
+        <li><strong>background-color</strong> - Sets the background color</li>
+        <li><strong>text-align</strong> - Aligns text (left, center, right)</li>
+        <li><strong>border</strong> - Adds borders to elements</li>
+    </ul>
+
+    <p><strong>Example of Multiple Styles Applied:</strong></p>
+    <div class="code-block">
+        &lt;p style="color:white; background-color:black; padding:10px; border-radius:5px;"&gt;
+        This is a paragraph with multiple styles.
+        &lt;/p&gt;
+    </div>
+
+    <p><strong>Example in a Webpage:</strong></p>
+    <div class="code-block">
+        &lt;html&gt;<br>
+        &nbsp;&nbsp;&lt;head&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML Styles Example&lt;/title&gt;<br>
+        &nbsp;&nbsp;&lt;/head&gt;<br>
+        &nbsp;&nbsp;&lt;body&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p style="color:green; font-size:18px;"&gt;
+        Styling makes HTML pages visually appealing!
+        &lt;/p&gt;<br>
+        &nbsp;&nbsp;&lt;/body&gt;<br>
+        &lt;/html&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(6)">HTML Formatting</div>
+<div class="module-content">
+    <p>What is HTML Formatting?</p>
+    <p>HTML formatting is used to define the appearance of text, such as making it bold, italic, underlined, etc.</p>
+
+    <p><strong>Common HTML Formatting Tags:</strong></p>
+    <ul>
+        <li><strong>&lt;b&gt;</strong> - Bold text</li>
+        <li><strong>&lt;strong&gt;</strong> - Important (bold) text</li>
+        <li><strong>&lt;i&gt;</strong> - Italic text</li>
+        <li><strong>&lt;em&gt;</strong> - Emphasized (italic) text</li>
+        <li><strong>&lt;mark&gt;</strong> - Marked (highlighted) text</li>
+        <li><strong>&lt;small&gt;</strong> - Smaller text</li>
+        <li><strong>&lt;del&gt;</strong> - Deleted (strikethrough) text</li>
+        <li><strong>&lt;ins&gt;</strong> - Inserted (underlined) text</li>
+        <li><strong>&lt;sub&gt;</strong> - Subscript text</li>
+        <li><strong>&lt;sup&gt;</strong> - Superscript text</li>
+    </ul>
+
+    <p><strong>Example of Formatting Tags:</strong></p>
+    <div class="code-block">
+        &lt;p&gt;This is &lt;b&gt;bold&lt;/b&gt;, &lt;i&gt;italic&lt;/i&gt;, and &lt;u&gt;underlined&lt;/u&gt; text.&lt;/p&gt;
+    </div>
+
+    <p><strong>Example in a Webpage:</strong></p>
+    <div class="code-block">
+        &lt;html&gt;<br>
+        &nbsp;&nbsp;&lt;head&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML Formatting Example&lt;/title&gt;<br>
+        &nbsp;&nbsp;&lt;/head&gt;<br>
+        &nbsp;&nbsp;&lt;body&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;This is &lt;strong&gt;important&lt;/strong&gt; text.&lt;/p&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;This is &lt;mark&gt;highlighted&lt;/mark&gt; text.&lt;/p&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;This is &lt;sub&gt;subscript&lt;/sub&gt; and &lt;sup&gt;superscript&lt;/sup&gt; text.&lt;/p&gt;<br>
+        &nbsp;&nbsp;&lt;/body&gt;<br>
+        &lt;/html&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(7)">HTML Quotations</div>
+<div class="module-content">
+    <p>What are HTML Quotations?</p>
+    <p>HTML provides several elements to define different types of quotations and citations.</p>
+
+    <p><strong>Common HTML Quotation Tags:</strong></p>
+    <ul>
+        <li><strong>&lt;blockquote&gt;</strong> - Defines a section quoted from another source</li>
+        <li><strong>&lt;q&gt;</strong> - Defines a short, inline quotation</li>
+        <li><strong>&lt;cite&gt;</strong> - Defines the title of a work (book, website, article, etc.)</li>
+        <li><strong>&lt;abbr&gt;</strong> - Defines an abbreviation or acronym</li>
+        <li><strong>&lt;address&gt;</strong> - Defines contact information</li>
+    </ul>
+
+    <p><strong>Example of Blockquote:</strong></p>
+    <div class="code-block">
+        &lt;blockquote&gt;<br>
+        &nbsp;&nbsp;"The greatest glory in living lies not in never falling, but in rising every time we fall." - Nelson Mandela<br>
+        &lt;/blockquote&gt;
+    </div>
+
+    <p><strong>Example of Inline Quotation:</strong></p>
+    <div class="code-block">
+        &lt;p&gt;According to Einstein, &lt;q&gt;Imagination is more important than knowledge.&lt;/q&gt;&lt;/p&gt;
+    </div>
+
+    <p><strong>Example of Cite Tag:</strong></p>
+    <div class="code-block">
+        &lt;p&gt;&lt;cite&gt;The Great Gatsby&lt;/cite&gt; is a novel written by F. Scott Fitzgerald.&lt;/p&gt;
+    </div>
+
+    <p><strong>Example of Abbreviation Tag:</strong></p>
+    <div class="code-block">
+        &lt;p&gt;&lt;abbr title="World Health Organization"&gt;WHO&lt;/abbr&gt; is an international organization.&lt;/p&gt;
+    </div>
+
+    <p><strong>Example of Address Tag:</strong></p>
+    <div class="code-block">
+        &lt;address&gt;<br>
+        &nbsp;&nbsp;Written by John Doe.&lt;br&gt;<br>
+        &nbsp;&nbsp;Visit us at: example.com&lt;br&gt;<br>
+        &nbsp;&nbsp;Email: contact@example.com&lt;br&gt;<br>
+        &lt;/address&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(8)">HTML Comments</div>
+<div class="module-content">
+    <p>What are HTML Comments?</p>
+    <p>HTML comments are used to add notes or explanations within the code. These comments are ignored by the browser and do not appear on the webpage.</p>
+
+    <p><strong>Syntax of an HTML Comment:</strong></p>
+    <div class="code-block">
+        &lt;!-- This is a comment --&gt;
+    </div>
+
+    <p><strong>Why Use Comments?</strong></p>
+    <ul>
+        <li>To explain the code for better readability</li>
+        <li>To temporarily disable parts of the code</li>
+        <li>To add reminders or notes for future reference</li>
+    </ul>
+
+    <p><strong>Example of Using Comments:</strong></p>
+    <div class="code-block">
+        &lt;!DOCTYPE html&gt;<br>
+        &lt;html&gt;<br>
+        &nbsp;&nbsp;&lt;head&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;HTML Comments Example&lt;/title&gt;<br>
+        &nbsp;&nbsp;&lt;/head&gt;<br>
+        &nbsp;&nbsp;&lt;body&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- This is a heading --&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Welcome to HTML Comments&lt;/h1&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- This paragraph will be displayed on the page --&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;This is a sample paragraph.&lt;/p&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- &lt;p&gt;This paragraph is commented out and will not appear.&lt;/p&gt; --&gt;<br>
+        &nbsp;&nbsp;&lt;/body&gt;<br>
+        &lt;/html&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(9)">HTML Colors</div>
+<div class="module-content">
+    <p>What are HTML Colors?</p>
+    <p>HTML colors are used to style elements on a webpage. Colors can be applied using names, HEX codes, RGB, or HSL values.</p>
+
+    <p><strong>Using Color Names:</strong></p>
+    <div class="code-block">
+        &lt;p style="color:red;"&gt;This is a red text&lt;/p&gt;
+    </div>
+
+    <p><strong>Using HEX Codes:</strong></p>
+    <div class="code-block">
+        &lt;p style="color:#ff5733;"&gt;This is an orange text&lt;/p&gt;
+    </div>
+
+    <p><strong>Using RGB Values:</strong></p>
+    <div class="code-block">
+        &lt;p style="color:rgb(0, 128, 0);"&gt;This is a green text&lt;/p&gt;
+    </div>
+
+    <p><strong>Using HSL Values:</strong></p>
+    <div class="code-block">
+        &lt;p style="color:hsl(240, 100%, 50%);"&gt;This is a blue text&lt;/p&gt;
+    </div>
+
+    <p><strong>Background Colors:</strong></p>
+    <div class="code-block">
+        &lt;div style="background-color:yellow; padding:10px;"&gt;This div has a yellow background&lt;/div&gt;
+    </div>
+
+    <p><strong>Border Colors:</strong></p>
+    <div class="code-block">
+        &lt;div style="border:2px solid red; padding:10px;"&gt;This div has a red border&lt;/div&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(10)">HTML CSS</div>
+<div class="module-content">
+    <p>What is HTML CSS?</p>
+    <p>CSS (Cascading Style Sheets) is used to style HTML elements. It controls the layout, colors, fonts, and overall appearance of a webpage.</p>
+
+    <p><strong>Ways to Apply CSS:</strong></p>
+    <ul>
+        <li><strong>Inline CSS</strong> - Applied directly to an element using the <code>style</code> attribute.</li>
+        <li><strong>Internal CSS</strong> - Written inside a <code>&lt;style&gt;</code> tag in the HTML document.</li>
+        <li><strong>External CSS</strong> - Linked as a separate CSS file using the <code>&lt;link&gt;</code> tag.</li>
+    </ul>
+
+    <p><strong>Example of Inline CSS:</strong></p>
+    <div class="code-block">
+        &lt;p style="color:blue; font-size:20px;"&gt;This is a styled paragraph&lt;/p&gt;
+    </div>
+
+    <p><strong>Example of Internal CSS:</strong></p>
+    <div class="code-block">
+        &lt;style&gt;<br>
+        &nbsp;&nbsp;p { color: green; font-size: 18px; }<br>
+        &lt;/style&gt;<br>
+        &lt;p&gt;This is a paragraph with internal CSS.&lt;/p&gt;
+    </div>
+
+    <p><strong>Example of External CSS:</strong></p>
+    <div class="code-block">
+        &lt;link rel="stylesheet" href="styles.css"&gt;<br>
+        &lt;p&gt;This is a paragraph styled with an external CSS file.&lt;/p&gt;
+    </div>
+
+    <p><strong>CSS Selectors:</strong></p>
+    <ul>
+        <li><strong>Element Selector</strong> - Targets all elements of a specific type (e.g., <code>p { color: red; }</code>).</li>
+        <li><strong>Class Selector</strong> - Targets elements with a specific class (<code>.class-name { color: blue; }</code>).</li>
+        <li><strong>ID Selector</strong> - Targets an element with a specific ID (<code>#id-name { font-size: 20px; }</code>).</li>
+    </ul>
+</div>
+<div class="module disabled" onclick="toggleModule(11)">HTML Links</div>
+<div class="module-content">
+    <p>What are HTML Links?</p>
+    <p>HTML links (or hyperlinks) allow users to navigate from one page to another. They are created using the <code>&lt;a&gt;</code> tag.</p>
+
+    <p><strong>Basic Syntax of a Link:</strong></p>
+    <div class="code-block">
+        &lt;a href="https://www.example.com"&gt;Visit Example&lt;/a&gt;
+    </div>
+
+    <p><strong>Common Link Attributes:</strong></p>
+    <ul>
+        <li><strong>href</strong> - Specifies the URL of the page to navigate to.</li>
+        <li><strong>target</strong> - Defines how the link will open (<code>_blank</code> for a new tab).</li>
+        <li><strong>title</strong> - Provides additional information when hovering over the link.</li>
+    </ul>
+
+    <p><strong>Example with Different Attributes:</strong></p>
+    <div class="code-block">
+        &lt;a href="https://www.example.com" target="_blank" title="Go to Example"&gt;Click Here&lt;/a&gt;
+    </div>
+
+    <p><strong>Linking to an Email Address:</strong></p>
+    <div class="code-block">
+        &lt;a href="mailto:someone@example.com"&gt;Send an Email&lt;/a&gt;
+    </div>
+
+    <p><strong>Creating a Button Link:</strong></p>
+    <div class="code-block">
+        &lt;a href="https://www.example.com" style="display:inline-block; padding:10px 20px; background:#007bff; color:white; text-decoration:none; border-radius:5px;"&gt;Visit Example&lt;/a&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(12)">HTML Images</div>
+<div class="module-content">
+    <p>What are HTML Images?</p>
+    <p>HTML allows you to display images using the <code>&lt;img&gt;</code> tag. Images make web pages more visually appealing.</p>
+
+    <p><strong>Basic Syntax of an Image:</strong></p>
+    <div class="code-block">
+        &lt;img src="image.jpg" alt="A sample image"&gt;
+    </div>
+
+    <p><strong>Common Image Attributes:</strong></p>
+    <ul>
+        <li><strong>src</strong> - Specifies the image path (URL or local file).</li>
+        <li><strong>alt</strong> - Provides alternative text if the image cannot be displayed.</li>
+        <li><strong>width</strong> & <strong>height</strong> - Define image dimensions in pixels.</li>
+        <li><strong>title</strong> - Shows a tooltip when hovering over the image.</li>
+    </ul>
+
+    <p><strong>Example with Attributes:</strong></p>
+    <div class="code-block">
+        &lt;img src="image.jpg" alt="Beautiful Scenery" width="400" height="300" title="Scenic View"&gt;
+    </div>
+
+    <p><strong>Using an Image as a Link:</strong></p>
+    <div class="code-block">
+        &lt;a href="https://www.example.com"&gt;
+            &lt;img src="logo.png" alt="Example Logo" width="150"&gt;
+        &lt;/a&gt;
+    </div>
+
+    <p><strong>Responsive Images (Adjusts Based on Screen Size):</strong></p>
+    <div class="code-block">
+        &lt;img src="image.jpg" alt="Responsive Image" style="max-width:100%; height:auto;"&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(13)">HTML Tables</div>
+<div class="module-content">
+    <p>What are HTML Tables?</p>
+    <p>HTML tables are used to display data in rows and columns. The <code>&lt;table&gt;</code> tag is used to create a table.</p>
+
+    <p><strong>Basic Table Structure:</strong></p>
+    <div class="code-block">
+        &lt;table border="1"&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Name&lt;/th&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Age&lt;/th&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;John&lt;/td&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;25&lt;/td&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Alice&lt;/td&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;22&lt;/td&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &lt;/table&gt;
+    </div>
+
+    <p><strong>Table Elements:</strong></p>
+    <ul>
+        <li><strong>&lt;table&gt;</strong> - Defines the table.</li>
+        <li><strong>&lt;tr&gt;</strong> - Defines a row.</li>
+        <li><strong>&lt;th&gt;</strong> - Defines a header cell (bold & centered by default).</li>
+        <li><strong>&lt;td&gt;</strong> - Defines a standard cell.</li>
+    </ul>
+
+    <p><strong>Adding Borders and Styling:</strong></p>
+    <div class="code-block">
+        &lt;table style="border-collapse: collapse; width: 100%;" border="1"&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th style="background-color: lightgray; padding: 10px;"&gt;Product&lt;/th&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th style="background-color: lightgray; padding: 10px;"&gt;Price&lt;/th&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td style="padding: 10px;"&gt;Laptop&lt;/td&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td style="padding: 10px;"&gt;$1000&lt;/td&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td style="padding: 10px;"&gt;Phone&lt;/td&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td style="padding: 10px;"&gt;$500&lt;/td&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &lt;/table&gt;
+    </div>
+
+    <p><strong>Merging Cells (Colspan & Rowspan):</strong></p>
+    <div class="code-block">
+        &lt;table border="1"&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2"&gt;Merged Header&lt;/th&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td rowspan="2"&gt;Merged Cell&lt;/td&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Row 1&lt;/td&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &nbsp;&nbsp;&lt;tr&gt;<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Row 2&lt;/td&gt;<br>
+        &nbsp;&nbsp;&lt;/tr&gt;<br>
+        &lt;/table&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(14)">HTML Lists</div>
+<div class="module-content">
+    <p>What are HTML Lists?</p>
+    <p>HTML lists allow you to organize and display information in an orderly manner. There are three types of lists in HTML:</p>
+
+    <ul>
+        <li><strong>Ordered List (&lt;ol&gt;)</strong> - A numbered list.</li>
+        <li><strong>Unordered List (&lt;ul&gt;)</strong> - A bullet-point list.</li>
+        <li><strong>Description List (&lt;dl&gt;)</strong> - A list of terms with descriptions.</li>
+    </ul>
+
+    <p><strong>Ordered List Example:</strong></p>
+    <div class="code-block">
+        &lt;ol&gt;<br>
+        &nbsp;&nbsp;&lt;li&gt;First item&lt;/li&gt;<br>
+        &nbsp;&nbsp;&lt;li&gt;Second item&lt;/li&gt;<br>
+        &nbsp;&nbsp;&lt;li&gt;Third item&lt;/li&gt;<br>
+        &lt;/ol&gt;
+    </div>
+
+    <p><strong>Unordered List Example:</strong></p>
+    <div class="code-block">
+        &lt;ul&gt;<br>
+        &nbsp;&nbsp;&lt;li&gt;Apple&lt;/li&gt;<br>
+        &nbsp;&nbsp;&lt;li&gt;Banana&lt;/li&gt;<br>
+        &nbsp;&nbsp;&lt;li&gt;Orange&lt;/li&gt;<br>
+        &lt;/ul&gt;
+    </div>
+
+    <p><strong>Description List Example:</strong></p>
+    <div class="code-block">
+        &lt;dl&gt;<br>
+        &nbsp;&nbsp;&lt;dt&gt;HTML&lt;/dt&gt;<br>
+        &nbsp;&nbsp;&lt;dd&gt;HyperText Markup Language&lt;/dd&gt;<br>
+        &nbsp;&nbsp;&lt;dt&gt;CSS&lt;/dt&gt;<br>
+        &nbsp;&nbsp;&lt;dd&gt;Cascading Style Sheets&lt;/dd&gt;<br>
+        &lt;/dl&gt;
+    </div>
+
+    <p><strong>Customizing List Styles:</strong></p>
+    <div class="code-block">
+        &lt;ul style="list-style-type: square;"&gt;<br>
+        &nbsp;&nbsp;&lt;li&gt;Item 1&lt;/li&gt;<br>
+        &nbsp;&nbsp;&lt;li&gt;Item 2&lt;/li&gt;<br>
+        &lt;/ul&gt;
+    </div>
+
+    <p>You can also use <code>list-style-type</code> with values like <code>circle</code>, <code>disc</code>, or <code>none</code> to modify list appearance.</p>
+</div>
+<div class="module disabled" onclick="toggleModule(15)">HTML Blocks, IDs, and Classes</div>
+<div class="module-content">
+    <p><strong>HTML Block and Inline Elements</strong></p>
+    <p>HTML elements are categorized into two types:</p>
+
+    <ul>
+        <li><strong>Block Elements</strong> - These take up the full width available and start on a new line.</li>
+        <li><strong>Inline Elements</strong> - These only take up as much width as necessary and stay in the same line.</li>
+    </ul>
+
+    <p><strong>Common Block Elements:</strong></p>
+    <ul>
+        <li>&lt;div&gt;</li>
+        <li>&lt;p&gt;</li>
+        <li>&lt;h1&gt; to &lt;h6&gt;</li>
+        <li>&lt;ul&gt;, &lt;ol&gt;</li>
+        <li>&lt;table&gt;</li>
+    </ul>
+
+    <p><strong>Example of Block Elements:</strong></p>
+    <div class="code-block">
+        &lt;div&gt;This is a block element&lt;/div&gt;<br>
+        &lt;p&gt;This is a paragraph (also a block element)&lt;/p&gt;
+    </div>
+
+    <p><strong>Common Inline Elements:</strong></p>
+    <ul>
+        <li>&lt;span&gt;</li>
+        <li>&lt;a&gt;</li>
+        <li>&lt;strong&gt;</li>
+        <li>&lt;em&gt;</li>
+    </ul>
+
+    <p><strong>Example of Inline Elements:</strong></p>
+    <div class="code-block">
+        &lt;p&gt;This is a &lt;span&gt;highlighted text&lt;/span&gt; inside a paragraph.&lt;/p&gt;
+    </div>
+
+    <hr>
+
+    <p><strong>HTML IDs</strong></p>
+    <p>The <code>id</code> attribute gives a unique identifier to an element.</p>
+
+    <div class="code-block">
+        &lt;p id="uniquePara"&gt;This paragraph has an ID.&lt;/p&gt;
+    </div>
+
+    <p>You can use CSS to style it:</p>
+    <div class="code-block">
+        #uniquePara { color: blue; font-weight: bold; }
+    </div>
+
+    <hr>
+
+    <p><strong>HTML Classes</strong></p>
+    <p>The <code>class</code> attribute is used to define a group of elements with a common styling.</p>
+
+    <div class="code-block">
+        &lt;p class="highlight"&gt;This paragraph has a class.&lt;/p&gt;<br>
+        &lt;p class="highlight"&gt;This is another paragraph with the same class.&lt;/p&gt;
+    </div>
+
+    <p>Using CSS, you can apply styles to all elements with the same class:</p>
+    <div class="code-block">
+        .highlight { color: red; font-size: 18px; }
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(16)">HTML Audio</div>
+<div class="module-content">
+    <p><strong>What is HTML Audio?</strong></p>
+    <p>The <code>&lt;audio&gt;</code> element is used to embed sound content in a web page, such as music or audio clips.</p>
+
+    <p><strong>Basic Example of an Audio Element:</strong></p>
+    <div class="code-block">
+        &lt;audio controls&gt;<br>
+        &nbsp;&nbsp;&lt;source src="audio.mp3" type="audio/mpeg"&gt;<br>
+        &nbsp;&nbsp;Your browser does not support the audio element.<br>
+        &lt;/audio&gt;
+    </div>
+
+    <p><strong>Attributes of the <code>&lt;audio&gt;</code> Element:</strong></p>
+    <ul>
+        <li><strong>controls</strong> - Displays play, pause, and volume buttons.</li>
+        <li><strong>autoplay</strong> - Automatically starts playing the audio.</li>
+        <li><strong>loop</strong> - Repeats the audio after it ends.</li>
+        <li><strong>muted</strong> - Starts the audio in a muted state.</li>
+    </ul>
+
+    <p><strong>Example with Multiple Formats (for Browser Compatibility):</strong></p>
+    <div class="code-block">
+        &lt;audio controls&gt;<br>
+        &nbsp;&nbsp;&lt;source src="audio.mp3" type="audio/mpeg"&gt;<br>
+        &nbsp;&nbsp;&lt;source src="audio.ogg" type="audio/ogg"&gt;<br>
+        &nbsp;&nbsp;Your browser does not support the audio element.<br>
+        &lt;/audio&gt;
+    </div>
+
+    <p><strong>Example with Autoplay and Loop:</strong></p>
+    <div class="code-block">
+        &lt;audio controls autoplay loop&gt;<br>
+        &nbsp;&nbsp;&lt;source src="background-music.mp3" type="audio/mpeg"&gt;<br>
+        &nbsp;&nbsp;Your browser does not support the audio element.<br>
+        &lt;/audio&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(17)">HTML Video</div>
+<div class="module-content">
+    <p><strong>What is HTML Video?</strong></p>
+    <p>The <code>&lt;video&gt;</code> element is used to embed video content in a web page, such as movies or video clips.</p>
+
+    <p><strong>Basic Example of a Video Element:</strong></p>
+    <div class="code-block">
+        &lt;video controls&gt;<br>
+        &nbsp;&nbsp;&lt;source src="video.mp4" type="video/mp4"&gt;<br>
+        &nbsp;&nbsp;Your browser does not support the video element.<br>
+        &lt;/video&gt;
+    </div>
+
+    <p><strong>Attributes of the <code>&lt;video&gt;</code> Element:</strong></p>
+    <ul>
+        <li><strong>controls</strong> - Displays play, pause, volume, and fullscreen buttons.</li>
+        <li><strong>autoplay</strong> - Automatically starts playing the video.</li>
+        <li><strong>loop</strong> - Repeats the video after it ends.</li>
+        <li><strong>muted</strong> - Starts the video in a muted state.</li>
+        <li><strong>poster</strong> - Displays an image before the video starts playing.</li>
+    </ul>
+
+    <p><strong>Example with Multiple Formats (for Browser Compatibility):</strong></p>
+    <div class="code-block">
+        &lt;video controls&gt;<br>
+        &nbsp;&nbsp;&lt;source src="video.mp4" type="video/mp4"&gt;<br>
+        &nbsp;&nbsp;&lt;source src="video.ogv" type="video/ogg"&gt;<br>
+        &nbsp;&nbsp;&lt;source src="video.webm" type="video/webm"&gt;<br>
+        &nbsp;&nbsp;Your browser does not support the video element.<br>
+        &lt;/video&gt;
+    </div>
+
+    <p><strong>Example with Autoplay, Loop, and Muted:</strong></p>
+    <div class="code-block">
+        &lt;video controls autoplay loop muted&gt;<br>
+        &nbsp;&nbsp;&lt;source src="background-video.mp4" type="video/mp4"&gt;<br>
+        &nbsp;&nbsp;Your browser does not support the video element.<br>
+        &lt;/video&gt;
+    </div>
+</div>
+<div class="module disabled" onclick="toggleModule(18)">HTML Forms</div>
+<div class="module-content">
+    <p><strong>What is an HTML Form?</strong></p>
+    <p>The <code>&lt;form&gt;</code> element is used to collect user input. It can contain various input elements like text fields, checkboxes, radio buttons, submit buttons, and more.</p>
+
+    <p><strong>Basic Example of a Form:</strong></p>
+    <div class="code-block">
+        &lt;form action="submit_form.php" method="post"&gt;<br>
+        &nbsp;&nbsp;&lt;label for="name"&gt;Name:&lt;/label&gt;<br>
+        &nbsp;&nbsp;&lt;input type="text" id="name" name="name"&gt;<br>
+        &nbsp;&nbsp;&lt;input type="submit" value="Submit"&gt;<br>
+        &lt;/form&gt;
+    </div>
+
+    <p><strong>Form Attributes:</strong></p>
+    <ul>
+        <li><strong>action</strong> - Specifies where to send the form data (e.g., a server-side script or URL).</li>
+        <li><strong>method</strong> - Defines how the form data will be sent (e.g., GET or POST).</li>
+    </ul>
+
+    <p><strong>Input Types in Forms:</strong></p>
+    <ul>
+        <li><strong>text</strong> - For a single-line text input.</li>
+        <li><strong>password</strong> - For entering a password (input is hidden).</li>
+        <li><strong>email</strong> - For entering an email address.</li>
+        <li><strong>radio</strong> - For selecting a single option from a group.</li>
+        <li><strong>checkbox</strong> - For selecting one or more options.</li>
+        <li><strong>submit</strong> - A button to submit the form.</li>
+    </ul>
+
+    <p><strong>Example with Multiple Input Types:</strong></p>
+    <div class="code-block">
+        &lt;form action="submit_form.php" method="post"&gt;<br>
+        &nbsp;&nbsp;&lt;label for="name"&gt;Name:&lt;/label&gt;<br>
+        &nbsp;&nbsp;&lt;input type="text" id="name" name="name"&gt;<br>
+        &nbsp;&nbsp;&lt;label for="email"&gt;Email:&lt;/label&gt;<br>
+        &nbsp;&nbsp;&lt;input type="email" id="email" name="email"&gt;<br>
+        &nbsp;&nbsp;&lt;label&gt;Gender:&lt;/label&gt;<br>
+        &nbsp;&nbsp;&lt;input type="radio" id="male" name="gender" value="male"&gt; Male<br>
+        &nbsp;&nbsp;&lt;input type="radio" id="female" name="gender" value="female"&gt; Female<br>
+        &nbsp;&nbsp;&lt;label for="subscribe"&gt;Subscribe to newsletter:&lt;/label&gt;<br>
+        &nbsp;&nbsp;&lt;input type="checkbox" id="subscribe" name="subscribe"&gt;<br>
+        &nbsp;&nbsp;&lt;input type="submit" value="Submit"&gt;<br>
+        &lt;/form&gt;
+    </div>
+
+    <p><strong>Form Validation:</strong></p>
+    <p>HTML5 provides built-in form validation for required fields, email format, and more. You can also use the <code>required</code>, <code>pattern</code>, and <code>minlength</code> attributes to ensure the correct input.</p>
+
+    <p><strong>Example with Required and Email Validation:</strong></p>
+    <div class="code-block">
+        &lt;form action="submit_form.php" method="post"&gt;<br>
+        &nbsp;&nbsp;&lt;label for="name"&gt;Name:&lt;/label&gt;<br>
+        &nbsp;&nbsp;&lt;input type="text" id="name" name="name" required&gt;<br>
+        &nbsp;&nbsp;&lt;label for="email"&gt;Email:&lt;/label&gt;<br>
+        &nbsp;&nbsp;&lt;input type="email" id="email" name="email" required&gt;<br>
+        &nbsp;&nbsp;&lt;input type="submit" value="Submit"&gt;<br>
+        &lt;/form&gt;
+        
+</div><br><br>
+
+<div id="finishb">
+    <button onclick="finishCourse()">Finish Course</button>
+</div>
+
+<!-- Hidden message that will display after button click -->
+<div id="message">
+    You have completed the free HTML tutorial on Smart Tutor.
+</div>
+
+
+
+    
+        </div>
+        
+
+    <script>
+         function finishCourse() {
+        // Display the message after clicking the button
+        document.getElementById('message').style.display = 'block';
+    }
+         
+        function openCourse() {
+            document.getElementById("course-selection").style.display = "none";
+            document.getElementById("course-content").style.display = "block";
+        }
+        function toggleModule(index) {
+            var contents = document.getElementsByClassName("module-content");
+            contents[index].style.display = contents[index].style.display === "block" ? "none" : "block";
+        }
+        
+        let openedModules = [];
+
+        
+
+function toggleModule(index) {
+    const modules = document.querySelectorAll(".module-content");
+    const moduleHeaders = document.querySelectorAll(".module");
+    
+    // Prevent opening a module if the previous one is not opened
+    if (index > 0 && !openedModules.includes(index - 1)) {
+        alert("You must complete the previous module first!");
+        return;
+    }
+
+    // Toggle visibility of the module
+    if (modules[index].style.display === "block") {
+        modules[index].style.display = "none";
+        openedModules = openedModules.filter(m => m !== index);
+    } else {
+        modules[index].style.display = "block";
+        openedModules.push(index);
+
+        // Enable the next module
+        if (moduleHeaders[index + 1]) {
+            moduleHeaders[index + 1].classList.remove("disabled");
+        }
+    }
+
+    // Show the finish button when the last module (module 4 in this case) is opened
+    if (index === 17) { // assuming module 4 is the last one
+        document.getElementById('finish-course-button').style.display = 'block';
+    }
+}
+
+
+    </script>
+</body>
+</html>

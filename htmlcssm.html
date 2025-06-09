@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C Programming Mock Test</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .question-box {
+      background-color: #6fc1e6; /* light red background for question */
+    }
+
+    .answered {
+      background-color: #28a745; /* green */
+    }
+
+    .not-answered {
+      background-color: #dc3545; /* red */
+    }
+
+    .opened {
+      background-color: #ffc107; /* yellow */
+    }
+  </style>
+</head>
+<body class="bg-[#f0f8ff] m-0 p-0">
+
+  <!-- Header -->
+  <!-- Header with Navy background -->
+  <header style="background-color: navy; color: white; padding: 10px 20px; position: fixed; top: 0; left: 0; width: 100%; z-index: 10; display: flex; align-items: center; justify-content: space-between;">
+    <a href="mock.html" style="background-color: orangered; color: white; padding: 8px 16px; border-radius: 5px; font-weight: bold; font-size: 14px; text-decoration: none; transition: background 0.3s ease; cursor: pointer;">
+      Back
+    </a>
+    <h1 style="text-align: center; font-size: 24px; flex-grow: 1; margin: 0;">Smart Tutor</h1>
+    <div style="font-size: 14px; font-weight: bold; padding: 5px 10px;">⏱️ <span id="timer">300</span></div>
+  </header>
+  
+
+  <!-- Main Content -->
+  <main class="pt-24 px-4 max-w-2xl mx-auto">
+    <h2 class="text-center text-xl font-semibold bg-red-600 text-white py-2 mb-4">HTML & CSS Mock Test</h2>
+
+    <div id="question-area" class="space-y-4">
+      <div class="flex justify-center space-x-2 mb-4">
+        <div id="question-number-boxes" class="flex space-x-2"></div>
+      </div>
+
+      <div id="quiz-box" class="bg-[#add8e6] shadow-lg rounded-lg p-6 space-y-4">
+
+        <h2 id="question" class="text-lg font-semibold text-gray-800"></h2>
+        <div id="options" class="space-y-4"></div>
+
+        <div class="flex justify-between mt-4">
+          <button id="prev-btn" class="bg-green-800 text-white px-4 py-2 rounded hover:shadow-lg disabled:opacity-50" disabled>Previous</button>
+          <button id="next-btn" class="bg-green-800 text-white px-4 py-2 rounded hover:shadow-lg">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result" class="mt-8 hidden bg-green-100 p-6 rounded shadow text-center">
+      <h3 class="text-xl font-semibold mb-2">Test Result</h3>
+      <p id="score" class="text-lg mb-4"></p>
+    </div>
+  </main>
+
+  <script>
+    // Question pool - Add 30+ questions
+    const questionsPool =[{
+    "question": "What does CSS stand for?",
+    "options": ["Cascading Style Sheets", "Colorful Style Syntax", "Creative Style System", "Computer Styled Sheets"],
+    "correctAnswer": "Cascading Style Sheets"
+  },
+  {
+    "question": "Which property is used to change the background color in CSS?",
+    "options": ["color", "background-color", "bgcolor", "backgroundImage"],
+    "correctAnswer": "background-color"
+  },
+  {
+    "question": "Which unit is relative to the font-size of the element in CSS?",
+    "options": ["em", "px", "%", "cm"],
+    "correctAnswer": "em"
+  },
+  {
+    "question": "Which CSS property controls the text size?",
+    "options": ["text-style", "font-size", "text-size", "font-style"],
+    "correctAnswer": "font-size"
+  },
+  {
+    "question": "How do you make a list appear horizontally in CSS?",
+    "options": ["display: inline;", "list-style: none;", "float: right;", "text-align: center;"],
+    "correctAnswer": "display: inline;"
+  },
+  {
+    "question": "Which property is used to center a block element horizontally?",
+    "options": ["text-align: center;", "margin: auto;", "align: center;", "padding: center;"],
+    "correctAnswer": "margin: auto;"
+  },
+  {
+    "question": "Which CSS property is used to make text bold?",
+    "options": ["font-style", "font-weight", "text-decoration", "text-transform"],
+    "correctAnswer": "font-weight"
+  },
+  {
+    "question": "Which property sets the space between letters in CSS?",
+    "options": ["line-height", "letter-spacing", "word-spacing", "text-spacing"],
+    "correctAnswer": "letter-spacing"
+  },
+  {
+    "question": "What is the default value of the position property in CSS?",
+    "options": ["relative", "absolute", "fixed", "static"],
+    "correctAnswer": "static"
+  },
+  {
+    "question": "Which property is used to change the type of cursor in CSS?",
+    "options": ["pointer", "cursor", "mouse", "hover"],
+    "correctAnswer": "cursor"
+  },
+  {
+    "question": "Which CSS property defines the transparency of an element?",
+    "options": ["visibility", "opacity", "alpha", "filter"],
+    "correctAnswer": "opacity"
+  },
+  {
+    "question": "Which CSS property allows you to change the shape of the mouse cursor when hovering over an element?",
+    "options": ["cursor", "hover", "pointer", "mouse"],
+    "correctAnswer": "cursor"
+  },
+  {
+    "question": "How do you make an element completely invisible but still take up space?",
+    "options": ["display: none;", "visibility: hidden;", "opacity: 0;", "position: absolute;"],
+    "correctAnswer": "visibility: hidden;"
+  },
+  {
+    "question": "Which CSS property changes the space between words?",
+    "options": ["letter-spacing", "word-spacing", "text-spacing", "line-spacing"],
+    "correctAnswer": "word-spacing"
+  },
+  {
+    "question": "How do you apply styles to an element when you hover over it?",
+    "options": [":hover", ":active", ":focus", ":link"],
+    "correctAnswer": ":hover"
+  },
+  {
+    "question": "Which CSS value makes an element stay in one place when scrolling?",
+    "options": ["static", "fixed", "relative", "absolute"],
+    "correctAnswer": "fixed"
+  },
+  {
+    "question": "What does the 'z-index' property control?",
+    "options": ["Element's transparency", "Element's stacking order", "Element's margin", "Element's padding"],
+    "correctAnswer": "Element's stacking order"
+  },
+  {
+    "question": "Which property is used to specify the stack order of elements?",
+    "options": ["z-index", "stack", "order", "position"],
+    "correctAnswer": "z-index"
+  },
+  {
+    "question": "Which CSS property allows text to wrap within an element?",
+    "options": ["text-wrap", "word-wrap", "wrap", "overflow-wrap"],
+    "correctAnswer": "word-wrap"
+  },
+  {
+    "question": "Which CSS value hides overflow content?",
+    "options": ["hidden", "visible", "scroll", "auto"],
+    "correctAnswer": "hidden"
+  },
+  {
+    "question": "Which CSS function is used to apply shadow to text?",
+    "options": ["text-shadow", "box-shadow", "shadow-text", "font-shadow"],
+    "correctAnswer": "text-shadow"
+  },
+  {
+    "question": "Which layout uses the flex container?",
+    "options": ["flexbox", "grid", "inline-block", "float"],
+    "correctAnswer": "flexbox"
+  },
+  {
+    "question": "Which CSS property helps align flex items?",
+    "options": ["justify-content", "align-flex", "align-items", "position"],
+    "correctAnswer": "align-items"
+  },
+  {
+    "question": "Which property adds space inside the border of an element?",
+    "options": ["margin", "padding", "border-spacing", "spacing"],
+    "correctAnswer": "padding"
+  },
+  {
+    "question": "What is used to specify the transition effect in CSS?",
+    "options": ["transition", "animate", "effect", "change"],
+    "correctAnswer": "transition"
+  },
+  {
+    "question": "Which property is used to rotate elements in CSS?",
+    "options": ["rotate", "transform", "turn", "spin"],
+    "correctAnswer": "transform"
+  },
+  {
+    "question": "Which CSS rule defines media queries?",
+    "options": ["@media", "@query", "@screen", "@responsive"],
+    "correctAnswer": "@media"
+  },
+  {
+    "question": "What does 'vh' stand for in CSS?",
+    "options": ["viewport height", "virtual height", "vertical height", "visible height"],
+    "correctAnswer": "viewport height"
+  },
+  {
+    "question": "What is the default display property for a div element?",
+    "options": ["inline", "inline-block", "block", "none"],
+    "correctAnswer": "block"
+  },
+  {
+    "question": "Which property creates space outside the element's border?",
+    "options": ["margin", "padding", "border-spacing", "spacing"],
+    "correctAnswer": "margin"
+  },
+  {
+    "question": "Which CSS property is used to make text italic?",
+    "options": ["font-style", "font-variant", "text-style", "italic"],
+    "correctAnswer": "font-style"
+  },
+  {
+    "question": "How do you round the corners of a box in CSS?",
+    "options": ["corner-radius", "border-radius", "round-corner", "radius"],
+    "correctAnswer": "border-radius"
+  },
+  {
+    "question": "Which pseudo-class selects the first child of a parent?",
+    "options": [":first-child", ":first", ":child", ":first-of-type"],
+    "correctAnswer": ":first-child"
+  },
+  {
+    "question": "Which CSS rule applies to all elements?",
+    "options": ["*", "all", "body", "root"],
+    "correctAnswer": "*"
+  },
+  {
+    "question": "Which property defines the style of the border?",
+    "options": ["border-style", "border-type", "border", "border-outline"],
+    "correctAnswer": "border-style"
+  },
+  {
+    "question": "Which property sets the vertical alignment of an inline element?",
+    "options": ["vertical-align", "text-align", "line-height", "align-items"],
+    "correctAnswer": "vertical-align"
+  },
+  {
+    "question": "Which CSS function is used to apply transparency to a color?",
+    "options": ["rgba()", "hsla()", "opacity()", "transparent()"],
+    "correctAnswer": "rgba()"
+  },
+  {
+    "question": "How do you select all <p> elements inside a <div> using CSS?",
+    "options": ["div p", "div > p", "div.p", "div + p"],
+    "correctAnswer": "div p"
+  },
+  {
+    "question": "Which CSS property specifies the line height?",
+    "options": ["line-height", "height", "font-height", "text-height"],
+    "correctAnswer": "line-height"
+  },
+  {
+    "question": "Which CSS property is used to add shadow to a box?",
+    "options": ["box-shadow", "shadow-box", "text-shadow", "border-shadow"],
+    "correctAnswer": "box-shadow"
+  },
+  {
+    "question": "Which property makes a web page responsive?",
+    "options": ["@media", "transition", "transform", "flex"],
+    "correctAnswer": "@media"
+  },
+  {
+    "question": "Which of the following is not a valid position value in CSS?",
+    "options": ["sticky", "relative", "absolute", "centered"],
+    "correctAnswer": "centered"
+  },
+  {
+    "question": "Which property specifies whether the element is visible?",
+    "options": ["visibility", "display", "show", "hidden"],
+    "correctAnswer": "visibility"
+  },
+  {
+    "question": "What does the 'inherit' value do in CSS?",
+    "options": ["Takes the value from the parent element", "Ignores the style", "Sets the default value", "Overwrites the style"],
+    "correctAnswer": "Takes the value from the parent element"
+  },
+  {
+    "question": "Which CSS property specifies the maximum width of an element?",
+    "options": ["max-width", "width", "min-width", "outer-width"],
+    "correctAnswer": "max-width"
+  },
+  {
+    "question": "Which CSS function lets you repeat a background image?",
+    "options": ["background-repeat", "background-size", "repeat", "image-repeat"],
+    "correctAnswer": "background-repeat"
+  },
+  {
+    "question": "What does 'auto' value generally mean in CSS?",
+    "options": ["Let the browser calculate it", "Hide element", "Disable styling", "Force default"],
+    "correctAnswer": "Let the browser calculate it"
+  },
+  {
+    "question": "Which selector is used to style elements with a specific class?",
+    "options": [".classname", "#classname", "classname", "*classname"],
+    "correctAnswer": ".classname"
+  },
+  {
+    "question": "Which CSS selector selects an element with a specific id?",
+    "options": ["#id", ".id", "*id", "id"],
+    "correctAnswer": "#id"
+  }] 
+
+
+    // Shuffle function for randomizing questions
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Randomly shuffle and pick 20 questions
+    const questions = shuffleArray([...questionsPool]).slice(0, 20);
+
+    let currentQuestion = 0;
+    let selectedAnswers = [];
+    let timer;
+    let totalTime = 300; // 5 minutes timer
+
+    // Update timer display every second
+    function startTimer(seconds) {
+      const timerEl = document.getElementById("timer");
+      clearInterval(timer);
+      timerEl.textContent = `Time Left: ${seconds}s`;
+
+      timer = setInterval(() => {
+        seconds--;
+        timerEl.textContent = `Time Left: ${seconds}s`;
+        if (seconds <= 0) {
+          clearInterval(timer);
+          showResult();
+        }
+      }, 1000);
+    }
+
+    // Load question and display
+    function loadQuestion(index) {
+      const q = questions[index];
+      document.getElementById("question").textContent = `Q${index + 1}: ${q.question}`;
+      const optionsBox = document.getElementById("options");
+      optionsBox.innerHTML = "";
+
+      q.options.forEach(option => {
+        const label = document.createElement("label");
+        label.className = "block p-3 rounded cursor-pointer transition bg-green-100 hover:bg-green-200";
+        label.innerHTML = `
+          <input type="radio" name="option" value="${option}" class="mr-2">
+          ${option}
+        `;
+        optionsBox.appendChild(label);
+      });
+
+      // Update question number box
+      const questionNumbers = document.getElementById("question-number-boxes");
+      questionNumbers.innerHTML = "";
+      questions.forEach((_, idx) => {
+        const numberBox = document.createElement("div");
+        numberBox.className = "w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold cursor-pointer";
+        if (selectedAnswers[idx]) {
+          numberBox.classList.add("bg-green-500");
+        } else {
+          numberBox.classList.add("bg-gray-500");
+        }
+        numberBox.textContent = idx + 1;
+        questionNumbers.appendChild(numberBox);
+      });
+
+      // Disable/enable prev button
+      document.getElementById("prev-btn").disabled = index === 0;
+
+      // Change "Next" to "Submit" if last question
+      document.getElementById("next-btn").textContent =
+        index === questions.length - 1 ? "Submit" : "Next";
+
+      // Restore previous answer if exists
+      const prevAnswer = selectedAnswers[index];
+      if (prevAnswer) {
+        document.querySelector(`input[name="option"][value="${prevAnswer}"]`).checked = true;
+      }
+    }
+
+    // Next button handler
+    document.getElementById("next-btn").addEventListener("click", () => {
+      const selected = document.querySelector('input[name="option"]:checked');
+      if (!selected) {
+        alert("Please select an option!");
+        return;
+      }
+
+      selectedAnswers[currentQuestion] = selected.value;
+
+      if (currentQuestion === questions.length - 1) {
+        clearInterval(timer);
+        // Calculate score
+        let score = 0;
+        selectedAnswers.forEach((ans, idx) => {
+          if (ans === questions[idx].correctAnswer) {
+            score++;
+          }
+        });
+        showResult(score);
+      } else {
+        currentQuestion++;
+        loadQuestion(currentQuestion);
+      }
+    });
+
+    // Previous button handler
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion(currentQuestion);
+      }
+    });
+
+    // Show results
+    function showResult(score) {
+      document.getElementById("quiz-box").classList.add("hidden");
+      const percent = ((score / questions.length) * 100).toFixed(2);
+      document.getElementById("score").textContent =
+        `You got ${score} out of ${questions.length} correct (${percent}%)`;
+      document.getElementById("result").classList.remove("hidden");
+    }
+
+    // Initialize test
+    loadQuestion(currentQuestion);
+    startTimer(totalTime);
+  </script>
+
+</body>
+</html>
